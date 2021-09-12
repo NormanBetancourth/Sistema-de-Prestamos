@@ -84,6 +84,11 @@ public class Cliente {
         return null;
     }
 
+    @Override
+    public int hashCode() {
+        return !getId().equals("") ? Integer.parseInt(getId()) * 31 : 0;
+    }
+
     // TODO Configurar para presentarlo en vista
     @Override
     public String toString() {

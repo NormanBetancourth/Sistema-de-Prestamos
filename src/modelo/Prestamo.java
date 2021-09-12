@@ -2,7 +2,6 @@ package modelo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Prestamo {
     String id;
@@ -24,8 +23,8 @@ public class Prestamo {
         this.listaDePagos = new ArrayList<>();
     }
 
-    public Prestamo(String id, double monto, double tasaDeInteres, int plazoEnDias) {
-        this.id = id;
+    public Prestamo(double monto, double tasaDeInteres, int plazoEnDias) {
+        this.id = "Indefinido";
         this.monto = monto;
         this.tasaDeInteres = tasaDeInteres;
         this.plazoEnDias = plazoEnDias;
@@ -101,7 +100,13 @@ public class Prestamo {
         return fecha.toString();
     }
 
+    public void agregarCodigoAPago(Pago pago){
+        // Igual al codigo aleatorio de prestamo + el numero correpsonidente al pago
+        pago.setId(getId() + pago.getNumeroDePago());
+    }
+
     public void agregarPago(Pago pago){
+        agregarCodigoAPago(pago);
         getListaDePagos().add(pago);
         setMonto(getMonto() - pago.getMontoPagado());
         if(verificaExcedeCuotaEsperada(pago)){

@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Manager {
     private ArrayList<Cliente> listaDeClientes;
@@ -53,21 +54,20 @@ public class Manager {
         getAlgunCliente(idCliente).getListaDePrestamos().add(prestamo);
     }
 
-    public void asignarCodigoDelPrestamo(Prestamo prestamo, String idCliente){
-        //TODO combinación para el codigo del prestamo
+    public void asignarCodigoDelPrestamo(Prestamo prestamo, Cliente cliente){
+        //TODO combinación para el codigo del prestamo es igual a
+        // id del cliente * 31 + un caracter random
+        Random random = new Random();
+        char randomizedCharacter = (char) (random.nextInt(26) + 'a');
+        prestamo.setId(String.valueOf(cliente.hashCode() + "-" + randomizedCharacter));
     }
 
-    public void cancelacionDeCuota(String idPrestamo, String idCliente, Pago pago){
-        getAlgunCliente(idCliente).getAlgunPrestamo(idPrestamo).agregarPago(pago);
+    public void cancelacionDeCuota(String idPrestamo, Pago pago){
+        getAlgunPrestamo(idPrestamo).agregarPago(pago);
     }
 
-    public String getListaDePagosPorPrestamo(String idCliente, String idPrestamo) {
-        for(Prestamo prestamo : getAlgunCliente(idCliente).getListaDePrestamos()){
-            if(prestamo.getId().equals(idPrestamo)){
-                return prestamo.registroDePagos();
-            }
-        }
-        return "";
+    public String getListaDePagosPorPrestamo(String idPrestamo) {
+        return getAlgunPrestamo(idPrestamo).registroDePagos();
     }
 
 }

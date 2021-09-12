@@ -19,8 +19,8 @@ public class Pago {
         this.fecha = LocalDate.now();
     }
 
-    public Pago(String id, int numeroDePago, double montoPagado, double interes, double amortizacion) {
-        this.id = id;
+    public Pago(int numeroDePago, double montoPagado, double interes, double amortizacion) {
+        this.id = "Indefinido";
         this.numeroDePago = numeroDePago;
         this.montoPagado = montoPagado;
         this.interes = interes;
@@ -76,5 +76,17 @@ public class Pago {
         //LocalDate fecha = LocalDate.now();
         //return fecha.toString();
         return fecha.toString();
+    }
+
+    @Override
+    public String toString() {
+        return "Pago{" +
+                "id='" + id + '\'' +
+                ", numeroDePago=" + numeroDePago +
+                ", montoPagado=" + montoPagado +
+                ", interes=" + interes +
+                ", amortizacion=" + amortizacion +
+                ", fecha=" + fecha +
+                '}';
     }
 }
