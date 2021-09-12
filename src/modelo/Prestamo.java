@@ -46,6 +46,14 @@ public class Prestamo {
         this.tasaDeInteres = tasaDeInteres;
     }
 
+    public void calculoDeCuota(){
+
+    }
+
+    public boolean verificaExcedeCuotaEsperada(){
+        return true;
+    }
+
     //TODO configurar para presentarlo bonito en vista
 
     @Override

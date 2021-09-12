@@ -1,12 +1,14 @@
 package modelo;
 
+import java.time.LocalDate;
+
 public class Pago {
     String id;
     int numeroDePago;
     double montoPagado;
     double interes;
     double amortizacion;
-    //Fecha fecha;
+    String fecha;
 
     public Pago() {
         this.id = "Indefinido";
@@ -14,6 +16,7 @@ public class Pago {
         this.montoPagado = 0;
         this.interes = 0;
         this.amortizacion = 0;
+        this.fecha = LocalDate.now().toString();
     }
 
     public Pago(String id, int numeroDePago, double montoPagado, double interes, double amortizacion) {
@@ -22,6 +25,7 @@ public class Pago {
         this.montoPagado = montoPagado;
         this.interes = interes;
         this.amortizacion = amortizacion;
+        this.fecha = LocalDate.now().toString();
     }
 
     public String getId() {
@@ -62,5 +66,15 @@ public class Pago {
 
     public void setAmortizacion(double amortizacion) {
         this.amortizacion = amortizacion;
+    }
+
+    public String getFecha(){
+        //Para tener fecha y hora:
+        //String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
+
+        //Para obtener solo fecha
+        //LocalDate fecha = LocalDate.now();
+        //return fecha.toString();
+        return fecha;
     }
 }

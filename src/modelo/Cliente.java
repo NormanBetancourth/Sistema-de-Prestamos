@@ -18,13 +18,13 @@ public class Cliente {
         ArrayList<Prestamo> listaDePrestamos = new ArrayList<>();
     }
 
-    public Cliente(String id, String nombre, String provincia, String distrito, String canton, ArrayList<Prestamo> listaDePrestamos) {
+    public Cliente(String id, String nombre, String provincia, String distrito, String canton) {
         this.id = id;
         this.nombre = nombre;
         this.provincia = provincia;
         this.distrito = distrito;
         this.canton = canton;
-        this.listaDePrestamos = listaDePrestamos;
+        this.listaDePrestamos = new ArrayList<>();
     }
 
     public String getId() {
