@@ -82,10 +82,10 @@ public class Prestamo {
     }
 
     public double calculoDeCuota(){
-        // TODO redondeo a 4 decimales
+        // TODO redondeo a 2 decimales
         double numerador = getMonto() * getTasaDeInteres();
         double denominador = 1  - Math.pow(1 + getTasaDeInteres(), Math.negateExact(getPlazoEnDias()));
-        return formatearDecimales(numerador / denominador, 4);
+        return formatearDecimales(numerador / denominador, 2);
     }
 
     public static Double formatearDecimales(Double numero, Integer numeroDecimales) {
@@ -98,6 +98,15 @@ public class Prestamo {
 
     public String getFecha() {
         return fecha.toString();
+    }
+
+    public void agregarPago(Pago pago){
+        getListaDePagos().add(pago);
+        setMonto(getMonto() - pago.getMontoPagado());
+        if(verificaExcedeCuotaEsperada(pago)){
+            // Si excede el monto esperado, se vuelve a calcular la cuota
+          setCuota(calculoDeCuota());
+        }
     }
 
     //TODO configurar para presentarlo bonito en vista

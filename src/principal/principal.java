@@ -16,6 +16,8 @@ public class principal {
         Prestamo prestamo2 = new Prestamo("2", 33.21, 345.13, 15);
         Prestamo prestamo3 = new Prestamo("3", 6.42, 34.32, 13);
 
+        Pago pago1 = new Pago("1", 2, 10, 0, 0);
+
         Cliente cliente1 = new Cliente("123", "Rebe1", "Heredia", "Heredia", "Heredia");
         Cliente cliente2 = new Cliente("456", "Rebe2", "Heredia", "Heredia", "Heredia");
         Cliente cliente3 = new Cliente("789", "Rebe3", "Heredia", "Heredia", "Heredia");
@@ -25,7 +27,9 @@ public class principal {
         manager.registrarCliente(cliente2);
 
         System.out.println(prestamo1.getCuota());
-
+        //Al agregar un pago sobre el monto esperado se vuelve a calcular la cuota
+        prestamo1.agregarPago(pago1);
+        System.out.println(prestamo1.getCuota());
 
     }
 }
