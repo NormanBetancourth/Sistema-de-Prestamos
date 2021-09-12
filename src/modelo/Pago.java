@@ -8,7 +8,7 @@ public class Pago {
     double montoPagado;
     double interes;
     double amortizacion;
-    String fecha;
+    LocalDate fecha;
 
     public Pago() {
         this.id = "Indefinido";
@@ -16,7 +16,7 @@ public class Pago {
         this.montoPagado = 0;
         this.interes = 0;
         this.amortizacion = 0;
-        this.fecha = LocalDate.now().toString();
+        this.fecha = LocalDate.now();
     }
 
     public Pago(String id, int numeroDePago, double montoPagado, double interes, double amortizacion) {
@@ -25,7 +25,7 @@ public class Pago {
         this.montoPagado = montoPagado;
         this.interes = interes;
         this.amortizacion = amortizacion;
-        this.fecha = LocalDate.now().toString();
+        this.fecha = LocalDate.now();
     }
 
     public String getId() {
@@ -75,6 +75,6 @@ public class Pago {
         //Para obtener solo fecha
         //LocalDate fecha = LocalDate.now();
         //return fecha.toString();
-        return fecha;
+        return fecha.toString();
     }
 }

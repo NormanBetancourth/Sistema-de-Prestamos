@@ -1,18 +1,20 @@
 package modelo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Prestamo {
     String id;
     double monto;
     double tasaDeInteres;
-    //Fecha fecha;
+    LocalDate fecha;
     ArrayList<Pago> listaDePagos;
 
     public Prestamo() {
         this.id = "Indefinido";
         this.monto = 0;
         this.tasaDeInteres = 0;
+        this.fecha = LocalDate.now();
         this.listaDePagos = new ArrayList<>();
     }
 
@@ -20,6 +22,8 @@ public class Prestamo {
         this.id = id;
         this.monto = monto;
         this.tasaDeInteres = tasaDeInteres;
+        this.fecha = LocalDate.now();
+        this.listaDePagos = new ArrayList<>();
     }
 
     public String getId() {
@@ -54,14 +58,18 @@ public class Prestamo {
         return true;
     }
 
-    //TODO configurar para presentarlo bonito en vista
+    public String getFecha() {
+        return fecha.toString();
+    }
 
+    //TODO configurar para presentarlo bonito en vista
     @Override
     public String toString() {
         return "Prestamo{" +
                 "id='" + id + '\'' +
                 ", monto=" + monto +
                 ", tasaDeInteres=" + tasaDeInteres +
+                ", fecha=" + fecha.toString() +
                 ", listaDePagos=" + listaDePagos.toString() +
                 '}';
     }
