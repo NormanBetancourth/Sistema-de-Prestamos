@@ -2,6 +2,7 @@ package modelo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Prestamo {
     String id;
@@ -107,6 +108,10 @@ public class Prestamo {
             // Si excede el monto esperado, se vuelve a calcular la cuota
           setCuota(calculoDeCuota());
         }
+    }
+
+    public String registroDePagos(){
+        return getListaDePagos().toString();
     }
 
     //TODO configurar para presentarlo bonito en vista
