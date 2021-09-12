@@ -7,6 +7,9 @@ public class Prestamo {
     String id;
     double monto;
     double tasaDeInteres;
+    // TODO not sure sobre lo de días
+    int plazoEnDias;
+    double cuota;
     LocalDate fecha;
     ArrayList<Pago> listaDePagos;
 
@@ -14,14 +17,18 @@ public class Prestamo {
         this.id = "Indefinido";
         this.monto = 0;
         this.tasaDeInteres = 0;
+        this.plazoEnDias = 0;
+        this.cuota = 0;
         this.fecha = LocalDate.now();
         this.listaDePagos = new ArrayList<>();
     }
 
-    public Prestamo(String id, double monto, double tasaDeInteres) {
+    public Prestamo(String id, double monto, double tasaDeInteres, int plazoEnDias) {
         this.id = id;
         this.monto = monto;
         this.tasaDeInteres = tasaDeInteres;
+        this.plazoEnDias = plazoEnDias;
+        this.cuota = calculoDeCuota();
         this.fecha = LocalDate.now();
         this.listaDePagos = new ArrayList<>();
     }
@@ -50,12 +57,43 @@ public class Prestamo {
         this.tasaDeInteres = tasaDeInteres;
     }
 
-    public void calculoDeCuota(){
-
+    public int getPlazoEnDias() {
+        return plazoEnDias;
     }
 
-    public boolean verificaExcedeCuotaEsperada(){
-        return true;
+    public void setPlazoEnDias(int plazoEnDias) {
+        this.plazoEnDias = plazoEnDias;
+    }
+
+    public double getCuota() {
+        return cuota;
+    }
+
+    public void setCuota(double cuota) {
+        this.cuota = cuota;
+    }
+
+    public ArrayList<Pago> getListaDePagos() {
+        return listaDePagos;
+    }
+
+    public void setListaDePagos(ArrayList<Pago> listaDePagos) {
+        this.listaDePagos = listaDePagos;
+    }
+
+    public double calculoDeCuota(){
+        // TODO redondeo a 4 decimales
+        double numerador = getMonto() * getTasaDeInteres();
+        double denominador = 1  - Math.pow(1 + getTasaDeInteres(), Math.negateExact(getPlazoEnDias()));
+        return formatearDecimales(numerador / denominador, 4);
+    }
+
+    public static Double formatearDecimales(Double numero, Integer numeroDecimales) {
+        return Math.round(numero * Math.pow(10, numeroDecimales)) / Math.pow(10, numeroDecimales);
+    }
+
+    public boolean verificaExcedeCuotaEsperada(Pago pago){
+        return pago.getMontoPagado() > getCuota();
     }
 
     public String getFecha() {
@@ -69,7 +107,7 @@ public class Prestamo {
                 "id='" + id + '\'' +
                 ", monto=" + monto +
                 ", tasaDeInteres=" + tasaDeInteres +
-                ", fecha=" + fecha.toString() +
+                ", fecha=" + getFecha() +
                 ", listaDePagos=" + listaDePagos.toString() +
                 '}';
     }
