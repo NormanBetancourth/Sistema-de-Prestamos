@@ -7,8 +7,7 @@ public class Prestamo {
     String id;
     double monto;
     double tasaDeInteres;
-    // TODO not sure sobre lo de días
-    int plazoEnDias;
+    int plazo;
     double cuota;
     LocalDate fecha;
     ArrayList<Pago> listaDePagos;
@@ -17,7 +16,7 @@ public class Prestamo {
         this.id = "Indefinido";
         this.monto = 0;
         this.tasaDeInteres = 0;
-        this.plazoEnDias = 0;
+        this.plazo = 0;
         this.cuota = 0;
         this.fecha = LocalDate.now();
         this.listaDePagos = new ArrayList<>();
@@ -27,7 +26,7 @@ public class Prestamo {
         this.id = "Indefinido";
         this.monto = monto;
         this.tasaDeInteres = tasaDeInteres;
-        this.plazoEnDias = plazoEnDias;
+        this.plazo = plazoEnDias;
         this.cuota = calculoDeCuota();
         this.fecha = LocalDate.now();
         this.listaDePagos = new ArrayList<>();
@@ -57,12 +56,12 @@ public class Prestamo {
         this.tasaDeInteres = tasaDeInteres;
     }
 
-    public int getPlazoEnDias() {
-        return plazoEnDias;
+    public int getPlazo() {
+        return plazo;
     }
 
-    public void setPlazoEnDias(int plazoEnDias) {
-        this.plazoEnDias = plazoEnDias;
+    public void setPlazo(int plazo) {
+        this.plazo = plazo;
     }
 
     public double getCuota() {
@@ -84,7 +83,7 @@ public class Prestamo {
     public double calculoDeCuota(){
         // TODO redondeo a 2 decimales
         double numerador = getMonto() * getTasaDeInteres();
-        double denominador = 1  - Math.pow(1 + getTasaDeInteres(), Math.negateExact(getPlazoEnDias()));
+        double denominador = 1  - Math.pow(1 + getTasaDeInteres(), Math.negateExact(getPlazo()));
         return formatearDecimales(numerador / denominador, 2);
     }
 

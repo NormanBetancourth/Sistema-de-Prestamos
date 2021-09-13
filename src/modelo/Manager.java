@@ -1,7 +1,6 @@
 package modelo;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Manager {
     private ArrayList<Cliente> listaDeClientes;
@@ -36,8 +35,6 @@ public class Manager {
         return null;
     }
 
-    //TODO ¿vamoh a eliminar el objeto prestamo cuando ya
-    // este completado o nomás queda con valores 0?
     public Prestamo getAlgunPrestamo(String idPrestamo){
         for(Cliente cliente : getListaDeClientes()) {
             if (cliente.getAlgunPrestamo(idPrestamo) != null) {
@@ -56,7 +53,7 @@ public class Manager {
     }
 
     public void asignarCodigoDelPrestamo(Prestamo prestamo, Cliente cliente){
-        //TODO combinación para el codigo del prestamo es igual a
+        // Combinación para el codigo del prestamo es igual a
         // id del cliente * 31
         prestamo.setId(String.valueOf(cliente.hashCode()));
     }
