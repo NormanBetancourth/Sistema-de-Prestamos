@@ -19,9 +19,9 @@ public class principal {
         manager.registrarCliente("123", "Rebe1", "Heredia", "Heredia", "Heredia");
         manager.registrarCliente("456", "Rebe2", "Heredia", "Heredia", "Heredia");
 
-        manager.registrarPrestamoAUnCliente(cliente1.getId(), prestamo1);
+        manager.registrarPrestamoAUnCliente(cliente1.getId(), 100, 0.0725, 60);
         manager.asignarCodigoDelPrestamo(prestamo1, cliente1);
-        manager.cancelacionDeCuota(prestamo1.getId(), pago1);
+        manager.cancelacionDeCuota(prestamo1.getId(), 1, 10, 0.1, 0.1);
 
         System.out.println(prestamo1.getCuota());
         //Al agregar un pago sobre el monto esperado se vuelve a calcular la cuota

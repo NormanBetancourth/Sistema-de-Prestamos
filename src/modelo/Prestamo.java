@@ -22,11 +22,11 @@ public class Prestamo {
         this.listaDePagos = new ArrayList<>();
     }
 
-    public Prestamo(double monto, double tasaDeInteres, int plazoEnDias) {
+    public Prestamo(double monto, double tasaDeInteres, int plazo) {
         this.id = "Indefinido";
         this.monto = monto;
         this.tasaDeInteres = tasaDeInteres;
-        this.plazo = plazoEnDias;
+        this.plazo = plazo;
         this.cuota = calculoDeCuota();
         this.fecha = LocalDate.now();
         this.listaDePagos = new ArrayList<>();
