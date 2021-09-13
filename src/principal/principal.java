@@ -16,8 +16,8 @@ public class principal {
         Cliente cliente3 = new Cliente("789", "Rebe3", "Heredia", "Heredia", "Heredia");
 
         Manager manager = new Manager();
-        manager.registrarCliente(cliente1);
-        manager.registrarCliente(cliente2);
+        manager.registrarCliente("123", "Rebe1", "Heredia", "Heredia", "Heredia");
+        manager.registrarCliente("456", "Rebe2", "Heredia", "Heredia", "Heredia");
 
         manager.registrarPrestamoAUnCliente(cliente1.getId(), prestamo1);
         manager.asignarCodigoDelPrestamo(prestamo1, cliente1);

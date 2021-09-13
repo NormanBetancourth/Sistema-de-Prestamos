@@ -102,7 +102,7 @@ public class Prestamo {
 
     public void agregarCodigoAPago(Pago pago){
         // Igual al codigo aleatorio de prestamo + el numero correpsonidente al pago
-        pago.setId(getId() + pago.getNumeroDePago());
+        pago.setId(getId() + "-" + pago.getNumeroDePago());
     }
 
     public void agregarPago(Pago pago){

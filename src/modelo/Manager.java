@@ -22,8 +22,9 @@ public class Manager {
         this.listaDeClientes = listaDeClientes;
     }
 
-    public void registrarCliente(Cliente cliente){
-        getListaDeClientes().add(cliente);
+    //String id, String nombre, String provincia, String distrito, String canton
+    public void registrarCliente(String id, String nombre, String provincia, String distrito, String canton){
+        getListaDeClientes().add(new Cliente(id, nombre, provincia, distrito, canton));
     }
 
     public Cliente getAlgunCliente(String idCliente){
@@ -56,10 +57,8 @@ public class Manager {
 
     public void asignarCodigoDelPrestamo(Prestamo prestamo, Cliente cliente){
         //TODO combinación para el codigo del prestamo es igual a
-        // id del cliente * 31 + un caracter random
-        Random random = new Random();
-        char randomizedCharacter = (char) (random.nextInt(26) + 'a');
-        prestamo.setId(String.valueOf(cliente.hashCode() + "-" + randomizedCharacter));
+        // id del cliente * 31
+        prestamo.setId(String.valueOf(cliente.hashCode()));
     }
 
     public void cancelacionDeCuota(String idPrestamo, Pago pago){

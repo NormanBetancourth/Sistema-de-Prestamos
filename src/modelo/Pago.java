@@ -86,7 +86,7 @@ public class Pago {
                 ", montoPagado=" + montoPagado +
                 ", interes=" + interes +
                 ", amortizacion=" + amortizacion +
-                ", fecha=" + fecha +
+                ", fecha=" + getFecha() +
                 '}';
     }
 }
