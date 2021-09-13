@@ -31,6 +31,9 @@ public class homeFrame extends JFrame {
     }
 
     public void addComponents(){
+
+        ImageIcon img = new ImageIcon("src/vista/images/logo.png");
+        this.setIconImage(img.getImage());
         this.setSize(new Dimension(800,500));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
@@ -42,7 +45,7 @@ public class homeFrame extends JFrame {
         northPane.setBackground(Color.decode("#081F62"));
         centralPane.setBackground(Color.decode("#FFFFFF"));
         centralPane.setLayout(new GridLayout(1,2));
-        centralPane.add(new JLabel(new ImageIcon("src/vista/p08fr5bx.jpg")));
+        centralPane.add(new JLabel(new ImageIcon("src/vista/images/p08fr5bx.jpg")));
 
         leftPane.setLayout(new FlowLayout(FlowLayout.CENTER, 80,40));
         leftPane.setBackground(Color.decode("#E7EAF0"));

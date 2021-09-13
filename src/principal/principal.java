@@ -32,7 +32,8 @@ public class principal {
 //        System.out.println(prestamo1);
 //        System.out.println(pago1.getId());
         SwingUtilities.invokeLater(()-> {
-            new homeFrame();
+            homeFrame frame= new homeFrame();
+            frame.addComponents();
         });
 
     }
