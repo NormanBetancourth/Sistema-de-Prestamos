@@ -21,18 +21,62 @@ public class Manager {
         this.listaDeClientes = listaDeClientes;
     }
 
-    public void registrarCliente(Cliente cliente){
-        getListaDeClientes().add(cliente);
+    //String id, String nombre, String provincia, String distrito, String canton
+    public void registrarCliente(String id, String nombre, String provincia, String distrito, String canton){
+        getListaDeClientes().add(new Cliente(id, nombre, provincia, distrito, canton));
     }
 
-    public void agregarPrestamo(String id, Prestamo prestamo){
-        //Iterator<Cliente> iterator = listaDeClientes.listIterator();
-       for(Cliente cliente : listaDeClientes){
-           if(cliente.getId().equals(id)){
-               cliente.getListaDePrestamos().add(prestamo);
-               break;
-           }
-       }
+    public boolean clienteEstaRegistrado(String idCliente){
+        for(Cliente cliente : getListaDeClientes()) {
+            if (cliente.getId().equals(idCliente)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Cliente getAlgunCliente(String idCliente){
+        for(Cliente cliente : getListaDeClientes()) {
+            if (cliente.getId().equals(idCliente)) {
+                return cliente;
+            }
+        }
+        return null;
+    }
+
+    public Prestamo getAlgunPrestamo(String idPrestamo){
+        for(Cliente cliente : getListaDeClientes()) {
+            if (cliente.getAlgunPrestamo(idPrestamo) != null) {
+                return cliente.getAlgunPrestamo(idPrestamo);
+            }
+        }
+        return null;
+    }
+
+    public String getPrestamosDeAlgunCliente(String idCliente){
+       return getAlgunCliente(idCliente).getListaDePrestamos().toString();
+    }
+
+    public void registrarPrestamoAUnCliente(Cliente cliente, double monto, double tasaDeInteres, int plazo){
+        //double monto, double tasaDeInteres, int plazo
+        Prestamo prestamo = new Prestamo(monto, tasaDeInteres, plazo);
+        asignarCodigoDelPrestamo(prestamo, cliente);
+        getAlgunCliente(cliente.getId()).getListaDePrestamos().add(prestamo);
+    }
+
+    public void asignarCodigoDelPrestamo(Prestamo prestamo, Cliente cliente){
+        // Combinación para el codigo del prestamo es igual a
+        // id del cliente * 31
+        prestamo.setId(String.valueOf(cliente.hashCode()));
+    }
+
+    public void cancelacionDeCuota(String idPrestamo, int numeroDePago, double montoPagado, double interes, double amortizacion){
+        //int numeroDePago, double montoPagado, double interes, double amortizacion
+        getAlgunPrestamo(idPrestamo).agregarPago(new Pago(numeroDePago, montoPagado, interes, amortizacion));
+    }
+
+    public String getListaDePagosPorPrestamo(String idPrestamo) {
+        return getAlgunPrestamo(idPrestamo).registroDePagos();
     }
 
 }

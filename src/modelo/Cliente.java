@@ -75,6 +75,20 @@ public class Cliente {
         this.listaDePrestamos = listaDePrestamos;
     }
 
+    public Prestamo getAlgunPrestamo(String idPrestamo){
+        for(Prestamo prestamo : getListaDePrestamos()){
+            if(prestamo.getId().equals(idPrestamo)){
+                return prestamo;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public int hashCode() {
+        return !getId().equals("") ? Integer.parseInt(getId()) * 31 : 0;
+    }
+
     // TODO Configurar para presentarlo en vista
     @Override
     public String toString() {
