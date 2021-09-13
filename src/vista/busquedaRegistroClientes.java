@@ -201,6 +201,9 @@ public class busquedaRegistroClientes extends JFrame {
         JButton btnGuardar= ButtonFactory("", "guardar-btn",e);
 
         btnGuardar.setIcon(saveImg);
+        btnGuardar.setPreferredSize(new Dimension(60,39));
+        btnGuardar.setBackground(Color.decode("#E7EAF0"));
+        btnGuardar.setBorder(null);
         comboButtonPanel.add(btnGuardar);
         comboButtonPanel.setBorder(new EmptyBorder(10,0,10,0));
         comboButtonPanel.setBackground(Color.decode("#E7EAF0"));
@@ -219,10 +222,21 @@ public class busquedaRegistroClientes extends JFrame {
         //TODO Agregar ToolTipText
         JButton prestamo = ButtonFactory("","pretamo-btn",e);
         saveImg = new ImageIcon("src/vista/images/icons8-money-48.png");
+
         prestamo.setIcon(saveImg);
 
+        JPanel panelPrestamo = new JPanel();
+        panelPrestamo.setBackground(Color.white);
+        panelPrestamo.setPreferredSize(new Dimension(100,30));
+        panelPrestamo.setLayout(null);
+        JLabel prestamoLabel = new JLabel("Nuevo prestamo");
+        panelPrestamo.add(prestamoLabel);
+        prestamoLabel.setBounds(5,15, 100,30);
 
-        auxPanel.add(prestamo, BorderLayout.EAST);
+        panelPrestamo.add(prestamo);
+        prestamo.setBounds(17,50,60,40);
+        prestamo.setBorder(null);
+        auxPanel.add(panelPrestamo, BorderLayout.EAST);
 
         mapConteiner.add(new JLabel("Mapa en proceso"));
         auxPanel.add(mapConteiner, BorderLayout.CENTER);
