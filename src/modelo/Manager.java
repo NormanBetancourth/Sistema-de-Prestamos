@@ -1,7 +1,6 @@
 package modelo;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Manager {
     private ArrayList<Cliente> listaDeClientes;
@@ -27,6 +26,15 @@ public class Manager {
         getListaDeClientes().add(new Cliente(id, nombre, provincia, distrito, canton));
     }
 
+    public boolean clienteEstaRegistrado(String idCliente){
+        for(Cliente cliente : getListaDeClientes()) {
+            if (cliente.getId().equals(idCliente)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Cliente getAlgunCliente(String idCliente){
         for(Cliente cliente : getListaDeClientes()) {
             if (cliente.getId().equals(idCliente)) {
@@ -36,8 +44,6 @@ public class Manager {
         return null;
     }
 
-    //TODO ¿vamoh a eliminar el objeto prestamo cuando ya
-    // este completado o nomás queda con valores 0?
     public Prestamo getAlgunPrestamo(String idPrestamo){
         for(Cliente cliente : getListaDeClientes()) {
             if (cliente.getAlgunPrestamo(idPrestamo) != null) {
@@ -51,18 +57,22 @@ public class Manager {
        return getAlgunCliente(idCliente).getListaDePrestamos().toString();
     }
 
-    public void registrarPrestamoAUnCliente(String idCliente, Prestamo prestamo){
-        getAlgunCliente(idCliente).getListaDePrestamos().add(prestamo);
+    public void registrarPrestamoAUnCliente(Cliente cliente, double monto, double tasaDeInteres, int plazo){
+        //double monto, double tasaDeInteres, int plazo
+        Prestamo prestamo = new Prestamo(monto, tasaDeInteres, plazo);
+        asignarCodigoDelPrestamo(prestamo, cliente);
+        getAlgunCliente(cliente.getId()).getListaDePrestamos().add(prestamo);
     }
 
     public void asignarCodigoDelPrestamo(Prestamo prestamo, Cliente cliente){
-        //TODO combinación para el codigo del prestamo es igual a
+        // Combinación para el codigo del prestamo es igual a
         // id del cliente * 31
         prestamo.setId(String.valueOf(cliente.hashCode()));
     }
 
-    public void cancelacionDeCuota(String idPrestamo, Pago pago){
-        getAlgunPrestamo(idPrestamo).agregarPago(pago);
+    public void cancelacionDeCuota(String idPrestamo, int numeroDePago, double montoPagado, double interes, double amortizacion){
+        //int numeroDePago, double montoPagado, double interes, double amortizacion
+        getAlgunPrestamo(idPrestamo).agregarPago(new Pago(numeroDePago, montoPagado, interes, amortizacion));
     }
 
     public String getListaDePagosPorPrestamo(String idPrestamo) {
