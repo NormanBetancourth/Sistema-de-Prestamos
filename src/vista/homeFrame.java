@@ -1,6 +1,7 @@
 package vista;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -38,8 +39,9 @@ public class homeFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         JLabel label = new JLabel("\nSistema de Prestamos");
+        label.setBorder(new EmptyBorder(7,0,0,0));
         label.setForeground(Color.WHITE);
-        label.setFont(new Font("TimesRoman", Font.BOLD | Font.ITALIC, 20));
+        label.setFont(new Font("TimesRoman", Font.PLAIN , 20));
         northPane.add(label);
         northPane.setPreferredSize(new Dimension(700,50));
         northPane.setBackground(Color.decode("#081F62"));
