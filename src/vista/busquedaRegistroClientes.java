@@ -31,6 +31,34 @@ public class busquedaRegistroClientes extends JFrame {
     private JComboBox cantonCombo;
     private JComboBox distritoCombo;
 
+    private String[] provincias;
+    private String[] cantones;
+    private String[] distritos;
+
+    public String[] getProvincias() {
+        return provincias;
+    }
+
+    public String[] getCantones() {
+        return cantones;
+    }
+
+    public String[] getDistritos() {
+        return distritos;
+    }
+
+    public void setProvincias(String[] provincias) {
+        this.provincias = provincias;
+    }
+
+    public void setCantones(String[] cantones) {
+        this.cantones = cantones;
+    }
+
+    public void setDistritos(String[] distritos) {
+        this.distritos = distritos;
+    }
+
     public void setClienteNombre() {
         this.clienteNombre = nameTextField.getText();
     }
@@ -86,7 +114,7 @@ public class busquedaRegistroClientes extends JFrame {
         southPanel = new JPanel();
         mainConten = new JPanel();
         botonera = new JPanel();
-        this.setSize(new Dimension(800,700));
+        this.setSize(new Dimension(900,790));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         clienteNombre = "";
@@ -98,9 +126,10 @@ public class busquedaRegistroClientes extends JFrame {
         nameTextField = new JTextField();
         idTextField = new JTextField();
 
-        provinciaCombo = new JComboBox();
-        cantonCombo= new JComboBox();
-        distritoCombo= new JComboBox();
+        String[] provincias = {"Selecciona una provincia","San Jose", "Heredia", "Alajuela", "Cartago", "Limon", "Puntarenas", "Guanacaste"};
+        provinciaCombo = new JComboBox(provincias);
+        cantonCombo= new JComboBox(provincias);
+        distritoCombo= new JComboBox(provincias);
 
 
     }
@@ -118,6 +147,10 @@ public class busquedaRegistroClientes extends JFrame {
     }
 
     public void addComponents(ActionListener e){
+
+        ImageIcon imageIcon = new ImageIcon("src/vista/images/icons8-client-64.png");
+        this.setIconImage(imageIcon.getImage());
+
         JLabel label =  new JLabel("Búsqueda y registro de clientes");
         label.setForeground(Color.white);
         label.setFont(new Font("TimesRoman", Font.PLAIN, 15));
@@ -183,7 +216,7 @@ public class busquedaRegistroClientes extends JFrame {
         mainConten.setBackground(Color.WHITE);
         auxPanel.setBackground(Color.WHITE);
 
-        //mapa, combo boxes y otros botones
+        //combo boxes y otros botones
         auxPanel = new JPanel();
         auxPanel.setLayout(new BorderLayout());
 
@@ -215,8 +248,10 @@ public class busquedaRegistroClientes extends JFrame {
         JLabel mapConteiner = new JLabel();
         mapConteiner.setLayout(new BorderLayout());
         //Todo hacer  el mapa
-        mapConteiner.setBackground(Color.GREEN);
-        mapConteiner.setOpaque(true);
+        mapConteiner.add(new JLabel(new ImageIcon("src/vista/images/unnamed.jpg")));
+
+        auxPanel.setBackground(Color.white);
+        auxPanel.add(mapConteiner, BorderLayout.CENTER);
 
         //rigth column
         //TODO Agregar ToolTipText
@@ -226,7 +261,7 @@ public class busquedaRegistroClientes extends JFrame {
         prestamo.setIcon(saveImg);
 
         JPanel panelPrestamo = new JPanel();
-        panelPrestamo.setBackground(Color.white);
+        panelPrestamo.setBackground(Color.decode("#E7EAF0"));
         panelPrestamo.setPreferredSize(new Dimension(100,30));
         panelPrestamo.setLayout(null);
         JLabel prestamoLabel = new JLabel("Nuevo prestamo");
@@ -236,10 +271,11 @@ public class busquedaRegistroClientes extends JFrame {
         panelPrestamo.add(prestamo);
         prestamo.setBounds(17,50,60,40);
         prestamo.setBorder(null);
+        prestamo.setBackground(Color.decode("#E7EAF0"));
         auxPanel.add(panelPrestamo, BorderLayout.EAST);
 
-        mapConteiner.add(new JLabel("Mapa en proceso"));
-        auxPanel.add(mapConteiner, BorderLayout.CENTER);
+
+
 
 
 
