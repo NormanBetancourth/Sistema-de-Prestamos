@@ -126,7 +126,7 @@ public class busquedaRegistroClientes extends JFrame {
         nameTextField = new JTextField();
         idTextField = new JTextField();
 
-        String[] provincias = {"Selecciona una provincia","San Jose", "Heredia", "Alajuela", "Cartago", "Limon", "Puntarenas", "Guanacaste"};
+        String[] provincias = {"Selecciona una provincia","SAN JOSE", "HEREDIA", "ALAJUELA", "CARTAGO", "LIMON", "PUNTARENAS", "GUANACASTE"};
         provinciaCombo = new JComboBox(provincias);
         cantonCombo= new JComboBox(provincias);
         distritoCombo= new JComboBox(provincias);
@@ -248,7 +248,7 @@ public class busquedaRegistroClientes extends JFrame {
         JLabel mapConteiner = new JLabel();
         mapConteiner.setLayout(new BorderLayout());
         //Todo hacer  el mapa
-        mapConteiner.add(new JLabel(new ImageIcon("src/vista/images/unnamed.jpg")));
+        mapConteiner.add(new JLabel(new ImageIcon("src/vista/images/unnamed.png")));
 
         auxPanel.setBackground(Color.white);
         auxPanel.add(mapConteiner, BorderLayout.CENTER);
