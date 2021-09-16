@@ -1,5 +1,6 @@
 package principal;
 
+import controlador.controlador;
 import modelo.*;
 import vista.busquedaRegistroClientes;
 import vista.homeFrame;
@@ -18,16 +19,15 @@ import java.util.Set;
 public class principal {
     public static void main(String[] args) throws FileNotFoundException {
 
-//        SwingUtilities.invokeLater(()-> {
-//            busquedaRegistroClientes frame = new busquedaRegistroClientes();
-//            frame.addComponents(null);
-////            homeFrame frame = new homeFrame();
-////            frame.addComponents();
-//        });
+        SwingUtilities.invokeLater(()-> {
+            controlador ctrl = new controlador();
+            ctrl.addContent();
+
+        });
 //
-        Manager m = new Manager();
-        System.out.println(m.mostrarCantones("6"));
-        System.out.println(m.mostrarDistritos("DESAMPARADOS"));
+//        Manager m = new Manager();
+//        System.out.println(m.mostrarCantones("6"));
+//        System.out.println(m.mostrarDistritos("DESAMPARADOS"));
 
 
     }

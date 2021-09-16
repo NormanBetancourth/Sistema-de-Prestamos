@@ -16,7 +16,6 @@ public class mapHandler {
 
     private JComponent ui = null;
     JLabel output = new JLabel();
-    public static final int SIZE = 750;
     BufferedImage image;
     Area area;
     public ArrayList<Shape> shapeList;
@@ -46,6 +45,7 @@ public class mapHandler {
 
         refresh();
     }
+
 
     public Area getOutline(Color target, BufferedImage bi, int tolerance) {//crea los bordes
         // construct the GeneralPath
@@ -123,6 +123,8 @@ public class mapHandler {
 
         return regions;
     }
+
+
     public void  isInThisArea(int x,int y){
 
         for (int i = 0; i<shapeList.size(); i++){
@@ -133,6 +135,7 @@ public class mapHandler {
         }
     }
 
+    //TODO mover al controlador
     class MousePositionListener implements MouseMotionListener, MouseListener{
 
         @Override
@@ -152,7 +155,8 @@ public class mapHandler {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            isInThisArea(e.getX(),e.getY());
+            isInThisArea(e.getX(),e.getY());//https://docs.oracle.com/javase/7/docs/api/java/awt/Rectangle.html
+
 
 
         }
@@ -203,7 +207,7 @@ public class mapHandler {
 
     private BufferedImage getImage() {
         BufferedImage bi = new BufferedImage(
-                2 * 300, 500, BufferedImage.TYPE_INT_RGB);
+                513, 494, BufferedImage.TYPE_INT_RGB);
 
         Graphics2D g = bi.createGraphics();
         g.drawImage(image, 0, 0, output);
@@ -236,6 +240,11 @@ public class mapHandler {
         return ui;
     }
 
+    public ArrayList<Shape> getShapeList() {
+        return shapeList;
+    }
+
+    //todo mover  a  controlador
     public static void main(String[] args) {
         Runnable r = () -> {
             try {
@@ -249,7 +258,7 @@ public class mapHandler {
             f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
            // f.setLocationByPlatform(true);
 
-            f.setContentPane(o.getUI());
+            f.add(o.getUI());
             f.setResizable(false);
             f.pack();
 

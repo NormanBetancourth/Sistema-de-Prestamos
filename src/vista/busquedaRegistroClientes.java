@@ -1,60 +1,66 @@
 package vista;
 
-import javax.print.attribute.standard.JobHoldUntil;
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.PrintStream;
 
-public class busquedaRegistroClientes extends JFrame {
+public class busquedaRegistroClientes extends vistaHandler {
     private JPanel mainPanel;
     private JPanel northPanel;
     private JPanel southPanel;
     private JPanel mainConten;
     private JPanel botonera ;
 
+    //info del cliente
     private String clienteNombre;
     private String clienteId;
     private String clienteProvincia;
     private String clienteDistrito;
     private String clienteCanton;
 
+    //campos de texto id, name
     private JTextField nameTextField;
     private JTextField idTextField;
 
+    //combo boxes
     private JComboBox provinciaCombo;
     private JComboBox cantonCombo;
     private JComboBox distritoCombo;
-
     private String[] provincias;
     private String[] cantones;
     private String[] distritos;
 
+    private JButton inicio;
+    private JButton agregarCliente;
+    private JButton buscarCliente;
+    private JButton buscarPrestamo;
+    private JButton listadoClientes;
+    private JButton listadoprestamos;
+
+    //label donde va el mapa
+    JPanel mapConteiner;
+
+    public void setMapConteiner(JPanel mapConteiner) {
+        this.mapConteiner = mapConteiner;
+        this.setVisible(true);
+    }
+
     public String[] getProvincias() {
         return provincias;
     }
-
     public String[] getCantones() {
         return cantones;
     }
-
     public String[] getDistritos() {
         return distritos;
     }
-
     public void setProvincias(String[] provincias) {
         this.provincias = provincias;
     }
-
     public void setCantones(String[] cantones) {
         this.cantones = cantones;
     }
-
     public void setDistritos(String[] distritos) {
         this.distritos = distritos;
     }
@@ -62,19 +68,15 @@ public class busquedaRegistroClientes extends JFrame {
     public void setClienteNombre() {
         this.clienteNombre = nameTextField.getText();
     }
-
     public void setClienteId() {
         this.clienteId = idTextField.getText();
     }
-
     public void setClienteProvincia() {
         this.clienteProvincia = (String) provinciaCombo.getSelectedItem();
     }
-
     public void setClienteDistrito() {
         this.clienteDistrito = (String) distritoCombo.getSelectedItem();
     }
-
     public void setClienteCanton() {
         this.clienteCanton = (String) cantonCombo.getSelectedItem();
     }
@@ -82,27 +84,22 @@ public class busquedaRegistroClientes extends JFrame {
     public JPanel getMainConten() {
         return mainConten;
     }
-
     public String getClienteNombre() {
         setClienteNombre();
         return clienteNombre;
     }
-
     public String getClienteId() {
         setClienteId();
         return clienteId;
     }
-
     public String getClienteProvincia() {
         setClienteProvincia();
         return clienteProvincia;
     }
-
     public String getClienteDistrito() {
         setClienteDistrito();
         return clienteDistrito;
     }
-
     public String getClienteCanton() {
         setClienteCanton();
         return clienteCanton;
@@ -126,27 +123,18 @@ public class busquedaRegistroClientes extends JFrame {
         nameTextField = new JTextField();
         idTextField = new JTextField();
 
-        String[] provincias = {"Selecciona una provincia","SAN JOSE", "HEREDIA", "ALAJUELA", "CARTAGO", "LIMON", "PUNTARENAS", "GUANACASTE"};
+        provincias = new String[]{"SAN JOSE", "HEREDIA", "ALAJUELA", "CARTAGO", "LIMON", "PUNTARENAS", "GUANACASTE"};
         provinciaCombo = new JComboBox(provincias);
         cantonCombo= new JComboBox(provincias);
         distritoCombo= new JComboBox(provincias);
 
 
     }
-    private static JButton ButtonFactory(String text , String id, ActionListener e) {
-        JButton button = new JButton(text);
-        button.setForeground(Color.BLACK);
-        button.setBackground(Color.WHITE);
-        button.setActionCommand(id);
-        button.addActionListener(e);
-        Border line = new LineBorder(Color.BLACK);
-        Border margin = new EmptyBorder(5, 15, 5, 15);
-        Border compound = new CompoundBorder(line, margin);
-        button.setBorder(compound);
-        return button;
-    }
 
-    public void addComponents(ActionListener e){
+
+
+
+    public void addComponents(ActionListener e, JPanel mapa){
 
         ImageIcon imageIcon = new ImageIcon("src/vista/images/icons8-client-64.png");
         this.setIconImage(imageIcon.getImage());
@@ -167,12 +155,18 @@ public class busquedaRegistroClientes extends JFrame {
         botonera.setLayout(new FlowLayout(FlowLayout.CENTER));
         botonera.setPreferredSize(new Dimension(800,40));
         botonera.setBackground(Color.decode("#E7EAF0"));
-        botonera.add(ButtonFactory("Inicio", "0",e));
-        botonera.add(ButtonFactory("Agregar Cliente", "1-1",e));//Todo Mapa y combo  boxes
-        botonera.add(ButtonFactory("Buscar Cliente", "1-2",e));//TODO 1)opcion de pagar, 2)ver prestamos, 3) ver pagos de 1 prestamo, 4) ver todos los pagos del todos los prestamos
-        botonera.add(ButtonFactory("Buscar Prestamo", "1-3",e));
-        botonera.add(ButtonFactory("Listado de Clientes", "1-4",e));
-        botonera.add(ButtonFactory("Listado de Prestamos", "1-5",e));
+        inicio = ButtonFactory("Inicio", "0-1",e);
+        botonera.add(inicio);
+        agregarCliente = ButtonFactory("Agregar Cliente", "1-1",e);
+        botonera.add(agregarCliente);
+        buscarCliente =ButtonFactory("Buscar Cliente", "1-2",e);
+        botonera.add(buscarCliente);//TODO 1)opcion de pagar, 2)ver prestamos, 3) ver pagos de 1 prestamo, 4) ver todos los pagos del todos los prestamos
+        buscarPrestamo =ButtonFactory("Buscar Prestamo", "1-3",e);
+        botonera.add(buscarPrestamo);
+        listadoClientes =ButtonFactory("Listado de Clientes", "1-4",e);
+        botonera.add(listadoClientes);
+        listadoprestamos =ButtonFactory("Listado de Prestamos", "1-5",e);
+        botonera.add(listadoprestamos);
 
 
         mainPanel.setLayout(new BorderLayout());
@@ -184,13 +178,16 @@ public class busquedaRegistroClientes extends JFrame {
         southPanel.setPreferredSize(new Dimension(100,20));
         southPanel.setBackground(Color.decode("#081F62"));
 
-        setContentAgregarCliente(e);
+        mainContentHandler(1,e, mapa);
 
         this.add(southPanel, BorderLayout.SOUTH);
         this.setVisible(true);
 
     }
-    private void setContentAgregarCliente(ActionListener e){
+
+
+
+    private void setContentAgregarCliente(ActionListener e, JPanel mapa){
         mainPanel.remove(mainConten);
         mainConten = new JPanel();
         mainConten.setLayout(new BorderLayout());
@@ -245,10 +242,7 @@ public class busquedaRegistroClientes extends JFrame {
         mainConten.add(auxPanel,BorderLayout.CENTER);
 
         //mapa
-        JLabel mapConteiner = new JLabel();
-        mapConteiner.setLayout(new BorderLayout());
-        //Todo hacer  el mapa
-        mapConteiner.add(new JLabel(new ImageIcon("src/vista/images/unnamed.png")));
+        mapConteiner = mapa;
 
         auxPanel.setBackground(Color.white);
         auxPanel.add(mapConteiner, BorderLayout.CENTER);
@@ -274,31 +268,29 @@ public class busquedaRegistroClientes extends JFrame {
         prestamo.setBackground(Color.decode("#E7EAF0"));
         auxPanel.add(panelPrestamo, BorderLayout.EAST);
 
-
-
-
-
-
-
         mainPanel.add(mainConten, BorderLayout.CENTER);
         this.setVisible(true);
 
 
     }
     private void setContentBuscarCliente(ActionListener e){
+
+        //mainContent.setContentPane(new clase x);
         mainPanel.remove(mainConten);
         mainConten = new JPanel();
         mainConten.setLayout(new BorderLayout());
         mainConten.setBackground(Color.GREEN);
-        mainPanel.add(mainConten);
+        mainPanel.add(mainConten, BorderLayout.CENTER);
         this.setVisible(true);
     }
 
-    public void mainContentHandler(int code, ActionListener e){
+    public void mainContentHandler(int code, ActionListener e,JPanel mapa){
         switch (code){
             case 1:
+                setContentAgregarCliente(e, mapa);
                 break;
             case 2:
+                setContentBuscarCliente(e);
                 break;
             case 3:
                 break;
@@ -313,5 +305,22 @@ public class busquedaRegistroClientes extends JFrame {
         }
     }
 
-
+    public JButton getInicio() {
+        return inicio;
+    }
+    public JButton getAgregarCliente() {
+        return agregarCliente;
+    }
+    public JButton getBuscarCliente() {
+        return buscarCliente;
+    }
+    public JButton getBuscarPrestamo() {
+        return buscarPrestamo;
+    }
+    public JButton getListadoClientes() {
+        return listadoClientes;
+    }
+    public JButton getListadoprestamos() {
+        return listadoprestamos;
+    }
 }
