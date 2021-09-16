@@ -1,60 +1,38 @@
 package principal;
 
+import controlador.controlador;
 import modelo.*;
+import vista.busquedaRegistroClientes;
 import vista.homeFrame;
 
+import javax.annotation.processing.Filer;
 import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
 
 public class principal {
-    public static void main(String[] args) {
-        //PRUEBAS
-<<<<<<< vista-test
-//        Prestamo prestamo1 = new Prestamo(100, 0.0725, 60);
-//        Prestamo prestamo2 = new Prestamo(33.21, 345.13, 15);
-//        Prestamo prestamo3 = new Prestamo(6.42, 34.32, 13);
-//
-//        Pago pago1 = new Pago(1, 10, 0.1, 0.1);
-//
-//        Cliente cliente1 = new Cliente("123", "Rebe1", "Heredia", "Heredia", "Heredia");
-//        Cliente cliente2 = new Cliente("456", "Rebe2", "Heredia", "Heredia", "Heredia");
-//        Cliente cliente3 = new Cliente("789", "Rebe3", "Heredia", "Heredia", "Heredia");
-//
-//        Manager manager = new Manager();
-//        manager.registrarCliente("123", "Rebe1", "Heredia", "Heredia", "Heredia");
-//        manager.registrarCliente("456", "Rebe2", "Heredia", "Heredia", "Heredia");
-//
-//        manager.registrarPrestamoAUnCliente(cliente1.getId(), prestamo1);
-//        manager.asignarCodigoDelPrestamo(prestamo1, cliente1);
-//        manager.cancelacionDeCuota(prestamo1.getId(), pago1);
-//
-//        System.out.println(prestamo1.getCuota());
-//        //Al agregar un pago sobre el monto esperado se vuelve a calcular la cuota
-//        System.out.println(prestamo1.getCuota());
-//        System.out.println(prestamo1);
-//        System.out.println(pago1.getId());
+    public static void main(String[] args) throws FileNotFoundException {
+
         SwingUtilities.invokeLater(()-> {
-            homeFrame frame= new homeFrame();
-            frame.addComponents();
+            controlador ctrl = new controlador();
+            ctrl.addContent();
+
         });
-=======
-        Prestamo prestamo1 = new Prestamo(100, 0.0725, 60);
-        Prestamo prestamo2 = new Prestamo(33.21, 345.13, 15);
-        Prestamo prestamo3 = new Prestamo(6.42, 34.32, 13);
+//
+//        Manager m = new Manager();
+//        System.out.println(m.mostrarCantones("6"));
+//        System.out.println(m.mostrarDistritos("DESAMPARADOS"));
 
-        Pago pago1 = new Pago(1, 10, 0.1, 0.1);
-
-        Cliente cliente1 = new Cliente("123", "Rebe1", "Heredia", "Heredia", "Heredia");
-        Cliente cliente2 = new Cliente("456", "Rebe2", "Heredia", "Heredia", "Heredia");
-        Cliente cliente3 = new Cliente("789", "Rebe3", "Heredia", "Heredia", "Heredia");
-
-        Manager manager = new Manager();
-        manager.registrarCliente("123", "Rebe1", "Heredia", "Heredia", "Heredia");
-        manager.registrarCliente("456", "Rebe2", "Heredia", "Heredia", "Heredia");
-
-        manager.registrarPrestamoAUnCliente(cliente1, 100, 0.0725, 60);
-        manager.asignarCodigoDelPrestamo(prestamo1, cliente1);
-        manager.cancelacionDeCuota(prestamo1.getId(), 1, 10, 0.1, 0.1);
->>>>>>> test
 
     }
+
+
+
+
 }
