@@ -21,9 +21,9 @@ private JPanel mapa;
         home = new homeFrame();
         modelo = new Manager();
         home.addListener(new ListenerHandler());
-        subMenuRegistro = new busquedaRegistroClientes();
         mapCreator = new mapHandler(new MousePositionListener(),new MousePositionListener());
         mapa = (JPanel) mapCreator.getUI();
+        home = new homeFrame();
     }
 
 
@@ -37,12 +37,13 @@ private JPanel mapa;
             try {
                 if (e.getActionCommand().equals("1")){
                     home.dispose();
+                    subMenuRegistro = new busquedaRegistroClientes(new ListenerHandler());
                     subMenuRegistro.addComponents(new ListenerHandler(), mapa);
 
                 }
                 if (e.getActionCommand().equals("0-1")){
                     subMenuRegistro.dispose();
-                    home = new homeFrame();
+
                     home.addComponents(new ListenerHandler());
                 }
                 //Todo opciones en agregar cliente

@@ -105,13 +105,13 @@ public class busquedaRegistroClientes extends vistaHandler {
         return clienteCanton;
     }
 
-    public busquedaRegistroClientes() throws HeadlessException {
+    public busquedaRegistroClientes(ActionListener e) throws HeadlessException {
         mainPanel = new JPanel();
         northPanel = new JPanel();
         southPanel = new JPanel();
-        mainConten = new JPanel();
+
         botonera = new JPanel();
-        this.setSize(new Dimension(900,790));
+        this.setSize(new Dimension(900,799));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         clienteNombre = "";
@@ -127,29 +127,7 @@ public class busquedaRegistroClientes extends vistaHandler {
         provinciaCombo = new JComboBox(provincias);
         cantonCombo= new JComboBox(provincias);
         distritoCombo= new JComboBox(provincias);
-
-
-    }
-
-
-
-
-    public void addComponents(ActionListener e ,JPanel mapa){
-
-        ImageIcon imageIcon = new ImageIcon("src/vista/images/icons8-client-64.png");
-        this.setIconImage(imageIcon.getImage());
-
-        JLabel label =  new JLabel("Búsqueda y registro de clientes");
-        label.setForeground(Color.white);
-        label.setFont(new Font("TimesRoman", Font.PLAIN, 15));
-        label.setBorder(new EmptyBorder(4,0,0,0));
-
-
-        northPanel.setPreferredSize(new Dimension(northPanel.getWidth(),40));
-        northPanel.setBackground(Color.decode("#081F62"));
-        northPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        northPanel.add(label);
-
+        mainConten = new JPanel();
 
         botonera = new JPanel();
         botonera.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -171,6 +149,32 @@ public class busquedaRegistroClientes extends vistaHandler {
 
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(botonera, BorderLayout.NORTH);
+
+
+    }
+
+
+
+
+    public void addComponents(ActionListener e ,JPanel mapa){
+
+
+        ImageIcon imageIcon = new ImageIcon("src/vista/images/icons8-client-64.png");
+        this.setIconImage(imageIcon.getImage());
+
+        JLabel label =  new JLabel("Búsqueda y registro de clientes");
+        label.setForeground(Color.white);
+        label.setFont(new Font("TimesRoman", Font.PLAIN, 15));
+        label.setBorder(new EmptyBorder(4,0,0,0));
+
+
+        northPanel.setPreferredSize(new Dimension(northPanel.getWidth(),40));
+        northPanel.setBackground(Color.decode("#081F62"));
+        northPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        northPanel.add(label);
+
+        //TODO botonera duplicada!!!!!!!!!!!
+
         mainPanel.add(mainConten, BorderLayout.CENTER);
         this.add(northPanel, BorderLayout.NORTH);
         mainPanel.setBackground(Color.white);
@@ -191,6 +195,7 @@ public class busquedaRegistroClientes extends vistaHandler {
         mainPanel.remove(mainConten);
         mainConten = new JPanel();
         mainConten.setLayout(new BorderLayout());
+
         //aux
         JPanel auxPanel = new JPanel();
         JLabel labelAux = new JLabel("Nombre: ");
