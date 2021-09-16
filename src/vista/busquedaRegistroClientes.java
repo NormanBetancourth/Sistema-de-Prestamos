@@ -134,7 +134,7 @@ public class busquedaRegistroClientes extends vistaHandler {
 
 
 
-    public void addComponents(ActionListener e, JPanel mapa){
+    public void addComponents(ActionListener e ,JPanel mapa){
 
         ImageIcon imageIcon = new ImageIcon("src/vista/images/icons8-client-64.png");
         this.setIconImage(imageIcon.getImage());
@@ -243,8 +243,8 @@ public class busquedaRegistroClientes extends vistaHandler {
 
         //mapa
         mapConteiner = mapa;
-
-        auxPanel.setBackground(Color.white);
+        mapConteiner.setLayout(new FlowLayout(FlowLayout.CENTER));
+        mapConteiner.setBackground(Color.white);
         auxPanel.add(mapConteiner, BorderLayout.CENTER);
 
         //rigth column

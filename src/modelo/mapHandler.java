@@ -5,11 +5,8 @@ import java.awt.event.*;
 import java.awt.geom.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.imageio.ImageIO;
 
 public class mapHandler {
@@ -20,15 +17,19 @@ public class mapHandler {
     Area area;
     public ArrayList<Shape> shapeList;
 
-    public mapHandler() {
+    public mapHandler(MouseMotionListener motion, MouseListener listener) {
         try {
-            initUI();
+            initUI(motion,listener);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    public final void initUI() throws Exception {
+    public JLabel getOutput() {
+        return output;
+    }
+
+    public final void initUI(MouseMotionListener motion, MouseListener listener) throws Exception {
         if (ui != null) {
             return;
         }
@@ -36,13 +37,10 @@ public class mapHandler {
         image = ImageIO.read(file);//leemos la imagen del archivo
         area = getOutline(Color.WHITE, image, 12);//tomamos el contorno del area
         shapeList = separateShapeIntoRegions(area);//lista de shapes la llenamos con el area delimitada por el mapeo de pixeles diferentes a blanco
-        ui = new JPanel(new BorderLayout(4, 4));
-        ui.setBorder(new EmptyBorder(2, 2, 2, 2));
-        output.addMouseMotionListener(new MousePositionListener());
-        output.addMouseListener(new MousePositionListener());
-
+        ui = new JPanel(new BorderLayout(4,4));
+        output.addMouseMotionListener(motion);
+        output.addMouseListener(listener);
         ui.add(output);
-
         refresh();
     }
 
@@ -135,53 +133,8 @@ public class mapHandler {
         }
     }
 
-    //TODO mover al controlador
-    class MousePositionListener implements MouseMotionListener, MouseListener{
-
-        @Override
-        public void mouseDragged(MouseEvent e) {
-            // do nothing
-            //System.out.println( e.getX() + " "+e.getY());
-        }
-
-        @Override
-        public void mouseMoved(MouseEvent e) {
-
-            refresh();
 
 
-
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            isInThisArea(e.getX(),e.getY());//https://docs.oracle.com/javase/7/docs/api/java/awt/Rectangle.html
-
-
-
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-
-        }
-    }
 
     public static boolean isIncluded(Color target, Color pixel, int tolerance) {//target es el blanco, pixel es el de la pic
 
@@ -201,13 +154,13 @@ public class mapHandler {
                 && (bP - tolerance <= bT) && (bT <= bP + tolerance));
     }
 
-    private void refresh() {
+    public void refresh() {
         output.setIcon(new ImageIcon(getImage()));
     }
 
     private BufferedImage getImage() {
         BufferedImage bi = new BufferedImage(
-                513, 494, BufferedImage.TYPE_INT_RGB);
+                514, 495, BufferedImage.TYPE_INT_RGB);
 
         Graphics2D g = bi.createGraphics();
         g.drawImage(image, 0, 0, output);
@@ -244,26 +197,4 @@ public class mapHandler {
         return shapeList;
     }
 
-    //todo mover  a  controlador
-    public static void main(String[] args) {
-        Runnable r = () -> {
-            try {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-            mapHandler o = new mapHandler();
-
-            JFrame f = new JFrame();//o.getClass().getSimpleName());
-            f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-           // f.setLocationByPlatform(true);
-
-            f.add(o.getUI());
-            f.setResizable(false);
-            f.pack();
-
-            f.setVisible(true);
-        };
-        SwingUtilities.invokeLater(r);
-    }
 }

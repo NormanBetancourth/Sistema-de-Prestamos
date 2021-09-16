@@ -6,8 +6,7 @@ import vista.busquedaRegistroClientes;
 import vista.homeFrame;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class controlador {
 
@@ -23,7 +22,7 @@ private JPanel mapa;
         modelo = new Manager();
         home.addListener(new ListenerHandler());
         subMenuRegistro = new busquedaRegistroClientes();
-        mapCreator = new mapHandler();
+        mapCreator = new mapHandler(new MousePositionListener(),new MousePositionListener());
         mapa = (JPanel) mapCreator.getUI();
     }
 
@@ -66,4 +65,51 @@ private JPanel mapa;
 
         }
     }
+
+    class MousePositionListener implements MouseMotionListener, MouseListener {
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+
+            mapCreator.refresh();
+
+
+
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            mapCreator.isInThisArea(e.getX(),e.getY());//https://docs.oracle.com/javase/7/docs/api/java/awt/Rectangle.html
+
+
+
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
+    }
+
 }
