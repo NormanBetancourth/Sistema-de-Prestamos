@@ -1,4 +1,6 @@
-package vista;
+package vista.busquedaRegistroClientes;
+
+import vista.vistaHandler;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -112,7 +114,7 @@ public class busquedaRegistroClientes extends vistaHandler {
         mainConten = new JPanel();
         botonera = new JPanel();
         this.setSize(new Dimension(900,790));
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setLayout(new BorderLayout());
         clienteNombre = "";
         clienteId= "";
@@ -258,7 +260,7 @@ public class busquedaRegistroClientes extends vistaHandler {
         panelPrestamo.setBackground(Color.decode("#E7EAF0"));
         panelPrestamo.setPreferredSize(new Dimension(100,30));
         panelPrestamo.setLayout(null);
-        JLabel prestamoLabel = new JLabel("Nuevo prestamo");
+        JLabel prestamoLabel = new JLabel("     Prestamos");
         panelPrestamo.add(prestamoLabel);
         prestamoLabel.setBounds(5,15, 100,30);
 

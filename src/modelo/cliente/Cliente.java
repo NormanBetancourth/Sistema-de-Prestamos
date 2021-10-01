@@ -1,4 +1,6 @@
-package modelo;
+package modelo.cliente;
+import modelo.prestamo.Prestamo;
+
 import java.util.ArrayList;
 
 public class Cliente {
@@ -82,6 +84,9 @@ public class Cliente {
             }
         }
         return null;
+    }
+    public int getCantidadPrestamos(){
+        return listaDePrestamos.size();
     }
 
     @Override

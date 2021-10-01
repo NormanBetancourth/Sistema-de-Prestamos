@@ -1,8 +1,8 @@
 package controlador;
 
-import modelo.Manager;
-import modelo.mapHandler;
-import vista.busquedaRegistroClientes;
+import modelo.ModelHandler;
+import modelo.mapHandler.mapHandler;
+import vista.busquedaRegistroClientes.busquedaRegistroClientes;
 import vista.homeFrame;
 
 import javax.swing.*;
@@ -11,7 +11,7 @@ import java.awt.event.*;
 public class controlador {
 
 private homeFrame home;
-private Manager modelo;
+private ModelHandler modelo;
 private busquedaRegistroClientes subMenuRegistro;
 //mapa
 private mapHandler mapCreator;
@@ -19,7 +19,7 @@ private JPanel mapa;
 
     public controlador() {
         home = new homeFrame();
-        modelo = new Manager();
+        modelo = new ModelHandler();
         home.addListener(new ListenerHandler());
         subMenuRegistro = new busquedaRegistroClientes();
         mapCreator = new mapHandler(new MousePositionListener(),new MousePositionListener());
@@ -30,6 +30,7 @@ private JPanel mapa;
     public void addContent(){
         home.addComponents(new ListenerHandler());
     }
+
     public  class ListenerHandler implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -84,7 +85,7 @@ private JPanel mapa;
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            mapCreator.isInThisArea(e.getX(),e.getY());//https://docs.oracle.com/javase/7/docs/api/java/awt/Rectangle.html
+            System.out.println( mapCreator.isInThisArea(e.getX(),e.getY()));;//https://docs.oracle.com/javase/7/docs/api/java/awt/Rectangle.html
 
 
 

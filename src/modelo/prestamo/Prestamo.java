@@ -1,16 +1,18 @@
-package modelo;
+package modelo.prestamo;
+
+import modelo.pago.Pago;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Prestamo {
-    String id;
-    double monto;
-    double tasaDeInteres;
-    int plazo;
-    double cuota;
-    LocalDate fecha;
-    ArrayList<Pago> listaDePagos;
+    private String id;
+    private double monto;
+    private double tasaDeInteres;
+    private int plazo;
+    private double cuota;
+    private LocalDate fecha;
+    private ArrayList<Pago> listaDePagos;
 
     public Prestamo() {
         this.id = "Indefinido";

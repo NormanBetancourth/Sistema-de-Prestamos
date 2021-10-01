@@ -1,21 +1,37 @@
 package modelo;
 
+import modelo.cliente.Cliente;
+import modelo.cliente.ListaClientesHandler;
+import modelo.cliente.ModeloTablaCliente;
+import modelo.pago.Pago;
+import modelo.prestamo.Prestamo;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
 
-public class Manager {
+public class ModelHandler {
+
+    //Clientes
+    private ListaClientesHandler clientes;
+    private ModeloTablaCliente modeloTablaCliente;
+
+    //Parser
+    JAXBParser parser;
+
+
+
+
+
+    //cambiar ->
     private ArrayList<Cliente> listaDeClientes;
 
-    public Manager() {
+    public ModelHandler() {
         listaDeClientes = new ArrayList<>();
     }
 
-    public Manager(ArrayList<Cliente> listaDeClientes) {
+    public ModelHandler(ArrayList<Cliente> listaDeClientes) {
         this.listaDeClientes = listaDeClientes;
     }
 
