@@ -5,25 +5,14 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class VistaPrestamos extends vistaHandler{
-    private JPanel mainPanel = new JPanel();
-    private JPanel northPanel = new JPanel();
-    private JPanel southPanel = new JPanel();
-    private JPanel mainConten = new JPanel();
-    private JPanel botonera = new JPanel();
+public class VistaPrestamos extends VentanaGestion{
     private JTextField idTextField = new JTextField();
     private JTextField montoTextField = new JTextField();
     private JTextField tasaDeInteresTextField = new JTextField();
     private JTextField plazoTextField = new JTextField();
-    private JButton inicioBoton;
-    private JButton agregarPrestamoBoton;
-    private JButton buscarPrestamoBoton;
-    private JButton listadoPrestamosBoton;
 
     public VistaPrestamos()throws HeadlessException {
-        this.setSize(new Dimension(900,790));
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        this.setLayout(new BorderLayout());
+       super();
     }
 
     public void addComponents(ActionListener e){
@@ -41,14 +30,14 @@ public class VistaPrestamos extends vistaHandler{
         botonera.setLayout(new FlowLayout(FlowLayout.CENTER));
         botonera.setPreferredSize(new Dimension(800,40));
         botonera.setBackground(Color.decode("#E7EAF0"));
-        inicioBoton = ButtonFactory("Inicio", "2-0",e);
+        inicioBoton = VistaHandler.ButtonFactory("Inicio", "2-0",e);
         botonera.add(inicioBoton);
-        agregarPrestamoBoton = ButtonFactory("Agregar Prestamo", "2-1",e);
-        botonera.add(agregarPrestamoBoton);
-        buscarPrestamoBoton =ButtonFactory("Buscar Prestamo", "2-2",e);
-        botonera.add(buscarPrestamoBoton);
-        listadoPrestamosBoton =ButtonFactory("Listado de Prestamos", "2-3",e);
-        botonera.add(listadoPrestamosBoton);
+        agregarBoton = VistaHandler.ButtonFactory("Agregar Prestamo", "2-1",e);
+        botonera.add(agregarBoton);
+        buscarBoton = VistaHandler.ButtonFactory("Buscar Prestamo", "2-2",e);
+        botonera.add(buscarBoton);
+        listarBoton = VistaHandler.ButtonFactory("Listado de Prestamos", "2-3",e);
+        botonera.add(listarBoton);
 
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(botonera, BorderLayout.NORTH);
@@ -70,19 +59,6 @@ public class VistaPrestamos extends vistaHandler{
         montoTextField.setText(null);
         tasaDeInteresTextField.setText(null);
         plazoTextField.setText(null);
-    }
-
-    public JButton getInicioBoton() {
-        return inicioBoton;
-    }
-    public JButton getAgregarClienteBoton() {
-        return agregarPrestamoBoton;
-    }
-    public JButton getBuscarClienteBoton() {
-        return buscarPrestamoBoton;
-    }
-    public JButton getListadoClientesBoton() {
-        return listadoPrestamosBoton;
     }
 
     public JTextField getIdTextField(){

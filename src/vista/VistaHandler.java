@@ -7,12 +7,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.jar.JarEntry;
 
-public abstract class vistaHandler extends JFrame {
-    public vistaHandler() {
-    }
-    protected static JButton ButtonFactory(String text , String id, ActionListener e) {
+public interface VistaHandler {
+    static JButton ButtonFactory(String text, String id, ActionListener e) {
         JButton button = new JButton(text);
         button.setForeground(Color.BLACK);
         button.setBackground(Color.WHITE);

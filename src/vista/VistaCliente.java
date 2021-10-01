@@ -5,12 +5,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class VistaCliente extends vistaHandler{
-    private JPanel mainPanel = new JPanel();
-    private JPanel northPanel = new JPanel();
-    private JPanel southPanel = new JPanel();
-    private JPanel mainConten = new JPanel();
-    private JPanel botonera = new JPanel();
+public class VistaCliente extends VentanaGestion{
     private JTextField nameTextField = new JTextField();
     private JTextField idTextField = new JTextField();
     private JComboBox provinciaCombo;
@@ -20,16 +15,9 @@ public class VistaCliente extends vistaHandler{
     private String[] cantones;
     private String[] distritos;
     private JButton inicioBoton;
-    private JButton agregarClienteBoton;
-    private JButton buscarClienteBoton;
-    private JButton listadoClientesBoton;
     private JPanel mapConteiner; // label donde va el mapa
 
     public VistaCliente() throws HeadlessException {
-        this.setSize(new Dimension(900,790));
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        this.setLayout(new BorderLayout());
-
         // TODO ajustar
         provincias = new String[]{"SAN JOSE", "HEREDIA", "ALAJUELA", "CARTAGO", "LIMON", "PUNTARENAS", "GUANACASTE"};
         provinciaCombo = new JComboBox(provincias);
@@ -37,7 +25,7 @@ public class VistaCliente extends vistaHandler{
         distritoCombo= new JComboBox(provincias);
     }
 
-    /*
+/*
     public void configuraComboBoxes(HashMap<String, HashMap<String, Object>> cantonesDistritos){
         provinciaCombo = new JComboBox(provincias);
         // Obteniendo las llaves del mapa (cantones) y pasando todos estos valores
@@ -65,14 +53,14 @@ public class VistaCliente extends vistaHandler{
         botonera.setLayout(new FlowLayout(FlowLayout.CENTER));
         botonera.setPreferredSize(new Dimension(800,40));
         botonera.setBackground(Color.decode("#E7EAF0"));
-        inicioBoton = ButtonFactory("Inicio", "1-0",e);
+        inicioBoton = VistaHandler.ButtonFactory("Inicio", "1-0",e);
         botonera.add(inicioBoton);
-        agregarClienteBoton = ButtonFactory("Agregar Cliente", "1-1",e);
-        botonera.add(agregarClienteBoton);
-        buscarClienteBoton =ButtonFactory("Buscar Cliente", "1-2",e);
-        botonera.add(buscarClienteBoton);
-        listadoClientesBoton =ButtonFactory("Listado de Clientes", "1-3",e);
-        botonera.add(listadoClientesBoton);
+        agregarBoton = VistaHandler.ButtonFactory("Agregar Cliente", "1-1",e);
+        botonera.add(agregarBoton);
+        buscarBoton = VistaHandler.ButtonFactory("Buscar Cliente", "1-2",e);
+        botonera.add(buscarBoton);
+        listarBoton = VistaHandler.ButtonFactory("Listado de Clientes", "1-3",e);
+        botonera.add(listarBoton);
 
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(botonera, BorderLayout.NORTH);
@@ -116,19 +104,6 @@ public class VistaCliente extends vistaHandler{
         this.distritos = distritos;
     }
 
-    public JButton getInicioBoton() {
-        return inicioBoton;
-    }
-    public JButton getAgregarClienteBoton() {
-        return agregarClienteBoton;
-    }
-    public JButton getBuscarClienteBoton() {
-        return buscarClienteBoton;
-    }
-    public JButton getListadoClientesBoton() {
-        return listadoClientesBoton;
-    }
-
     public JTextField getNameTextField(){
         return nameTextField;
     }
@@ -152,7 +127,7 @@ public class VistaCliente extends vistaHandler{
 
         //formulario
         labelAux.setBorder(new EmptyBorder(0,190,0,0));
-        JButton btnAux = ButtonFactory("Guardar", "guardar", e);
+        JButton btnAux = VistaHandler.ButtonFactory("Guardar", "guardar", e);
         auxPanel.setLayout(new GridLayout(2,2, 50,10));
         auxPanel.add(labelAux);
         auxPanel.add(nameTextField);
@@ -183,7 +158,7 @@ public class VistaCliente extends vistaHandler{
 
         ImageIcon saveImg = new ImageIcon("src/vista/images/floppy-disk_1f4be.png");
 
-        JButton btnGuardar= ButtonFactory("", "guardar-btn",e);
+        JButton btnGuardar= VistaHandler.ButtonFactory("", "guardar-btn",e);
 
         btnGuardar.setIcon(saveImg);
         btnGuardar.setPreferredSize(new Dimension(60,39));
@@ -204,7 +179,7 @@ public class VistaCliente extends vistaHandler{
 
         //rigth column
         //TODO Agregar ToolTipText
-        JButton prestamo = ButtonFactory("","pretamo-btn",e);
+        JButton prestamo = VistaHandler.ButtonFactory("","pretamo-btn",e);
         saveImg = new ImageIcon("src/vista/images/icons8-money-48.png");
 
         prestamo.setIcon(saveImg);
@@ -235,7 +210,6 @@ public class VistaCliente extends vistaHandler{
         mainConten.setLayout(new BorderLayout());
         mainConten.setBackground(Color.GREEN);
         mainPanel.add(mainConten, BorderLayout.CENTER);
-        this.setVisible(true);
     }
 
     private void setContentListarClientes(ActionListener e){
@@ -244,7 +218,6 @@ public class VistaCliente extends vistaHandler{
         mainConten.setLayout(new BorderLayout());
         mainConten.setBackground(Color.GREEN);
         mainPanel.add(mainConten, BorderLayout.CENTER);
-        this.setVisible(true);
     }
 
     public void mainContentHandler(int code, ActionListener e,JPanel mapa){

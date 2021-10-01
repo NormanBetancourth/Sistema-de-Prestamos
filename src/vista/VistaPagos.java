@@ -5,25 +5,14 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class VistaPagos extends vistaHandler{
-    private JPanel mainPanel = new JPanel();
-    private JPanel northPanel = new JPanel();
-    private JPanel southPanel = new JPanel();
-    private JPanel mainConten = new JPanel();
-    private JPanel botonera = new JPanel();
+public class VistaPagos extends VentanaGestion{
     private JTextField idTextField = new JTextField();
     private JTextField montoPagadoTextField = new JTextField();
     private JTextField tasaDeInteresTextField = new JTextField();
     private JTextField amortizacionTextField = new JTextField();
-    private JButton inicioBoton;
-    private JButton agregarPagoBoton;
-    private JButton buscarPagoBoton;
-    private JButton listadoPagosBoton;
 
     public VistaPagos()throws HeadlessException {
-        this.setSize(new Dimension(900,790));
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        this.setLayout(new BorderLayout());
+        super();
     }
 
     public void addComponents(ActionListener e){
@@ -41,14 +30,14 @@ public class VistaPagos extends vistaHandler{
         botonera.setLayout(new FlowLayout(FlowLayout.CENTER));
         botonera.setPreferredSize(new Dimension(800,40));
         botonera.setBackground(Color.decode("#E7EAF0"));
-        inicioBoton = ButtonFactory("Inicio", "3-0",e);
+        inicioBoton = VistaHandler.ButtonFactory("Inicio", "3-0",e);
         botonera.add(inicioBoton);
-        agregarPagoBoton = ButtonFactory("Agregar Pago", "3-1",e);
-        botonera.add(agregarPagoBoton);
-        buscarPagoBoton =ButtonFactory("Buscar Pago", "3-2",e);
-        botonera.add(buscarPagoBoton);
-        listadoPagosBoton =ButtonFactory("Listado de Pagos", "3-3",e);
-        botonera.add(listadoPagosBoton);
+        agregarBoton = VistaHandler.ButtonFactory("Agregar Pago", "3-1",e);
+        botonera.add(agregarBoton);
+        buscarBoton = VistaHandler.ButtonFactory("Buscar Pago", "3-2",e);
+        botonera.add(buscarBoton);
+        listarBoton = VistaHandler.ButtonFactory("Listado de Pagos", "3-3",e);
+        botonera.add(listarBoton);
 
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(botonera, BorderLayout.NORTH);
@@ -70,19 +59,6 @@ public class VistaPagos extends vistaHandler{
         montoPagadoTextField.setText(null);
         tasaDeInteresTextField.setText(null);
         amortizacionTextField.setText(null);
-    }
-
-    public JButton getInicioBoton() {
-        return inicioBoton;
-    }
-    public JButton getAgregarPagoBoton() {
-        return agregarPagoBoton;
-    }
-    public JButton getBuscarPagoBoton() {
-        return buscarPagoBoton;
-    }
-    public JButton getListadoPagosBoton() {
-        return listadoPagosBoton;
     }
 
     public JTextField getIdTextField(){

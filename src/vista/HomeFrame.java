@@ -5,14 +5,14 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class HomeFrame extends vistaHandler {
-    JPanel northPane = new JPanel();
-    JPanel centralPane = new JPanel();
-    JPanel leftPane = new JPanel();
-    JButton btn1 = ButtonFactory("Clientes", "1", null);
-    JButton btn2 = ButtonFactory("Prestamos", "2", null);
-    JButton btn3 = ButtonFactory("Pagos", "3",null);
-    JButton  btn4 = ButtonFactory("Reportes", "4",null);
+public class HomeFrame extends JFrame implements VistaHandler {
+    private JPanel northPane = new JPanel();
+    private JPanel centralPane = new JPanel();
+    private JPanel leftPane = new JPanel();
+    private JButton btn1 = VistaHandler.ButtonFactory("Clientes", "1", null);
+    private JButton btn2 = VistaHandler.ButtonFactory("Prestamos", "2", null);
+    private JButton btn3 = VistaHandler.ButtonFactory("Pagos", "3",null);
+    private JButton  btn4 = VistaHandler.ButtonFactory("Reportes", "4",null);
 
     public HomeFrame(JPanel northPane, JPanel centralPanet, JPanel southPane, JPanel leftPane) throws HeadlessException {
         this.northPane = northPane;
@@ -21,6 +21,7 @@ public class HomeFrame extends vistaHandler {
     }
 
     public HomeFrame() throws HeadlessException {
+        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
