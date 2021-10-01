@@ -29,16 +29,24 @@ public class ControladorDeClientes {
             String distrito = null;
 
             switch (valor) {
+                case "1-0" ->
+                        //Regresar
+                        {
+                            vistaCliente.dispose();
+                            new Controlador();
+                        }
                 case "1-1" ->
                         //Agregar cliente
                         {
                             //Agregar excepciones y obtener información de los botones
                             //campos de texto
+                            vistaCliente.mainContentHandler(1, new ListenerHandler(), mapa);
+                            vistaCliente.clearFields();
                         }
                 case "1-2" ->
-                        //Buscar cliente
                         {
-
+                    //Buscar cliente
+                    vistaCliente.clearFields();
                         }
                 case "1-3" ->
                         //Listado de clientes

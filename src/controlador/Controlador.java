@@ -1,21 +1,25 @@
 package controlador;
 
 import modelo.ModelHandler;
-import vista.homeFrame;
+import vista.HomeFrame;
 
 import java.awt.event.*;
 
-public class controlador {
-    homeFrame Home;
+public class Controlador {
+    HomeFrame Home;
     ModelHandler modelo;
     ControladorDeClientes controladorDeClientes;
     ControladorDePrestamos controladorDePrestamos;
     ControladorDePagos controladorDePagos;
 
-    public controlador() {
-        Home = new homeFrame();
+    public Controlador() {
+        Home = new HomeFrame();
+        Home.addComponents(new ListenerHandler());
         modelo = new ModelHandler();
-        Home.addListener(new ListenerHandler());
+    }
+
+    public ModelHandler getModelo() {
+        return modelo;
     }
 
     public  class ListenerHandler implements ActionListener {

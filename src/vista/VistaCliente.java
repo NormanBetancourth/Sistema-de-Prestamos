@@ -11,9 +11,8 @@ public class VistaCliente extends vistaHandler{
     private JPanel southPanel = new JPanel();
     private JPanel mainConten = new JPanel();
     private JPanel botonera = new JPanel();
-
-    private JTextField nameTextField;
-    private JTextField idTextField;
+    private JTextField nameTextField = new JTextField();
+    private JTextField idTextField = new JTextField();
     private JComboBox provinciaCombo;
     private JComboBox cantonCombo;
     private JComboBox distritoCombo;
@@ -30,9 +29,6 @@ public class VistaCliente extends vistaHandler{
         this.setSize(new Dimension(900,790));
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setLayout(new BorderLayout());
-
-        nameTextField = new JTextField();
-        idTextField = new JTextField();
 
         // TODO ajustar
         provincias = new String[]{"SAN JOSE", "HEREDIA", "ALAJUELA", "CARTAGO", "LIMON", "PUNTARENAS", "GUANACASTE"};
@@ -55,7 +51,7 @@ public class VistaCliente extends vistaHandler{
         ImageIcon imageIcon = new ImageIcon("src/vista/images/icons8-client-64.png");
         this.setIconImage(imageIcon.getImage());
 
-        JLabel label =  new JLabel("Búsqueda y registro de clientes");
+        JLabel label =  new JLabel("Gestion De Clientes");
         label.setForeground(Color.white);
         label.setFont(new Font("TimesRoman", Font.PLAIN, 15));
         label.setBorder(new EmptyBorder(4,0,0,0));
@@ -69,7 +65,7 @@ public class VistaCliente extends vistaHandler{
         botonera.setLayout(new FlowLayout(FlowLayout.CENTER));
         botonera.setPreferredSize(new Dimension(800,40));
         botonera.setBackground(Color.decode("#E7EAF0"));
-        inicioBoton = ButtonFactory("Inicio", "0-1",e);
+        inicioBoton = ButtonFactory("Inicio", "1-0",e);
         botonera.add(inicioBoton);
         agregarClienteBoton = ButtonFactory("Agregar Cliente", "1-1",e);
         botonera.add(agregarClienteBoton);
@@ -91,7 +87,59 @@ public class VistaCliente extends vistaHandler{
 
         this.add(southPanel, BorderLayout.SOUTH);
         this.setVisible(true);
+    }
 
+    public void clearFields(){
+        nameTextField.setText(null);
+        idTextField.setText(null);
+        provinciaCombo.setSelectedItem(0);
+        cantonCombo.setSelectedItem(0);
+        distritoCombo.setSelectedItem(0);
+    }
+
+    public String[] getProvinciaSelected() {
+        return provincias;
+    }
+    public String[] getCantones() {
+        return cantones;
+    }
+    public String[] getDistritos() {
+        return distritos;
+    }
+    public void setProvincias(String[] provincias) {
+        this.provincias = provincias;
+    }
+    public void setCantones(String[] cantones) {
+        this.cantones = cantones;
+    }
+    public void setDistritos(String[] distritos) {
+        this.distritos = distritos;
+    }
+
+    public JButton getInicioBoton() {
+        return inicioBoton;
+    }
+    public JButton getAgregarClienteBoton() {
+        return agregarClienteBoton;
+    }
+    public JButton getBuscarClienteBoton() {
+        return buscarClienteBoton;
+    }
+    public JButton getListadoClientesBoton() {
+        return listadoClientesBoton;
+    }
+
+    public JTextField getNameTextField(){
+        return nameTextField;
+    }
+    public JTextField getIdTextField(){
+        return idTextField;
+    }
+    public String getTextoName(){
+        return nameTextField.getText();
+    }
+    public String getTextoId(){
+        return idTextField.getText();
     }
 
     private void setContentAgregarCliente(ActionListener e, JPanel mapa){
@@ -209,60 +257,6 @@ public class VistaCliente extends vistaHandler{
                 break;
 
         }
-    }
-
-
-    public void clearFields(){
-        nameTextField.setText(null);
-        idTextField.setText(null);
-        provinciaCombo.setSelectedItem(0);
-        cantonCombo.setSelectedItem(0);
-        distritoCombo.setSelectedItem(0);
-    }
-
-    public String[] getProvinciaSelected() {
-        return provincias;
-    }
-    public String[] getCantones() {
-        return cantones;
-    }
-    public String[] getDistritos() {
-        return distritos;
-    }
-    public void setProvincias(String[] provincias) {
-        this.provincias = provincias;
-    }
-    public void setCantones(String[] cantones) {
-        this.cantones = cantones;
-    }
-    public void setDistritos(String[] distritos) {
-        this.distritos = distritos;
-    }
-
-    public JButton getInicioBoton() {
-        return inicioBoton;
-    }
-    public JButton getAgregarClienteBoton() {
-        return agregarClienteBoton;
-    }
-    public JButton getBuscarClienteBoton() {
-        return buscarClienteBoton;
-    }
-    public JButton getListadoClientesBoton() {
-        return listadoClientesBoton;
-    }
-
-    public JTextField getNameTextField(){
-        return nameTextField;
-    }
-    public JTextField getIdTextField(){
-        return idTextField;
-    }
-    public String getTextoName(){
-        return nameTextField.getText();
-    }
-    public String getTextoId(){
-        return idTextField.getText();
     }
 
 }
