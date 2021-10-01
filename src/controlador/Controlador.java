@@ -22,7 +22,7 @@ public class Controlador {
         return modelo;
     }
 
-    public  class ListenerHandler implements ActionListener {
+    private  class ListenerHandler implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             try{

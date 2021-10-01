@@ -89,13 +89,13 @@ public class Cliente {
         return listaDePrestamos.size();
     }
 
-    /*
+
     @Override
     public int hashCode() {
-        return !getId().equals("") ? Integer.parseInt(getId()) * 31 : 0;
+        return !(getId() == 0) ? getId() * 31 : 0;
 
     }
-     */
+
 
     // TODO Configurar para presentarlo en vista
     @Override

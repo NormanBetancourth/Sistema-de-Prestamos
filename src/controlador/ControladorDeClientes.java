@@ -17,7 +17,7 @@ public class ControladorDeClientes {
         vistaCliente.addComponents(new ListenerHandler(), mapa);
     }
 
-    public class ListenerHandler implements ActionListener {
+    private class ListenerHandler implements ActionListener {
         //Cliente: cédula, nombre y provincia, cantón y distrito de su dirección
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -44,9 +44,10 @@ public class ControladorDeClientes {
                             vistaCliente.clearFields();
                         }
                 case "1-2" ->
+                        //Buscar cliente
                         {
-                    //Buscar cliente
-                    vistaCliente.clearFields();
+                            vistaCliente.mainContentHandler(2, new ListenerHandler(), null);
+                            vistaCliente.clearFields();
                         }
                 case "1-3" ->
                         //Listado de clientes

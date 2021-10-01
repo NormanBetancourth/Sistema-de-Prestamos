@@ -130,20 +130,26 @@ public class VistaPrestamos extends vistaHandler{
 
     public void mainContentHandler(int code, ActionListener e){
         switch (code) {
-            case 1 -> {
-                setContentAgregarCliente(e);
-            }
-            case 2 -> {
-                setContentBuscarPrestamo(e);
-            }
-            case 3 -> {
-            }
-            case 4 -> {
+            case 1 ->
+                    {
+                        setContentAgregarCliente(e);
+                    }
+            case 2 ->
+                    {
+                        setContentBuscarPrestamo(e);
+                    }
+            case 3 ->
+                    {
 
-            }
-            case 5 -> {
+                    }
+            case 4 ->
+                    {
 
-            }
+                    }
+            case 5 ->
+                    {
+
+                    }
             default -> {
 
             }
