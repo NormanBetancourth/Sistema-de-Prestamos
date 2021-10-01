@@ -1,20 +1,20 @@
 package controlador;
 import modelo.mapHandler.mapHandler;
-import vista.busquedaRegistroClientes.busquedaRegistroClientes;
+import vista.VistaCliente;
 
 import javax.swing.*;
 import java.awt.event.*;
 
 public class ControladorDeClientes {
-    private busquedaRegistroClientes ventanaCliente;
+    private VistaCliente vistaCliente;
     private mapHandler mapCreator;
     private JPanel mapa;
 
     public ControladorDeClientes() {
         mapCreator = new mapHandler(new MousePositionListener(), new MousePositionListener());
         mapa = (JPanel) mapCreator.getUI();
-        ventanaCliente = new busquedaRegistroClientes();
-        ventanaCliente.addComponents(new ListenerHandler(), mapa);
+        vistaCliente = new VistaCliente();
+        vistaCliente.addComponents(new ListenerHandler(), mapa);
     }
 
     public class ListenerHandler implements ActionListener {

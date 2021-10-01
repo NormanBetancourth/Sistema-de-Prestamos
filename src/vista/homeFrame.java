@@ -29,7 +29,6 @@ public class homeFrame extends vistaHandler {
         btn2 = ButtonFactory("Consulta y Registros", "2", null);
         btn3 = ButtonFactory("Listado de Pagos", "3",null);
         btn4 = ButtonFactory("Reportes", "4",null);
-
     }
 
     public void addComponents(ActionListener e){
