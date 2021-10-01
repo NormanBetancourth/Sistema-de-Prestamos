@@ -238,24 +238,20 @@ public class VistaCliente extends vistaHandler{
         this.setVisible(true);
     }
 
+    private void setContentListarClientes(ActionListener e){
+        mainPanel.remove(mainConten);
+        mainConten = new JPanel();
+        mainConten.setLayout(new BorderLayout());
+        mainConten.setBackground(Color.GREEN);
+        mainPanel.add(mainConten, BorderLayout.CENTER);
+        this.setVisible(true);
+    }
+
     public void mainContentHandler(int code, ActionListener e,JPanel mapa){
-        switch (code){
-            case 1:
-                setContentAgregarCliente(e, mapa);
-                break;
-            case 2:
-                setContentBuscarCliente(e);
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            default:
-
-                break;
-
+        switch (code) {
+            case 1 -> setContentAgregarCliente(e, mapa);
+            case 2 -> setContentBuscarCliente(e);
+            case 3 -> setContentListarClientes(e);
         }
     }
 

@@ -110,7 +110,7 @@ public class VistaPrestamos extends vistaHandler{
         return plazoTextField.getText();
     }
 
-    private void setContentAgregarCliente(ActionListener e){
+    private void setContentAgregarPrestamo(ActionListener e){
         mainPanel.remove(mainConten);
         mainConten = new JPanel();
         mainConten.setLayout(new BorderLayout());
@@ -128,31 +128,20 @@ public class VistaPrestamos extends vistaHandler{
         this.setVisible(true);
     }
 
+    private void setConetentPaneListarPrestamos(ActionListener e){
+        mainPanel.remove(mainConten);
+        mainConten = new JPanel();
+        mainConten.setLayout(new BorderLayout());
+        mainConten.setBackground(Color.GREEN);
+        mainPanel.add(mainConten, BorderLayout.CENTER);
+        this.setVisible(true);
+    }
+
     public void mainContentHandler(int code, ActionListener e){
         switch (code) {
-            case 1 ->
-                    {
-                        setContentAgregarCliente(e);
-                    }
-            case 2 ->
-                    {
-                        setContentBuscarPrestamo(e);
-                    }
-            case 3 ->
-                    {
-
-                    }
-            case 4 ->
-                    {
-
-                    }
-            case 5 ->
-                    {
-
-                    }
-            default -> {
-
-            }
+            case 1 -> setContentAgregarPrestamo(e);
+            case 2 -> setContentBuscarPrestamo(e);
+            case 3 -> setConetentPaneListarPrestamos(e);
         }
     }
 }

@@ -52,7 +52,7 @@ public class ControladorDeClientes {
                 case "1-3" ->
                         //Listado de clientes
                         {
-
+                            vistaCliente.mainContentHandler(3, new ListenerHandler(), null);
                         }
             }
         }
