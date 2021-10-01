@@ -163,9 +163,9 @@ public class busquedaRegistroClientes extends vistaHandler {
         botonera.add(agregarCliente);
         buscarCliente =ButtonFactory("Buscar Cliente", "1-2",e);
         botonera.add(buscarCliente);//TODO 1)opcion de pagar, 2)ver prestamos, 3) ver pagos de 1 prestamo, 4) ver todos los pagos del todos los prestamos
-        buscarPrestamo =ButtonFactory("Buscar Prestamo", "1-3",e);
+        buscarPrestamo =ButtonFactory("Buscar Prestamo", "1--",e); // TODO ajustar commands
         botonera.add(buscarPrestamo);
-        listadoClientes =ButtonFactory("Listado de Clientes", "1-4",e);
+        listadoClientes =ButtonFactory("Listado de Clientes", "1-3",e);
         botonera.add(listadoClientes);
         listadoprestamos =ButtonFactory("Listado de Prestamos", "1-5",e);
         botonera.add(listadoprestamos);

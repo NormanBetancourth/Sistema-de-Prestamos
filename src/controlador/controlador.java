@@ -22,7 +22,7 @@ private JPanel mapa;
         modelo = new ModelHandler();
         home.addListener(new ListenerHandler());
         subMenuRegistro = new busquedaRegistroClientes();
-        mapCreator = new mapHandler(new MousePositionListener(),new MousePositionListener());
+        //mapCreator = new mapHandler(new MousePositionListener(),new MousePositionListener());
         mapa = (JPanel) mapCreator.getUI();
     }
 
@@ -63,52 +63,6 @@ private JPanel mapa;
             }catch (Exception exception){
                 System.out.println("Error");
             }
-
-        }
-    }
-
-    class MousePositionListener implements MouseMotionListener, MouseListener {
-
-        @Override
-        public void mouseDragged(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseMoved(MouseEvent e) {
-
-            mapCreator.refresh();
-
-
-
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            System.out.println( mapCreator.isInThisArea(e.getX(),e.getY()));;//https://docs.oracle.com/javase/7/docs/api/java/awt/Rectangle.html
-
-
-
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
 
         }
     }

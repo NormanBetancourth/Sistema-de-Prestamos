@@ -44,13 +44,13 @@ public class ModelHandler {
     }
 
     //String id, String nombre, String provincia, String distrito, String canton
-    public void registrarCliente(String id, String nombre, String provincia, String distrito, String canton){
+    public void registrarCliente(int id, String nombre, String provincia, String distrito, String canton){
         getListaDeClientes().add(new Cliente(id, nombre, provincia, distrito, canton));
     }
 
-    public boolean clienteEstaRegistrado(String idCliente){
+    public boolean clienteEstaRegistrado(int idCliente){
         for(Cliente cliente : getListaDeClientes()) {
-            if (cliente.getId().equals(idCliente)) {
+            if (cliente.getId() == (idCliente)) {
                 return true;
             }
         }
@@ -153,9 +153,9 @@ public class ModelHandler {
         return distritos;
     }
 
-    public Cliente getAlgunCliente(String idCliente){
+    public Cliente getAlgunCliente(int idCliente){
         for(Cliente cliente : getListaDeClientes()) {
-            if (cliente.getId().equals(idCliente)) {
+            if (cliente.getId() == idCliente) {
                 return cliente;
             }
         }
@@ -171,7 +171,7 @@ public class ModelHandler {
         return null;
     }
 
-    public String getPrestamosDeAlgunCliente(String idCliente){
+    public String getPrestamosDeAlgunCliente(int idCliente){
        return getAlgunCliente(idCliente).getListaDePrestamos().toString();
     }
 
