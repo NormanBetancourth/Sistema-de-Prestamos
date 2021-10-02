@@ -39,6 +39,9 @@ public class ControladorDeClientes {
             String distrito = null;
 
             switch (valor) {
+
+
+
                 case "1-0" ->
                         //Regresar
                         {
@@ -83,7 +86,12 @@ public class ControladorDeClientes {
         @Override
         public void mouseClicked(MouseEvent e) {
             System.out.println( mapCreator.isInThisArea(e.getX(),e.getY()));//https://docs.oracle.com/javase/7/docs/api/java/awt/Rectangle.html
-            vistaCliente.setprovinciaMapa(mapCreator.isInThisArea(e.getX(),e.getY()));
+            int i = mapCreator.isInThisArea(e.getX(),e.getY());
+            vistaCliente.setprovinciaMapa(i);
+            if (i != -1){
+                vistaCliente.cargarCantones(i);
+            }
+
 
 
 

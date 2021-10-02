@@ -1,9 +1,12 @@
 package vista;
 
+import modelo.mapHandler.SubMapHandler;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class VistaCliente extends VentanaGestion{
     private JTextField nameTextField = new JTextField();
@@ -12,8 +15,8 @@ public class VistaCliente extends VentanaGestion{
     private JComboBox cantonCombo;
     private JComboBox distritoCombo;
     private String[] provincias;
-    private String[] cantones;
-    private String[] distritos;
+    private ArrayList<String> cantones;
+    private ArrayList<String>  distritos;
     private JButton inicioBoton;
     private JPanel mapConteiner; // label donde va el mapa
 
@@ -25,8 +28,13 @@ public class VistaCliente extends VentanaGestion{
         provinciaCombo.setEnabled(false);
         provinciaCombo.setBackground(Color.white);
         provinciaCombo.setForeground(Color.BLACK);
-        cantonCombo= new JComboBox(provincias);
-        distritoCombo= new JComboBox(provincias);
+
+        cantonCombo= new JComboBox();
+        distritoCombo= new JComboBox();
+
+        provinciaCombo.setActionCommand("Provincia");
+        cantonCombo.setActionCommand("Canton");
+        distritoCombo.setActionCommand("Distrito");
     }
 
 /*
@@ -74,6 +82,9 @@ public class VistaCliente extends VentanaGestion{
         this.add(mainPanel, BorderLayout.CENTER);
         southPanel.setPreferredSize(new Dimension(100,20));
         southPanel.setBackground(Color.decode("#081F62"));
+        provinciaCombo.addActionListener(e);
+        cantonCombo.addActionListener(e);
+        distritoCombo.addActionListener(e);
 
         mainContentHandler(1,e, mapa);
 
@@ -92,19 +103,21 @@ public class VistaCliente extends VentanaGestion{
     public String[] getProvinciaSelected() {
         return provincias;
     }
-    public String[] getCantones() {
+    public ArrayList<String> getCantones() {
         return cantones;
     }
-    public String[] getDistritos() {
+    public ArrayList<String> getDistritos() {
         return distritos;
     }
     public void setProvincias(String[] provincias) {
         this.provincias = provincias;
     }
-    public void setCantones(String[] cantones) {
+    public void setCantones(ArrayList<String> cantones) {
         this.cantones = cantones;
+        validate();
+
     }
-    public void setDistritos(String[] distritos) {
+    public void setDistritos(ArrayList<String> distritos) {
         this.distritos = distritos;
     }
 
@@ -241,6 +254,47 @@ public class VistaCliente extends VentanaGestion{
         }
     }
 
+    public void cargarCantones(int i) {
+        String ss;
+        switch (i){
+            case 0 -> {
+                ss = "3";
+                break;
+            }
+            case 1 -> {
+                ss = "1";
+                break;
+            }
+            case 2 -> {
+                ss = "4";
+                break;
+            }
+            case 3,7 -> {
+                ss = "5";
+                break;
+            }
+            case 4 -> {
+                ss = "2";
+                break;
+            }
+            case 5 -> {
+                ss = "6";
+                break;
+            }
+            case 6 -> {
+                ss = "0";
+                break;
+            }
+            default -> throw new IllegalStateException("Unexpected value: " + i);
+        }
+
+        setCantones(SubMapHandler.mostrarCantones(ss));
+        cantonCombo.removeAllItems();
+        for (String s:cantones){
+            cantonCombo.addItem(s);
+        }
+        repaint();
+    }
 }
 
 /*
