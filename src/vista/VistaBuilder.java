@@ -8,7 +8,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public interface VistaHandler {
+public interface VistaBuilder {
     static JButton ButtonFactory(String text, String id, ActionListener e) {
         JButton button = new JButton(text);
         button.setForeground(Color.BLACK);

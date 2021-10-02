@@ -5,14 +5,14 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class HomeFrame extends JFrame implements VistaHandler {
+public class HomeFrame extends JFrame implements VistaBuilder {
     private JPanel northPane = new JPanel();
     private JPanel centralPane = new JPanel();
     private JPanel leftPane = new JPanel();
-    private JButton btn1 = VistaHandler.ButtonFactory("Clientes", "1", null);
-    private JButton btn2 = VistaHandler.ButtonFactory("Prestamos", "2", null);
-    private JButton btn3 = VistaHandler.ButtonFactory("Pagos", "3",null);
-    private JButton  btn4 = VistaHandler.ButtonFactory("Reportes", "4",null);
+    private JButton btn1 = VistaBuilder.ButtonFactory("Clientes", "1", null);
+    private JButton btn2 = VistaBuilder.ButtonFactory("Prestamos", "2", null);
+    private JButton btn3 = VistaBuilder.ButtonFactory("Pagos", "3",null);
+    private JButton  btn4 = VistaBuilder.ButtonFactory("Reportes", "4",null);
 
     public HomeFrame(JPanel northPane, JPanel centralPanet, JPanel southPane, JPanel leftPane) throws HeadlessException {
         this.northPane = northPane;

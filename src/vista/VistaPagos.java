@@ -30,13 +30,13 @@ public class VistaPagos extends VentanaGestion{
         botonera.setLayout(new FlowLayout(FlowLayout.CENTER));
         botonera.setPreferredSize(new Dimension(800,40));
         botonera.setBackground(Color.decode("#E7EAF0"));
-        inicioBoton = VistaHandler.ButtonFactory("Inicio", "3-0",e);
+        inicioBoton = VistaBuilder.ButtonFactory("Inicio", "3-0",e);
         botonera.add(inicioBoton);
-        agregarBoton = VistaHandler.ButtonFactory("Agregar Pago", "3-1",e);
+        agregarBoton = VistaBuilder.ButtonFactory("Agregar Pago", "3-1",e);
         botonera.add(agregarBoton);
-        buscarBoton = VistaHandler.ButtonFactory("Buscar Pago", "3-2",e);
+        buscarBoton = VistaBuilder.ButtonFactory("Buscar Pago", "3-2",e);
         botonera.add(buscarBoton);
-        listarBoton = VistaHandler.ButtonFactory("Listado de Pagos", "3-3",e);
+        listarBoton = VistaBuilder.ButtonFactory("Listado de Pagos", "3-3",e);
         botonera.add(listarBoton);
 
         mainPanel.setLayout(new BorderLayout());

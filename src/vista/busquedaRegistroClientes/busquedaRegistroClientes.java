@@ -1,13 +1,14 @@
 package vista.busquedaRegistroClientes;
 
-import vista.VistaHandler;
+import vista.VentanaGestion;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import vista.VistaBuilder;
 
-public class busquedaRegistroClientes extends JFrame implements VistaHandler {
+public class busquedaRegistroClientes extends VentanaGestion {
     private JPanel mainPanel;
     private JPanel northPanel;
     private JPanel southPanel;
@@ -157,17 +158,17 @@ public class busquedaRegistroClientes extends JFrame implements VistaHandler {
         botonera.setLayout(new FlowLayout(FlowLayout.CENTER));
         botonera.setPreferredSize(new Dimension(800,40));
         botonera.setBackground(Color.decode("#E7EAF0"));
-        inicio = VistaHandler.ButtonFactory("Inicio", "0-1",e);
+        inicio = VistaBuilder.ButtonFactory("Inicio", "0-1",e);
         botonera.add(inicio);
-        agregarCliente = VistaHandler.ButtonFactory("Agregar Cliente", "1-1",e);
+        agregarCliente = VistaBuilder.ButtonFactory("Agregar Cliente", "1-1",e);
         botonera.add(agregarCliente);
-        buscarCliente = VistaHandler.ButtonFactory("Buscar Cliente", "1-2",e);
+        buscarCliente = VistaBuilder.ButtonFactory("Buscar Cliente", "1-2",e);
         botonera.add(buscarCliente);//TODO 1)opcion de pagar, 2)ver prestamos, 3) ver pagos de 1 prestamo, 4) ver todos los pagos del todos los prestamos
-        buscarPrestamo = VistaHandler.ButtonFactory("Buscar Prestamo", "1--",e); // TODO ajustar commands
+        buscarPrestamo = VistaBuilder.ButtonFactory("Buscar Prestamo", "1-3",e);
         botonera.add(buscarPrestamo);
-        listadoClientes = VistaHandler.ButtonFactory("Listado de Clientes", "1-3",e);
+        listadoClientes = VistaBuilder.ButtonFactory("Listado de Clientes", "1-4",e);
         botonera.add(listadoClientes);
-        listadoprestamos = VistaHandler.ButtonFactory("Listado de Prestamos", "1-5",e);
+        listadoprestamos = VistaBuilder.ButtonFactory("Listado de Prestamos", "1-5",e);
         botonera.add(listadoprestamos);
 
 
@@ -199,7 +200,7 @@ public class busquedaRegistroClientes extends JFrame implements VistaHandler {
 
         //formulario
         labelAux.setBorder(new EmptyBorder(0,190,0,0));
-        JButton btnAux = VistaHandler.ButtonFactory("Guardar", "guardar", e);
+        JButton btnAux = VistaBuilder.ButtonFactory("Guardar", "guardar", e);
         auxPanel.setLayout(new GridLayout(2,2, 50,10));
         auxPanel.add(labelAux);
         auxPanel.add(nameTextField);
@@ -230,7 +231,7 @@ public class busquedaRegistroClientes extends JFrame implements VistaHandler {
 
         ImageIcon saveImg = new ImageIcon("src/vista/images/floppy-disk_1f4be.png");
 
-        JButton btnGuardar= VistaHandler.ButtonFactory("", "guardar-btn",e);
+        JButton btnGuardar= VistaBuilder.ButtonFactory("", "guardar-btn",e);
 
         btnGuardar.setIcon(saveImg);
         btnGuardar.setPreferredSize(new Dimension(60,39));
@@ -251,7 +252,7 @@ public class busquedaRegistroClientes extends JFrame implements VistaHandler {
 
         //rigth column
         //TODO Agregar ToolTipText
-        JButton prestamo = VistaHandler.ButtonFactory("","pretamo-btn",e);
+        JButton prestamo = VistaBuilder.ButtonFactory("","pretamo-btn",e);
         saveImg = new ImageIcon("src/vista/images/icons8-money-48.png");
 
         prestamo.setIcon(saveImg);

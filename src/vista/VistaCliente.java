@@ -53,13 +53,13 @@ public class VistaCliente extends VentanaGestion{
         botonera.setLayout(new FlowLayout(FlowLayout.CENTER));
         botonera.setPreferredSize(new Dimension(800,40));
         botonera.setBackground(Color.decode("#E7EAF0"));
-        inicioBoton = VistaHandler.ButtonFactory("Inicio", "1-0",e);
+        inicioBoton = VistaBuilder.ButtonFactory("Inicio", "1-0",e);
         botonera.add(inicioBoton);
-        agregarBoton = VistaHandler.ButtonFactory("Agregar Cliente", "1-1",e);
+        agregarBoton = VistaBuilder.ButtonFactory("Agregar Cliente", "1-1",e);
         botonera.add(agregarBoton);
-        buscarBoton = VistaHandler.ButtonFactory("Buscar Cliente", "1-2",e);
+        buscarBoton = VistaBuilder.ButtonFactory("Buscar Cliente", "1-2",e);
         botonera.add(buscarBoton);
-        listarBoton = VistaHandler.ButtonFactory("Listado de Clientes", "1-3",e);
+        listarBoton = VistaBuilder.ButtonFactory("Listado de Clientes", "1-3",e);
         botonera.add(listarBoton);
 
         mainPanel.setLayout(new BorderLayout());
@@ -127,7 +127,7 @@ public class VistaCliente extends VentanaGestion{
 
         //formulario
         labelAux.setBorder(new EmptyBorder(0,190,0,0));
-        JButton btnAux = VistaHandler.ButtonFactory("Guardar", "guardar", e);
+        JButton btnAux = VistaBuilder.ButtonFactory("Guardar", "guardar", e);
         auxPanel.setLayout(new GridLayout(2,2, 50,10));
         auxPanel.add(labelAux);
         auxPanel.add(nameTextField);
@@ -158,7 +158,7 @@ public class VistaCliente extends VentanaGestion{
 
         ImageIcon saveImg = new ImageIcon("src/vista/images/floppy-disk_1f4be.png");
 
-        JButton btnGuardar= VistaHandler.ButtonFactory("", "guardar-btn",e);
+        JButton btnGuardar= VistaBuilder.ButtonFactory("", "guardar-btn",e);
 
         btnGuardar.setIcon(saveImg);
         btnGuardar.setPreferredSize(new Dimension(60,39));
@@ -179,7 +179,7 @@ public class VistaCliente extends VentanaGestion{
 
         //rigth column
         //TODO Agregar ToolTipText
-        JButton prestamo = VistaHandler.ButtonFactory("","pretamo-btn",e);
+        JButton prestamo = VistaBuilder.ButtonFactory("","pretamo-btn",e);
         saveImg = new ImageIcon("src/vista/images/icons8-money-48.png");
 
         prestamo.setIcon(saveImg);

@@ -30,13 +30,13 @@ public class VistaPrestamos extends VentanaGestion{
         botonera.setLayout(new FlowLayout(FlowLayout.CENTER));
         botonera.setPreferredSize(new Dimension(800,40));
         botonera.setBackground(Color.decode("#E7EAF0"));
-        inicioBoton = VistaHandler.ButtonFactory("Inicio", "2-0",e);
+        inicioBoton = VistaBuilder.ButtonFactory("Inicio", "2-0",e);
         botonera.add(inicioBoton);
-        agregarBoton = VistaHandler.ButtonFactory("Agregar Prestamo", "2-1",e);
+        agregarBoton = VistaBuilder.ButtonFactory("Agregar Prestamo", "2-1",e);
         botonera.add(agregarBoton);
-        buscarBoton = VistaHandler.ButtonFactory("Buscar Prestamo", "2-2",e);
+        buscarBoton = VistaBuilder.ButtonFactory("Buscar Prestamo", "2-2",e);
         botonera.add(buscarBoton);
-        listarBoton = VistaHandler.ButtonFactory("Listado de Prestamos", "2-3",e);
+        listarBoton = VistaBuilder.ButtonFactory("Listado de Prestamos", "2-3",e);
         botonera.add(listarBoton);
 
         mainPanel.setLayout(new BorderLayout());
