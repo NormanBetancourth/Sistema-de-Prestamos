@@ -7,14 +7,19 @@ import java.awt.event.*;
 
 public class ControladorDeClientes {
     private VistaCliente vistaCliente;
-    private mapHandler mapCreator;
     private JPanel mapa;
-
-    public ControladorDeClientes() {
-        mapCreator = new mapHandler(new MousePositionListener(), new MousePositionListener());
+    private static mapHandler mapCreator;
+    private Controlador ctrl;
+    public ControladorDeClientes(mapHandler mapC, Controlador c) {
+        ctrl = c;
+        mapCreator = mapC;
         mapa = (JPanel) mapCreator.getUI();
         vistaCliente = new VistaCliente();
         vistaCliente.addComponents(new ListenerHandler(), mapa);
+    }
+
+    public void setMapa(JPanel mapa) {
+        this.mapa = mapa;
     }
 
     private class ListenerHandler implements ActionListener {
@@ -33,7 +38,7 @@ public class ControladorDeClientes {
                         //Regresar
                         {
                             vistaCliente.dispose();
-                            new Controlador();
+                            ctrl.setVisible();
                         }
                 case "1-1" ->
                         //Agregar cliente
@@ -58,7 +63,7 @@ public class ControladorDeClientes {
         }
     }
 
-    class MousePositionListener implements MouseMotionListener, MouseListener {
+    static class MousePositionListener implements MouseMotionListener, MouseListener {
 
         @Override
         public void mouseDragged(MouseEvent e) {

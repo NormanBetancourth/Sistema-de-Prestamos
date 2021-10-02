@@ -7,10 +7,13 @@ import java.awt.event.ActionListener;
 
 public class ControladorDePagos {
     private VistaPagos vistaPagos;
+    private Controlador ctrl;
 
-    public ControladorDePagos() {
+    public ControladorDePagos(Controlador c) {
+        ctrl = c;
         vistaPagos = new VistaPagos();
         vistaPagos.addComponents(new ListenerHandler());
+
     }
 
     private class ListenerHandler implements ActionListener {
@@ -27,7 +30,7 @@ public class ControladorDePagos {
                 case "3-0":
                 {
                     vistaPagos.dispose();
-                    new Controlador();
+                    ctrl.setVisible();
                 }
                 break;
                 case "3-1":

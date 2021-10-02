@@ -7,8 +7,10 @@ import java.awt.event.ActionListener;
 
 public class ControladorDePrestamos {
     private VistaPrestamos vistaPrestamos;
+    private Controlador ctrl;
 
-    public ControladorDePrestamos() {
+    public ControladorDePrestamos(Controlador c) {
+        ctrl = c;
         vistaPrestamos = new VistaPrestamos();
         vistaPrestamos.addComponents(new ListenerHandler());
     }
@@ -27,7 +29,7 @@ public class ControladorDePrestamos {
                         //Regresar
                         {
                             vistaPrestamos.dispose();
-                            new Controlador();
+                            ctrl.setVisible();
                         }
                 case "2-1" ->
                         //Agregar prestamo

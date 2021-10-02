@@ -1,8 +1,10 @@
 package controlador;
 
 import modelo.ModelHandler;
+import modelo.mapHandler.mapHandler;
 import vista.HomeFrame;
 
+import javax.swing.*;
 import java.awt.event.*;
 
 public class Controlador {
@@ -11,15 +13,22 @@ public class Controlador {
     ControladorDeClientes controladorDeClientes;
     ControladorDePrestamos controladorDePrestamos;
     ControladorDePagos controladorDePagos;
+    private mapHandler mapCreator;
+
 
     public Controlador() {
         Home = new HomeFrame();
         Home.addComponents(new ListenerHandler());
+        mapCreator = new mapHandler(new ControladorDeClientes.MousePositionListener(), new ControladorDeClientes.MousePositionListener());
         modelo = new ModelHandler();
     }
 
     public ModelHandler getModelo() {
         return modelo;
+    }
+
+    public void setVisible() {
+        Home.setVisible(true);
     }
 
     private  class ListenerHandler implements ActionListener {
@@ -30,15 +39,15 @@ public class Controlador {
                 switch (valor) {
                     case "1" -> {
                         Home.dispose();
-                        controladorDeClientes = new ControladorDeClientes();
+                        controladorDeClientes = new ControladorDeClientes(mapCreator, Controlador.this);
                     }
                     case "2" -> {
                         Home.dispose();
-                        controladorDePrestamos = new ControladorDePrestamos();
+                        controladorDePrestamos = new ControladorDePrestamos(Controlador.this);
                     }
                     case "3" -> {
                         Home.dispose();
-                        controladorDePagos = new ControladorDePagos();
+                        controladorDePagos = new ControladorDePagos(Controlador.this);
                     }
                 }
             }
@@ -47,4 +56,6 @@ public class Controlador {
             }
         }
     }
+
+
 }
