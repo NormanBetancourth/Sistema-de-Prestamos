@@ -19,8 +19,12 @@ public class VistaCliente extends VentanaGestion{
 
     public VistaCliente() throws HeadlessException {
         // TODO ajustar
-        provincias = new String[]{"SAN JOSE", "HEREDIA", "ALAJUELA", "CARTAGO", "LIMON", "PUNTARENAS", "GUANACASTE"};
+        provincias = new String[]{"Heredia", "Alajuela", "Guanacaste", "Puntarenas", "Cartago", "Limon", "San Jose","Puntarenas"};
         provinciaCombo = new JComboBox(provincias);
+        provinciaCombo.setSelectedItem("Seleccione");
+        provinciaCombo.setEnabled(false);
+        provinciaCombo.setBackground(Color.white);
+        provinciaCombo.setForeground(Color.BLACK);
         cantonCombo= new JComboBox(provincias);
         distritoCombo= new JComboBox(provincias);
     }
@@ -200,6 +204,15 @@ public class VistaCliente extends VentanaGestion{
 
         mainPanel.add(mainConten, BorderLayout.CENTER);
         this.setVisible(true);
+    }
+
+    public void setprovinciaMapa(int i){
+        if (i == -1){
+            provinciaCombo.setSelectedItem("Seleccione");
+        }else {
+            provinciaCombo.setSelectedItem(provincias[i]);
+        }
+
     }
 
     private void setContentBuscarCliente(ActionListener e){

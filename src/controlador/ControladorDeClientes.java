@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class ControladorDeClientes {
-    private VistaCliente vistaCliente;
+    private static VistaCliente vistaCliente;
     private JPanel mapa;
     private static mapHandler mapCreator;
     private Controlador ctrl;
@@ -21,6 +21,11 @@ public class ControladorDeClientes {
     public void setMapa(JPanel mapa) {
         this.mapa = mapa;
     }
+    public void setProvincia(int i){
+        vistaCliente.setprovinciaMapa(i);
+
+    }
+
 
     private class ListenerHandler implements ActionListener {
         //Cliente: cédula, nombre y provincia, cantón y distrito de su dirección
@@ -63,7 +68,7 @@ public class ControladorDeClientes {
         }
     }
 
-    static class MousePositionListener implements MouseMotionListener, MouseListener {
+     public static class MousePositionListener implements MouseMotionListener, MouseListener {
 
         @Override
         public void mouseDragged(MouseEvent e) {
@@ -77,7 +82,12 @@ public class ControladorDeClientes {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println( mapCreator.isInThisArea(e.getX(),e.getY()));;//https://docs.oracle.com/javase/7/docs/api/java/awt/Rectangle.html
+            System.out.println( mapCreator.isInThisArea(e.getX(),e.getY()));//https://docs.oracle.com/javase/7/docs/api/java/awt/Rectangle.html
+            vistaCliente.setprovinciaMapa(mapCreator.isInThisArea(e.getX(),e.getY()));
+
+
+
+
         }
 
         @Override
