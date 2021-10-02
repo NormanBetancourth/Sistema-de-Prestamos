@@ -17,13 +17,28 @@ public  class SubMapHandler {
             archivo = new File ("src/modelo/dataBase/db.csv");
             fr = new FileReader (archivo);
             br = new BufferedReader(fr);
+            int limit = Integer.parseInt(s) + 1;
             // Lectura del fichero
             String linea;
             String aux;//para guardar el canton
             linea=br.readLine();
+            if (s.equals("0")){
+                while (linea!=null){
+
+
+                    while ((linea) != null && !linea.equals("1")) {
+                        if (linea.equals(linea.toUpperCase()) && linea.length() > 2) {
+                            cantones.add(linea);
+                        }
+                        linea = br.readLine();
+                    }
+                    break;
+                }
+
+            }
             while (linea!=null){
                 if (linea.equals(s)) {
-                    int limit = Integer.parseInt(s) + 1;
+
                     while ((linea) != null && !linea.equals(String.valueOf(limit))) {
                         if (linea.equals(linea.toUpperCase()) && linea.length() > 2) {
                             cantones.add(linea);

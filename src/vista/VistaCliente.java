@@ -31,6 +31,8 @@ public class VistaCliente extends VentanaGestion{
 
         cantonCombo= new JComboBox();
         distritoCombo= new JComboBox();
+        cantonCombo.setSelectedItem("Elige");
+        distritoCombo.setSelectedItem("Elige");
 
         provinciaCombo.setActionCommand("Provincia");
         cantonCombo.setActionCommand("Canton");
@@ -91,6 +93,7 @@ public class VistaCliente extends VentanaGestion{
         this.add(southPanel, BorderLayout.SOUTH);
         this.setVisible(true);
     }
+
 
     public void clearFields(){
         nameTextField.setText(null);
@@ -289,11 +292,33 @@ public class VistaCliente extends VentanaGestion{
         }
 
         setCantones(SubMapHandler.mostrarCantones(ss));
-        cantonCombo.removeAllItems();
+        if (distritoCombo.getItemCount() > 0)
+            distritoCombo.removeAllItems();
+        if (cantonCombo.getItemCount() > 0)
+            cantonCombo.removeAllItems();
         for (String s:cantones){
             cantonCombo.addItem(s);
         }
+
         repaint();
+    }
+
+    public void cargarDistritos(String ss){
+
+        setDistritos(SubMapHandler.mostrarDistritos(ss));
+        distritoCombo.removeAllItems();
+        for (String s:distritos){
+            distritoCombo.addItem(s);
+        }
+
+        repaint();
+    }
+
+    public String getSelectedCanton(){
+        return (String) cantonCombo.getSelectedItem();
+    }
+    public String getSelectedDistrito(){
+        return (String) distritoCombo.getSelectedItem();
     }
 }
 

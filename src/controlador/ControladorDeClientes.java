@@ -1,4 +1,5 @@
 package controlador;
+import modelo.mapHandler.SubMapHandler;
 import modelo.mapHandler.mapHandler;
 import vista.VistaCliente;
 
@@ -41,6 +42,12 @@ public class ControladorDeClientes {
             switch (valor) {
 
 
+                case "Canton" ->{
+                    if (vistaCliente.getSelectedCanton() != null){
+                        vistaCliente.cargarDistritos(vistaCliente.getSelectedCanton());
+                    }
+                    break;
+                }
 
                 case "1-0" ->
                         //Regresar
