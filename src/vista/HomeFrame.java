@@ -4,45 +4,38 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.EventListener;
 
-public class homeFrame extends vistaHandler {
-    private JPanel northPane;
-    private JPanel centralPane;
-    private JPanel leftPane;
-    private JButton btn1;
-    private JButton btn2;
-    private JButton btn3;
-    private JButton btn4;
+public class HomeFrame extends JFrame implements VistaBuilder {
+    private JPanel northPane = new JPanel();
+    private JPanel centralPane = new JPanel();
+    private JPanel leftPane = new JPanel();
+    private JButton btn1 = VistaBuilder.ButtonFactory("Clientes", "1", null);
+    private JButton btn2 = VistaBuilder.ButtonFactory("Prestamos", "2", null);
+    private JButton btn3 = VistaBuilder.ButtonFactory("Pagos", "3",null);
+    private JButton  btn4 = VistaBuilder.ButtonFactory("Reportes", "4",null);
 
-    public homeFrame(JPanel northPane, JPanel centralPanet, JPanel southPane, JPanel leftPane) throws HeadlessException {
+    public HomeFrame(JPanel northPane, JPanel centralPanet, JPanel southPane, JPanel leftPane) throws HeadlessException {
         this.northPane = northPane;
         this.centralPane = centralPanet;
         this.leftPane = leftPane;
     }
 
-    public homeFrame() throws HeadlessException {
-        northPane = new JPanel();
-        centralPane = new JPanel();
-        leftPane = new JPanel();
-        btn1 = ButtonFactory("Busqueda y Registro", "1", null);
-        btn2 = ButtonFactory("Consulta y Registros", "2", null);
-        btn3 = ButtonFactory("Listado de Pagos", "3",null);
-        btn4 = ButtonFactory("Reportes", "4",null);
-
+    public HomeFrame() throws HeadlessException {
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public void addComponents(ActionListener e){
-
         ImageIcon img = new ImageIcon("src/vista/images/logo.png");
         this.setIconImage(img.getImage());
         this.setSize(new Dimension(900,600));
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
+
         JLabel label = new JLabel("\nSistema de Prestamos");//titulo de ventana estilizado
         label.setBorder(new EmptyBorder(7,0,0,0));
         label.setForeground(Color.WHITE);
         label.setFont(new Font("TimesRoman", Font.PLAIN , 20));
+
         northPane.add(label);
         northPane.setPreferredSize(new Dimension(700,50));
         northPane.setBackground(Color.decode("#081F62"));
@@ -73,11 +66,11 @@ public class homeFrame extends vistaHandler {
         this.add(centralPane, BorderLayout.CENTER);
         this.add(leftPane, BorderLayout.WEST);
         this.add(jj, BorderLayout.SOUTH);
-        this.setVisible(true);
+
         addListener(e);
 
+        this.setVisible(true);
     }
-
 
     public void addListener(ActionListener e){
         btn1.addActionListener(e);

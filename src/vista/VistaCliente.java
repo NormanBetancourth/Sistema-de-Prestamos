@@ -5,48 +5,87 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class busquedaRegistroClientes extends vistaHandler {
-    private JPanel mainPanel;
-    private JPanel northPanel;
-    private JPanel southPanel;
-    private JPanel mainConten;
-    private JPanel botonera ;
-
-    //info del cliente
-    private String clienteNombre;
-    private String clienteId;
-    private String clienteProvincia;
-    private String clienteDistrito;
-    private String clienteCanton;
-
-    //campos de texto id, name
-    private JTextField nameTextField;
-    private JTextField idTextField;
-
-    //combo boxes
+public class VistaCliente extends VentanaGestion{
+    private JTextField nameTextField = new JTextField();
+    private JTextField idTextField = new JTextField();
     private JComboBox provinciaCombo;
     private JComboBox cantonCombo;
     private JComboBox distritoCombo;
     private String[] provincias;
     private String[] cantones;
     private String[] distritos;
+    private JButton inicioBoton;
+    private JPanel mapConteiner; // label donde va el mapa
 
-    private JButton inicio;
-    private JButton agregarCliente;
-    private JButton buscarCliente;
-    private JButton buscarPrestamo;
-    private JButton listadoClientes;
-    private JButton listadoprestamos;
+    public VistaCliente() throws HeadlessException {
+        // TODO ajustar
+        provincias = new String[]{"SAN JOSE", "HEREDIA", "ALAJUELA", "CARTAGO", "LIMON", "PUNTARENAS", "GUANACASTE"};
+        provinciaCombo = new JComboBox(provincias);
+        cantonCombo= new JComboBox(provincias);
+        distritoCombo= new JComboBox(provincias);
+    }
 
-    //label donde va el mapa
-    JPanel mapConteiner;
+/*
+    public void configuraComboBoxes(HashMap<String, HashMap<String, Object>> cantonesDistritos){
+        provinciaCombo = new JComboBox(provincias);
+        // Obteniendo las llaves del mapa (cantones) y pasando todos estos valores
+        // a que sean del tipo array
+        cantonCombo = new JComboBox(cantonesDistritos.keySet().toArray());
+        distritoCombo = new JComboBox(cantonesDistritos.keySet().toArray());
+    }
+     */
 
-    public void setMapConteiner(JPanel mapConteiner) {
-        this.mapConteiner = mapConteiner;
+    public void addComponents(ActionListener e , JPanel mapa){
+        ImageIcon imageIcon = new ImageIcon("src/vista/images/icons8-client-64.png");
+        this.setIconImage(imageIcon.getImage());
+
+        JLabel label =  new JLabel("Gestion De Clientes");
+        label.setForeground(Color.white);
+        label.setFont(new Font("TimesRoman", Font.PLAIN, 15));
+        label.setBorder(new EmptyBorder(4,0,0,0));
+
+        northPanel.setPreferredSize(new Dimension(northPanel.getWidth(),40));
+        northPanel.setBackground(Color.decode("#081F62"));
+        northPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        northPanel.add(label);
+
+        botonera = new JPanel();
+        botonera.setLayout(new FlowLayout(FlowLayout.CENTER));
+        botonera.setPreferredSize(new Dimension(800,40));
+        botonera.setBackground(Color.decode("#E7EAF0"));
+        inicioBoton = VistaBuilder.ButtonFactory("Inicio", "1-0",e);
+        botonera.add(inicioBoton);
+        agregarBoton = VistaBuilder.ButtonFactory("Agregar Cliente", "1-1",e);
+        botonera.add(agregarBoton);
+        buscarBoton = VistaBuilder.ButtonFactory("Buscar Cliente", "1-2",e);
+        botonera.add(buscarBoton);
+        listarBoton = VistaBuilder.ButtonFactory("Listado de Clientes", "1-3",e);
+        botonera.add(listarBoton);
+
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.add(botonera, BorderLayout.NORTH);
+        mainPanel.add(mainConten, BorderLayout.CENTER);
+        this.add(northPanel, BorderLayout.NORTH);
+        mainPanel.setBackground(Color.white);
+        this.add(mainPanel, BorderLayout.CENTER);
+        southPanel.setPreferredSize(new Dimension(100,20));
+        southPanel.setBackground(Color.decode("#081F62"));
+
+        mainContentHandler(1,e, mapa);
+
+        this.add(southPanel, BorderLayout.SOUTH);
         this.setVisible(true);
     }
 
-    public String[] getProvincias() {
+    public void clearFields(){
+        nameTextField.setText(null);
+        idTextField.setText(null);
+        provinciaCombo.setSelectedItem(0);
+        cantonCombo.setSelectedItem(0);
+        distritoCombo.setSelectedItem(0);
+    }
+
+    public String[] getProvinciaSelected() {
         return provincias;
     }
     public String[] getCantones() {
@@ -65,127 +104,18 @@ public class busquedaRegistroClientes extends vistaHandler {
         this.distritos = distritos;
     }
 
-    public void setClienteNombre() {
-        this.clienteNombre = nameTextField.getText();
+    public JTextField getNameTextField(){
+        return nameTextField;
     }
-    public void setClienteId() {
-        this.clienteId = idTextField.getText();
+    public JTextField getIdTextField(){
+        return idTextField;
     }
-    public void setClienteProvincia() {
-        this.clienteProvincia = (String) provinciaCombo.getSelectedItem();
+    public String getTextoName(){
+        return nameTextField.getText();
     }
-    public void setClienteDistrito() {
-        this.clienteDistrito = (String) distritoCombo.getSelectedItem();
+    public String getTextoId(){
+        return idTextField.getText();
     }
-    public void setClienteCanton() {
-        this.clienteCanton = (String) cantonCombo.getSelectedItem();
-    }
-
-    public JPanel getMainConten() {
-        return mainConten;
-    }
-    public String getClienteNombre() {
-        setClienteNombre();
-        return clienteNombre;
-    }
-    public String getClienteId() {
-        setClienteId();
-        return clienteId;
-    }
-    public String getClienteProvincia() {
-        setClienteProvincia();
-        return clienteProvincia;
-    }
-    public String getClienteDistrito() {
-        setClienteDistrito();
-        return clienteDistrito;
-    }
-    public String getClienteCanton() {
-        setClienteCanton();
-        return clienteCanton;
-    }
-
-    public busquedaRegistroClientes() throws HeadlessException {
-        mainPanel = new JPanel();
-        northPanel = new JPanel();
-        southPanel = new JPanel();
-        mainConten = new JPanel();
-        botonera = new JPanel();
-        this.setSize(new Dimension(900,790));
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(new BorderLayout());
-        clienteNombre = "";
-        clienteId= "";
-        clienteProvincia="";
-        clienteDistrito="";
-        clienteCanton="";
-
-        nameTextField = new JTextField();
-        idTextField = new JTextField();
-
-        provincias = new String[]{"SAN JOSE", "HEREDIA", "ALAJUELA", "CARTAGO", "LIMON", "PUNTARENAS", "GUANACASTE"};
-        provinciaCombo = new JComboBox(provincias);
-        cantonCombo= new JComboBox(provincias);
-        distritoCombo= new JComboBox(provincias);
-
-
-    }
-
-
-
-
-    public void addComponents(ActionListener e ,JPanel mapa){
-
-        ImageIcon imageIcon = new ImageIcon("src/vista/images/icons8-client-64.png");
-        this.setIconImage(imageIcon.getImage());
-
-        JLabel label =  new JLabel("Búsqueda y registro de clientes");
-        label.setForeground(Color.white);
-        label.setFont(new Font("TimesRoman", Font.PLAIN, 15));
-        label.setBorder(new EmptyBorder(4,0,0,0));
-
-
-        northPanel.setPreferredSize(new Dimension(northPanel.getWidth(),40));
-        northPanel.setBackground(Color.decode("#081F62"));
-        northPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        northPanel.add(label);
-
-
-        botonera = new JPanel();
-        botonera.setLayout(new FlowLayout(FlowLayout.CENTER));
-        botonera.setPreferredSize(new Dimension(800,40));
-        botonera.setBackground(Color.decode("#E7EAF0"));
-        inicio = ButtonFactory("Inicio", "0-1",e);
-        botonera.add(inicio);
-        agregarCliente = ButtonFactory("Agregar Cliente", "1-1",e);
-        botonera.add(agregarCliente);
-        buscarCliente =ButtonFactory("Buscar Cliente", "1-2",e);
-        botonera.add(buscarCliente);//TODO 1)opcion de pagar, 2)ver prestamos, 3) ver pagos de 1 prestamo, 4) ver todos los pagos del todos los prestamos
-        buscarPrestamo =ButtonFactory("Buscar Prestamo", "1-3",e);
-        botonera.add(buscarPrestamo);
-        listadoClientes =ButtonFactory("Listado de Clientes", "1-4",e);
-        botonera.add(listadoClientes);
-        listadoprestamos =ButtonFactory("Listado de Prestamos", "1-5",e);
-        botonera.add(listadoprestamos);
-
-
-        mainPanel.setLayout(new BorderLayout());
-        mainPanel.add(botonera, BorderLayout.NORTH);
-        mainPanel.add(mainConten, BorderLayout.CENTER);
-        this.add(northPanel, BorderLayout.NORTH);
-        mainPanel.setBackground(Color.white);
-        this.add(mainPanel, BorderLayout.CENTER);
-        southPanel.setPreferredSize(new Dimension(100,20));
-        southPanel.setBackground(Color.decode("#081F62"));
-
-        mainContentHandler(1,e, mapa);
-
-        this.add(southPanel, BorderLayout.SOUTH);
-        this.setVisible(true);
-
-    }
-
-
 
     private void setContentAgregarCliente(ActionListener e, JPanel mapa){
         mainPanel.remove(mainConten);
@@ -197,7 +127,7 @@ public class busquedaRegistroClientes extends vistaHandler {
 
         //formulario
         labelAux.setBorder(new EmptyBorder(0,190,0,0));
-        JButton btnAux = ButtonFactory("Guardar", "guardar", e);
+        JButton btnAux = VistaBuilder.ButtonFactory("Guardar", "guardar", e);
         auxPanel.setLayout(new GridLayout(2,2, 50,10));
         auxPanel.add(labelAux);
         auxPanel.add(nameTextField);
@@ -228,7 +158,7 @@ public class busquedaRegistroClientes extends vistaHandler {
 
         ImageIcon saveImg = new ImageIcon("src/vista/images/floppy-disk_1f4be.png");
 
-        JButton btnGuardar= ButtonFactory("", "guardar-btn",e);
+        JButton btnGuardar= VistaBuilder.ButtonFactory("", "guardar-btn",e);
 
         btnGuardar.setIcon(saveImg);
         btnGuardar.setPreferredSize(new Dimension(60,39));
@@ -249,7 +179,7 @@ public class busquedaRegistroClientes extends vistaHandler {
 
         //rigth column
         //TODO Agregar ToolTipText
-        JButton prestamo = ButtonFactory("","pretamo-btn",e);
+        JButton prestamo = VistaBuilder.ButtonFactory("","pretamo-btn",e);
         saveImg = new ImageIcon("src/vista/images/icons8-money-48.png");
 
         prestamo.setIcon(saveImg);
@@ -258,7 +188,7 @@ public class busquedaRegistroClientes extends vistaHandler {
         panelPrestamo.setBackground(Color.decode("#E7EAF0"));
         panelPrestamo.setPreferredSize(new Dimension(100,30));
         panelPrestamo.setLayout(null);
-        JLabel prestamoLabel = new JLabel("Nuevo prestamo");
+        JLabel prestamoLabel = new JLabel("     Prestamos");
         panelPrestamo.add(prestamoLabel);
         prestamoLabel.setBounds(5,15, 100,30);
 
@@ -270,9 +200,8 @@ public class busquedaRegistroClientes extends vistaHandler {
 
         mainPanel.add(mainConten, BorderLayout.CENTER);
         this.setVisible(true);
-
-
     }
+
     private void setContentBuscarCliente(ActionListener e){
 
         //mainContent.setContentPane(new clase x);
@@ -281,46 +210,64 @@ public class busquedaRegistroClientes extends vistaHandler {
         mainConten.setLayout(new BorderLayout());
         mainConten.setBackground(Color.GREEN);
         mainPanel.add(mainConten, BorderLayout.CENTER);
-        this.setVisible(true);
+    }
+
+    private void setContentListarClientes(ActionListener e){
+        mainPanel.remove(mainConten);
+        mainConten = new JPanel();
+        mainConten.setLayout(new BorderLayout());
+        mainConten.setBackground(Color.GREEN);
+        mainPanel.add(mainConten, BorderLayout.CENTER);
     }
 
     public void mainContentHandler(int code, ActionListener e,JPanel mapa){
-        switch (code){
-            case 1:
-                setContentAgregarCliente(e, mapa);
-                break;
-            case 2:
-                setContentBuscarCliente(e);
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            default:
-
-                break;
-
+        switch (code) {
+            case 1 -> setContentAgregarCliente(e, mapa);
+            case 2 -> setContentBuscarCliente(e);
+            case 3 -> setContentListarClientes(e);
         }
     }
 
-    public JButton getInicio() {
-        return inicio;
-    }
-    public JButton getAgregarCliente() {
-        return agregarCliente;
-    }
-    public JButton getBuscarCliente() {
-        return buscarCliente;
-    }
-    public JButton getBuscarPrestamo() {
-        return buscarPrestamo;
-    }
-    public JButton getListadoClientes() {
-        return listadoClientes;
-    }
-    public JButton getListadoprestamos() {
-        return listadoprestamos;
-    }
 }
+
+/*
+
+ public void setClienteNombre() {
+        this.clienteNombre = nameTextField.getText();
+    }
+    public void setClienteId() {
+        this.clienteId = idTextField.getText();
+    }
+    public void setClienteProvincia() {
+        this.clienteProvincia = (String) provinciaCombo.getSelectedItem();
+    }
+    public void setClienteDistrito() {
+        this.clienteDistrito = (String) distritoCombo.getSelectedItem();
+    }
+    public void setClienteCanton() {
+        this.clienteCanton = (String) cantonCombo.getSelectedItem();
+    }
+
+public String getClienteNombre() {
+        setClienteNombre();
+        return clienteNombre;
+    }
+    public String getClienteId() {
+        setClienteId();
+        return clienteId;
+    }
+    public String getClienteProvincia() {
+        setClienteProvincia();
+        return clienteProvincia;
+    }
+    public String getClienteDistrito() {
+        setClienteDistrito();
+        return clienteDistrito;
+    }
+    public String getClienteCanton() {
+        setClienteCanton();
+        return clienteCanton;
+    }
+
+
+ */

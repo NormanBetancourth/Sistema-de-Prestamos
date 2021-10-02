@@ -1,4 +1,4 @@
-package modelo;
+package modelo.mapHandler;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -123,14 +123,15 @@ public class mapHandler {
     }
 
 
-    public void  isInThisArea(int x,int y){
+    public int  isInThisArea(int x,int y){
 
         for (int i = 0; i<shapeList.size(); i++){
             if (shapeList.get(i).contains(x,y)){
-                //System.out.println(shapeList.get(i).getBounds());
-                System.out.println(i);
+
+                return i;
             }
         }
+        return -1;
     }
 
 

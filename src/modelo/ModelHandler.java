@@ -1,21 +1,37 @@
 package modelo;
 
+import modelo.cliente.Cliente;
+import modelo.cliente.ListaClientesHandler;
+import modelo.cliente.ModeloTablaCliente;
+import modelo.pago.Pago;
+import modelo.prestamo.Prestamo;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
 
-public class Manager {
+public class ModelHandler {
+
+    //Clientes
+    private ListaClientesHandler clientes;
+    private ModeloTablaCliente modeloTablaCliente;
+
+    //Parser
+    JAXBParser parser;
+
+
+
+
+
+    //cambiar ->
     private ArrayList<Cliente> listaDeClientes;
 
-    public Manager() {
+    public ModelHandler() {
         listaDeClientes = new ArrayList<>();
     }
 
-    public Manager(ArrayList<Cliente> listaDeClientes) {
+    public ModelHandler(ArrayList<Cliente> listaDeClientes) {
         this.listaDeClientes = listaDeClientes;
     }
 
@@ -28,13 +44,13 @@ public class Manager {
     }
 
     //String id, String nombre, String provincia, String distrito, String canton
-    public void registrarCliente(String id, String nombre, String provincia, String distrito, String canton){
+    public void registrarCliente(int id, String nombre, String provincia, String distrito, String canton){
         getListaDeClientes().add(new Cliente(id, nombre, provincia, distrito, canton));
     }
 
-    public boolean clienteEstaRegistrado(String idCliente){
+    public boolean clienteEstaRegistrado(int idCliente){
         for(Cliente cliente : getListaDeClientes()) {
-            if (cliente.getId().equals(idCliente)) {
+            if (cliente.getId() == (idCliente)) {
                 return true;
             }
         }
@@ -137,9 +153,9 @@ public class Manager {
         return distritos;
     }
 
-    public Cliente getAlgunCliente(String idCliente){
+    public Cliente getAlgunCliente(int idCliente){
         for(Cliente cliente : getListaDeClientes()) {
-            if (cliente.getId().equals(idCliente)) {
+            if (cliente.getId() == idCliente) {
                 return cliente;
             }
         }
@@ -155,7 +171,7 @@ public class Manager {
         return null;
     }
 
-    public String getPrestamosDeAlgunCliente(String idCliente){
+    public String getPrestamosDeAlgunCliente(int idCliente){
        return getAlgunCliente(idCliente).getListaDePrestamos().toString();
     }
 

@@ -1,8 +1,10 @@
-package modelo;
+package modelo.cliente;
+import modelo.prestamo.Prestamo;
+
 import java.util.ArrayList;
 
 public class Cliente {
-    private String id;
+    private int id;
     private String nombre;
     private String provincia;
     private String distrito;
@@ -10,7 +12,7 @@ public class Cliente {
     private ArrayList<Prestamo> listaDePrestamos;
 
     public Cliente() {
-        String id = "Indefinido";
+        int id = 0;
         String nombre = "Indefinido";
         String provincia = "Indefinido";
         String distrito = "Indefinido";
@@ -18,7 +20,7 @@ public class Cliente {
         ArrayList<Prestamo> listaDePrestamos = new ArrayList<>();
     }
 
-    public Cliente(String id, String nombre, String provincia, String distrito, String canton) {
+    public Cliente(int id, String nombre, String provincia, String distrito, String canton) {
         this.id = id;
         this.nombre = nombre;
         this.provincia = provincia;
@@ -27,11 +29,11 @@ public class Cliente {
         this.listaDePrestamos = new ArrayList<>();
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -83,11 +85,17 @@ public class Cliente {
         }
         return null;
     }
+    public int getCantidadPrestamos(){
+        return listaDePrestamos.size();
+    }
+
 
     @Override
     public int hashCode() {
-        return !getId().equals("") ? Integer.parseInt(getId()) * 31 : 0;
+        return !(getId() == 0) ? getId() * 31 : 0;
+
     }
+
 
     // TODO Configurar para presentarlo en vista
     @Override
