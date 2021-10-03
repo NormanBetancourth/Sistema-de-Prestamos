@@ -46,6 +46,14 @@ public class ListaClientes {
         }
         return null;
     }
+    public Cliente buscar(int id){
+        for (Cliente pp: lista){
+            if (pp.getId() == id){
+                return pp;
+            }
+        }
+        return null;
+    }
 
 
     @Override
@@ -58,4 +66,7 @@ public class ListaClientes {
         return ss;
     }
 
+    public int getSize() {
+        return lista.size();
+    }
 }

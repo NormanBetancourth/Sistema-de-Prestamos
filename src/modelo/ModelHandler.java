@@ -45,25 +45,64 @@ public class ModelHandler {
             modeloTablaPrestamos.addTableModelListener(e);
     }
 
+    public void cargarDatos(){
+        try {
+            clientes = (ListaClientes) parser.unmarshall(new ListaClientes(), "src/modelo/dataBase/Clientes.xml");
+
+            if (clientes== null){
+                clientes = new ListaClientes();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void guardarDatos(){
+        if (clientes.getSize()>0){//todo quitar demeter
+            parser.marshall(clientes, "src/modelo/dataBase/Clientes.xml");
+        }
+    }
+
+    public void cargarPrestamos(){
+        if (clientes.getSize()>0){
+            for (Cliente cliente:clientes.getLista()){
+                if (buscarCliente(cliente.getId()) == null){
+                    for (Prestamo prestamo: cliente.getListaDePrestamosRaw()){
+                        if (buscarPrestamo(prestamo.getId()) == null ){
+                            prestamos.add(prestamo);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private Prestamo buscarPrestamo(String id) {
+        return prestamos.buscar(id);
+    }
+
+    private Cliente buscarCliente(int id) {
+        return clientes.buscar(id);
+    }
 
     public ModelHandler() {
         clientes = new ListaClientes();
         pagos = new ListaPagos();
         prestamos = new ListaPrestamos();
-        cargarClientes();
+        cargarDatos();
     }
 
     private void cargarClientes() {
     }
 
 
-    //cambiar ->
+
 
     public ListaClientes getListaDeClientes() {
         return clientes;
     }
 
-    //String id, String nombre, String provincia, String distrito, String canton
+
     public void registrarCliente(int id, String nombre, String provincia, String distrito, String canton){
         getListaDeClientes().add(new Cliente(id, nombre, provincia, distrito, canton));
     }
@@ -87,14 +126,7 @@ public class ModelHandler {
         return prestamos;
     }
 
-    public Cliente getAlgunCliente(int idCliente){
-        for(Cliente cliente : getListaDeClientes().getLista()) {
-            if (cliente.getId() == idCliente) {
-                return cliente;
-            }
-        }
-        return null;
-    }
+
 
     public Prestamo getAlgunPrestamo(String idPrestamo){
         for(Cliente cliente : getListaDeClientes().getLista()) {
@@ -106,18 +138,18 @@ public class ModelHandler {
     }
 
     public ListaPrestamos getPrestamosDeAlgunCliente(int idCliente){
-       return getAlgunCliente(idCliente).getListaDePrestamos();
+       return buscarCliente(idCliente).getListaDePrestamos();
     }
 
     public String retornaNombrePorId(int idCliente){
-        return getAlgunCliente(idCliente).getNombre();
+        return buscarCliente(idCliente).getNombre();
     }
 
     public void registrarPrestamoAUnCliente(Cliente cliente, double monto, double tasaDeInteres, int plazo){
         //double monto, double tasaDeInteres, int plazo
         Prestamo prestamo = new Prestamo(monto, tasaDeInteres, plazo);
         asignarCodigoDelPrestamo(prestamo, cliente);
-        getAlgunCliente(cliente.getId()).getListaDePrestamos().add(prestamo);
+        buscarCliente(cliente.getId()).addPrestamo(prestamo);
     }
 
     public void asignarCodigoDelPrestamo(Prestamo prestamo, Cliente cliente){
@@ -131,8 +163,8 @@ public class ModelHandler {
         getAlgunPrestamo(idPrestamo).agregarPago(new Pago(numeroDePago, montoPagado, interes, amortizacion));
     }
 
-    public String getListaDePagosPorPrestamo(String idPrestamo) {
-        return getAlgunPrestamo(idPrestamo).registroDePagos();
+    public ListaPagos getListaDePagosPorPrestamo(String idPrestamo) {
+        return getAlgunPrestamo(idPrestamo).getListaDePagos();
     }
 
 }

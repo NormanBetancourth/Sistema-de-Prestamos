@@ -2,11 +2,10 @@ package modelo.cliente;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import modelo.prestamo.ListaPrestamos;
 import modelo.prestamo.Prestamo;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Cliente {
@@ -106,6 +105,7 @@ public class Cliente {
     }
 
 
+
     // TODO Configurar para presentarlo en vista
     @Override
     public String toString() {
@@ -117,5 +117,13 @@ public class Cliente {
                 ", canton='" + canton + '\'' +
                 ", listaDePrestamos=" + listaDePrestamos.toString() +
                 '}';
+    }
+
+    public List<Prestamo> getListaDePrestamosRaw() {
+        return  listaDePrestamos.getLista();
+    }
+
+    public void addPrestamo(Prestamo prestamo) {
+        listaDePrestamos.add(prestamo);
     }
 }
