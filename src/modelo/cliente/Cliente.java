@@ -8,7 +8,6 @@ import modelo.prestamo.Prestamo;
 
 import java.util.ArrayList;
 
-@XmlRootElement(name = "Clientes")
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Cliente {
     private int id;
