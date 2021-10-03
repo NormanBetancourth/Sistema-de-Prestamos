@@ -18,36 +18,6 @@ public class principal {
 
             Controlador ctrl = new Controlador();
 
-//            Pago p1 = new Pago(1,1000,0.5,5);
-//            Pago p2 = new Pago(2,1000,0.5,5);
-//            Pago p3 = new Pago(3,1000,0.5,5);
-//
-//            ListaPagos listaPagos = new ListaPagos();
-//            listaPagos.add(p1);
-//            listaPagos.add(p2);
-//            listaPagos.add(p3);
-//
-//            Prestamo prestamo1 = new Prestamo(343000,5,60);
-//            prestamo1.setListaDePagos(listaPagos);
-//            Prestamo prestamo2 = new Prestamo(343000,5,60);
-//
-//
-//
-//
-//            ListaPrestamos l1 = new ListaPrestamos();
-//            l1.add(prestamo1);
-//            l1.add(prestamo2);
-//
-//            Cliente cliente= new Cliente(01,"Norman", "San Jose", "Merced","San  Jose");
-//            cliente.setListaDePrestamos(l1);
-//
-//            JAXBParser parser = new JAXBParser();
-//            parser.marshall(cliente,"src/modelo/dataBase/Clientes.xml");
-//
-//            JAXBParser parser= new JAXBParser();
-//
-//            Cliente c1 = (Cliente) parser.unmarshall(new Cliente(), "src/modelo/dataBase/Clientes.xml" );
-//            System.out.println(c1);
 
 
 
