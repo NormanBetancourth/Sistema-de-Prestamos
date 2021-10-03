@@ -1,23 +1,28 @@
 package vista;
 
-import modelo.prestamo.ListaPrestamos;
+import modelo.pago.ModeloTablaPagos;
+import modelo.prestamo.ModeloTablaPrestamos;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 // int numeroDePago, double montoPagado, double interes, double amortizacion
 
 public class VistaPagos extends VentanaGestion{
-    private  JComboBox prestamosButton;
     private JTextField idTextField = new JTextField();
     private JTextField numeroTextField = new JTextField();
     private JTextField montoPagadoTextField = new JTextField();
     private JTextField tasaDeInteresTextField = new JTextField();
     private JTextField amortizacionTextField = new JTextField();
+    private JTextField prestamoTextField = new JTextField();
+    private JTextField pagoTextField = new JTextField();
+    private JTable tabla;
+    private JScrollPane scrollPane;
 
     public VistaPagos()throws HeadlessException {
         super();
@@ -65,13 +70,13 @@ public class VistaPagos extends VentanaGestion{
     public void clearFields(){
         idTextField.setText(null);
         numeroTextField.setText(null);
-        prestamosButton.removeAllItems();
         montoPagadoTextField.setText(null);
         tasaDeInteresTextField.setText(null);
         amortizacionTextField.setText(null);
+        tabla.setModel(new ModeloTablaPrestamos(new ArrayList<>()));
     }
 
-    public JTextField getIdTextField(){
+    public JTextField getIdTextField() {
         return idTextField;
     }
 
@@ -79,29 +84,32 @@ public class VistaPagos extends VentanaGestion{
         return numeroTextField;
     }
 
-    public JComboBox getPrestamosButton() {
-        return prestamosButton;
-    }
-
-    public JTextField getMontoPagadoTextField(){
+    public JTextField getMontoPagadoTextField() {
         return montoPagadoTextField;
     }
-    public JTextField getTasaDeInteresTextField(){
+
+    public JTextField getTasaDeInteresTextField() {
         return tasaDeInteresTextField;
     }
-    public JTextField getAmortizacionTextField(){
+
+    public JTextField getAmortizacionTextField() {
         return amortizacionTextField;
     }
+
+    public JTextField getPrestamoTextField() {
+        return prestamoTextField;
+    }
+
+    public JTextField getPagoTextField() {
+        return pagoTextField;
+    }
+
     public String getTextoId(){
         return idTextField.getText();
     }
 
     public String getTextoNumero(){
         return numeroTextField.getText();
-    }
-
-    public String getTextoPrestamo(){
-        return prestamosButton.getSelectedItem().toString();
     }
 
     public String getTextoMontoPagado(){
@@ -114,9 +122,64 @@ public class VistaPagos extends VentanaGestion{
         return amortizacionTextField.getText();
     }
 
-    public void configuraPrestamosBoton(ListaPrestamos listaPrestamos){
-        prestamosButton = new JComboBox(listaPrestamos.getLista().toArray());
-        prestamosButton.setFocusable(false);
+    public String getTextoPrestamo(){
+        return prestamoTextField.getText();
+    }
+
+    public String getTextoPago(){
+        return getPagoTextField().getText();
+    }
+
+    public void setTextoId(String id){
+        idTextField.setText(id);
+    }
+
+    public void setTextoNumero(String numero){
+        numeroTextField.setText(numero);
+    }
+
+    public void setTextoMonto(String monto){
+        montoPagadoTextField.setText(monto);
+    }
+
+    public void setTextoInteres(String interes){
+        tasaDeInteresTextField.setText(interes);
+    }
+
+    public void setTextoAmortizacion(String amortizacion){
+        amortizacionTextField.setText(amortizacion);
+    }
+
+    public void setTextoPrestamo(String id){
+        prestamoTextField.setText(id);
+    }
+
+    public void setPagoTextField(String id){
+        pagoTextField.setText(id);
+    }
+
+    public JTable getTabla() {
+        return tabla;
+    }
+
+    public void setTabla(JTable tabla) {
+        this.tabla = tabla;
+    }
+
+    public void setModeloTablaPrestamos(ModeloTablaPrestamos modeloTablaPrestamos){
+        tabla.setModel(modeloTablaPrestamos);
+    }
+
+    public void setModeloTabla(ModeloTablaPagos modeloTablaPagos){
+        tabla.setModel(modeloTablaPagos);
+    }
+
+    public JScrollPane getScrollPane() {
+        return scrollPane;
+    }
+
+    public void setScrollPane(JScrollPane scrollPane) {
+        this.scrollPane = scrollPane;
     }
 
     private void setContentAgregarPago(ActionListener e){
@@ -126,54 +189,97 @@ public class VistaPagos extends VentanaGestion{
 
         JPanel panelInfor = new JPanel(new GridLayout(7, 2, 50, 20));
         panelInfor.setBackground(Color.WHITE);
-        panelInfor.setBorder(BorderFactory.createEmptyBorder(50, 20, 50, 200));
+        panelInfor.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 200));
 
         JLabel idLabel = new JLabel("Cedula: ");
         idLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
         idTextField.setPreferredSize(new Dimension(150, 20));
-        idTextField.setActionCommand("3-1-0");
-        idTextField.addActionListener(e);
         panelInfor.add(idLabel);
         panelInfor.add(idTextField);
 
-        JLabel prestamosLabel = new JLabel("Prestamo: ");
-        prestamosLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
-        prestamosButton = new JComboBox();
-        prestamosButton.setFocusable(false);
-        prestamosButton.setPreferredSize(new Dimension(150, 20));
-        panelInfor.add(prestamosLabel);
-        panelInfor.add(prestamosButton);
+        JLabel prestamoLabel = new JLabel("Prestamo: ");
+        prestamoLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        prestamoTextField.setPreferredSize(new Dimension(150, 20));
+        prestamoTextField.setEditable(false);
+        panelInfor.add(prestamoLabel);
+        panelInfor.add(prestamoTextField);
 
         JLabel numeroLabel = new JLabel("Numero de pago: ");
         numeroLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
         numeroTextField.setPreferredSize(new Dimension(150, 20));
+        numeroTextField.setEditable(false);
         panelInfor.add(numeroLabel);
         panelInfor.add(numeroTextField);
-
-        //JLabel nombreLabel = new JLabel("Nombre: ");
-        //nombreLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
-        //nombreClienteTextField.setPreferredSize(new Dimension(150, 20));
-        //nombreClienteTextField.setEditable(false);
-        //panelInfor.add(nombreLabel);
-        //panelInfor.add(nombreClienteTextField);
 
         JLabel montoLabel = new JLabel("Monto: ");
         montoLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
         montoPagadoTextField.setPreferredSize(new Dimension(150, 20));
+        montoPagadoTextField.setEditable(false);
         panelInfor.add(montoLabel);
         panelInfor.add(montoPagadoTextField);
 
         JLabel tasaDeInteresLabel = new JLabel("Tasa de interes: ");
         tasaDeInteresLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
         tasaDeInteresTextField.setPreferredSize(new Dimension(150, 20));
+        tasaDeInteresTextField.setEditable(false);
         panelInfor.add(tasaDeInteresLabel);
         panelInfor.add(tasaDeInteresTextField);
 
         JLabel amortizacionLabel = new JLabel("Amortizacion: ");
         amortizacionLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
         amortizacionTextField.setPreferredSize(new Dimension(150, 20));
+        amortizacionTextField.setEditable(false);
         panelInfor.add(amortizacionLabel);
         panelInfor.add(amortizacionTextField);
+
+        JLabel enviarLabel = new JLabel(" ");
+        enviarLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+
+        JButton pagarButton = VistaBuilder.ButtonFactory("Enviar", "3-1-0", e);
+        pagarButton.setPreferredSize(new Dimension(100, 20));
+        pagarButton.setBackground(Color.decode("#DAF7A6"));
+        pagarButton.setBorder(null);
+        panelInfor.add(enviarLabel);
+        panelInfor.add(pagarButton);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(20,100,100,100));
+        tabla = new JTable();
+        tabla.addMouseListener((MouseListener) e);
+        //tabla.setBorder(BorderFactory.createEmptyBorder(50,20,50,20));
+        scrollPane = new JScrollPane(tabla);
+        panel.add(scrollPane, BorderLayout.NORTH);
+
+        mainConten.setBackground(Color.WHITE);
+        mainConten.add(panelInfor, BorderLayout.NORTH);
+        mainConten.add(panel, BorderLayout.CENTER);
+        mainPanel.add(mainConten, BorderLayout.CENTER);
+        mainConten.setBackground(Color.decode("#E7EAF0"));
+        mainPanel.add(mainConten, BorderLayout.CENTER);
+
+        this.setVisible(true);
+    }
+
+    private void setContentComplementario(ActionListener e){
+        mainPanel.remove(mainConten);
+        mainConten = new JPanel();
+        mainConten.setLayout(new BorderLayout());
+
+        JPanel panelInfor = new JPanel(new GridLayout(2, 2, 50, 20));
+        panelInfor.setBackground(Color.WHITE);
+        panelInfor.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 200));
+
+        JLabel idLabel = new JLabel("Cedula: ");
+        idLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        idTextField.setPreferredSize(new Dimension(150, 20));
+        panelInfor.add(idLabel);
+        panelInfor.add(idTextField);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(20,100,100,100));
+        tabla = new JTable();
+        scrollPane = new JScrollPane(tabla);
+        panel.add(scrollPane, BorderLayout.NORTH);
 
         JLabel enviarLabel = new JLabel(" ");
         enviarLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
@@ -185,8 +291,9 @@ public class VistaPagos extends VentanaGestion{
         panelInfor.add(enviarLabel);
         panelInfor.add(pagarButton);
 
-        mainConten.add(panelInfor, BorderLayout.NORTH);
         mainConten.setBackground(Color.WHITE);
+        mainConten.add(panelInfor, BorderLayout.NORTH);
+        mainConten.add(panel, BorderLayout.CENTER);
         mainPanel.add(mainConten, BorderLayout.CENTER);
         mainConten.setBackground(Color.decode("#E7EAF0"));
         mainPanel.add(mainConten, BorderLayout.CENTER);
@@ -198,9 +305,47 @@ public class VistaPagos extends VentanaGestion{
         mainPanel.remove(mainConten);
         mainConten = new JPanel();
         mainConten.setLayout(new BorderLayout());
-        mainConten.setBackground(Color.GREEN);
+
+        JPanel panelInfor = new JPanel(new GridLayout(4, 2, 50, 20));
+        panelInfor.setBackground(Color.WHITE);
+        panelInfor.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 200));
+
+        JLabel idLabel = new JLabel("Cedula: ");
+        idLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        idTextField.setPreferredSize(new Dimension(150, 20));
+        panelInfor.add(idLabel);
+        panelInfor.add(idTextField);
+
+        JLabel prestamoLabel = new JLabel("Prestamo: ");
+        prestamoLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        prestamoTextField.setPreferredSize(new Dimension(150, 20));
+        panelInfor.add(prestamoLabel);
+        panelInfor.add(prestamoTextField);
+
+        JLabel pagoLabel = new JLabel("Pago: ");
+        pagoLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        pagoTextField.setPreferredSize(new Dimension(150, 20));
+        panelInfor.add(pagoLabel);
+        panelInfor.add(pagoTextField);
+
+        JLabel enviarLabel = new JLabel(" ");
+        enviarLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+
+        JButton prestamoButton = VistaBuilder.ButtonFactory("Enviar", "2-1-1", e);
+        prestamoButton.setPreferredSize(new Dimension(100, 20));
+        prestamoButton.setBackground(Color.decode("#DAF7A6"));
+        prestamoButton.setBorder(null);
+        panelInfor.add(enviarLabel);
+        panelInfor.add(prestamoButton);
+
+
+        mainConten.add(panelInfor, BorderLayout.NORTH);
+        mainConten.setBackground(Color.WHITE);
         mainPanel.add(mainConten, BorderLayout.CENTER);
-        this.setVisible(true);
+        mainConten.setBackground(Color.decode("#E7EAF0"));
+        mainPanel.add(mainConten, BorderLayout.CENTER);
+
+        setVisible(true);
     }
 
     private void setContentListarPagos(ActionListener e){

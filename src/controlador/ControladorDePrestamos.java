@@ -1,20 +1,30 @@
 package controlador;
 
 import modelo.cliente.Cliente;
+import modelo.cliente.ModeloTablaCliente;
+import modelo.pago.ModeloTablaPagos;
+import modelo.prestamo.ModeloTablaPrestamos;
+import modelo.prestamo.Prestamo;
+import vista.VistaPagos;
 import vista.VistaPrestamos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class ControladorDePrestamos {
     private VistaPrestamos vistaPrestamos;
     private Controlador ctrl;
+    ModeloTablaPrestamos modeloTablaPrestamos;
 
     public ControladorDePrestamos(Controlador c) {
         ctrl = c;
         vistaPrestamos = new VistaPrestamos();
         vistaPrestamos.addComponents(new ListenerHandler());
+    }
+
+    public void configuraTablaPrestamos(Cliente cliente){
+        //modeloTablaPrestamos = new ModeloTablaPrestamos(cliente.getListaDePrestamos());
+        vistaPrestamos.setModeloTabla(modeloTablaPrestamos);
     }
 
     private class ListenerHandler implements ActionListener{
@@ -66,8 +76,8 @@ public class ControladorDePrestamos {
                                             throw new Exception("El usuario indicado no se encuentra en el sistema");
                                         }
                                         else{
-                                            Cliente cliente = ctrl.getModelo().getAlgunCliente(id);
-                                            ctrl.getModelo().registrarPrestamoAUnCliente(cliente, monto, interes, plazo);
+                                            //Cliente cliente = ctrl.getModelo().getAlgunCliente(id);
+                                            //ctrl.getModelo().registrarPrestamoAUnCliente(cliente, monto, interes, plazo);
                                         }
                                     }
                                     catch (Exception exception){

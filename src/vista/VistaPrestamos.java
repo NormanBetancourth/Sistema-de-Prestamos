@@ -1,5 +1,7 @@
 package vista;
 
+import modelo.prestamo.ModeloTablaPrestamos;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -7,12 +9,14 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class VistaPrestamos extends VentanaGestion{
-    private JComboBox prestamosButton = new JComboBox();
     private JTextField nombreClienteTextField = new JTextField();
     private JTextField idClienteTextField = new JTextField();
     private JTextField montoTextField = new JTextField();
     private JTextField tasaDeInteresTextField = new JTextField();
     private JTextField plazoTextField = new JTextField();
+    private JTextField idPrestamoTextField = new JTextField();
+    private JTable tabla = new JTable();
+    private JScrollPane scrollPane = new JScrollPane();
 
     public VistaPrestamos()throws HeadlessException {
        super();
@@ -60,12 +64,12 @@ public class VistaPrestamos extends VentanaGestion{
     }
 
     public void clearFields(){
-        prestamosButton.setSelectedItem(null);
         nombreClienteTextField.setText(null);
         idClienteTextField.setText(null);
         montoTextField.setText(null);
         tasaDeInteresTextField.setText(null);
         plazoTextField.setText(null);
+        idPrestamoTextField.setText(null);
     }
 
     public JTextField getIdClienteTextField(){
@@ -83,6 +87,11 @@ public class VistaPrestamos extends VentanaGestion{
     public JTextField getPlazoTextField(){
         return plazoTextField;
     }
+
+    public JTextField getIdPrestamoTextField() {
+        return idPrestamoTextField;
+    }
+
     public String getTextoId(){
         return idClienteTextField.getText();
     }
@@ -98,8 +107,33 @@ public class VistaPrestamos extends VentanaGestion{
     public String getTextoPlazo(){
         return plazoTextField.getText();
     }
+    public String getTextoPrestamoID(){
+        return idPrestamoTextField.getText();
+    }
+
+
     public void setTextoNombreCliente(String nombreCliente){
         nombreClienteTextField.setText(nombreCliente);
+    }
+
+    public JTable getTabla() {
+        return tabla;
+    }
+
+    public void setTabla(JTable tabla) {
+        this.tabla = tabla;
+    }
+
+    public void setModeloTabla(ModeloTablaPrestamos modeloTablaPrestamos){
+        tabla.setModel(modeloTablaPrestamos);
+    }
+
+    public JScrollPane getScrollPane() {
+        return scrollPane;
+    }
+
+    public void setScrollPane(JScrollPane scrollPane) {
+        this.scrollPane = scrollPane;
     }
 
     private void setContentAgregarPrestamo(ActionListener e) {
@@ -116,13 +150,6 @@ public class VistaPrestamos extends VentanaGestion{
         idClienteTextField.setPreferredSize(new Dimension(150, 20));
         panelInfor.add(idLabel);
         panelInfor.add(idClienteTextField);
-
-        //JLabel nombreLabel = new JLabel("Nombre: ");
-        //nombreLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
-        //nombreClienteTextField.setPreferredSize(new Dimension(150, 20));
-        //nombreClienteTextField.setEditable(false);
-        //panelInfor.add(nombreLabel);
-        //panelInfor.add(nombreClienteTextField);
 
         JLabel montoLabel = new JLabel("Monto: ");
         montoLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
@@ -161,16 +188,12 @@ public class VistaPrestamos extends VentanaGestion{
         this.setVisible(true);
     }
 
-    public void configuraPrestamosBoton(ArrayList<String> listaPrestamos){
-        prestamosButton = new JComboBox(listaPrestamos.toArray());
-        prestamosButton.setFocusable(false);
-    }
-
     private void setContentBuscarPrestamo(ActionListener e){
         mainPanel.remove(mainConten);
         mainConten = new JPanel();
         mainConten.setLayout(new BorderLayout());
 
+        //JPanel panelInfor = new JPanel(new GridLayout(3, 2, 50, 20));
         JPanel panelInfor = new JPanel(new GridLayout(3, 2, 50, 20));
         panelInfor.setBackground(Color.WHITE);
         panelInfor.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 200));
@@ -181,24 +204,21 @@ public class VistaPrestamos extends VentanaGestion{
         panelInfor.add(idLabel);
         panelInfor.add(idClienteTextField);
 
-        JLabel prestamosLabel = new JLabel("Prestamo: ");
-        prestamosLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
-        prestamosButton = new JComboBox();
-        prestamosButton.setFocusable(false);
-        prestamosButton.setPreferredSize(new Dimension(150, 20));
-        panelInfor.add(prestamosLabel);
-        panelInfor.add(prestamosButton);
+        JLabel prestamoIDLabel = new JLabel("Prestamo: ");
+        prestamoIDLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        idPrestamoTextField.setPreferredSize(new Dimension(150, 20));
+        panelInfor.add(prestamoIDLabel);
+        panelInfor.add(idPrestamoTextField);
 
         JLabel enviarLabel = new JLabel(" ");
         enviarLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
 
-        JButton prestamoButton = VistaBuilder.ButtonFactory("   Enviar", "2-1-1", e);
+        JButton prestamoButton = VistaBuilder.ButtonFactory("Enviar", "2-1-1", e);
         prestamoButton.setPreferredSize(new Dimension(100, 20));
         prestamoButton.setBackground(Color.decode("#DAF7A6"));
         prestamoButton.setBorder(null);
         panelInfor.add(enviarLabel);
         panelInfor.add(prestamoButton);
-
 
         mainConten.add(panelInfor, BorderLayout.NORTH);
         mainConten.setBackground(Color.WHITE);
