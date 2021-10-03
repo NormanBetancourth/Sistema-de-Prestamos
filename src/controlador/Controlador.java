@@ -19,7 +19,8 @@ public class Controlador {
     public Controlador() {
         Home = new HomeFrame();
         Home.addComponents(new ListenerHandler());
-        mapCreator = new mapHandler(new ControladorDeClientes.MousePositionListener(), new ControladorDeClientes.MousePositionListener());
+        HiloMapa h1 = new HiloMapa();
+        h1.start();
         modelo = new ModelHandler();
     }
 
@@ -31,6 +32,8 @@ public class Controlador {
         Home.setVisible(true);
     }
 
+
+
     private  class ListenerHandler implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -38,8 +41,17 @@ public class Controlador {
                 String valor = e.getActionCommand();
                 switch (valor) {
                     case "1" -> {
-                        Home.dispose();
-                        controladorDeClientes = new ControladorDeClientes(mapCreator, Controlador.this);
+                        try {
+                            if (mapCreator != null){
+                                Home.dispose();
+                                controladorDeClientes = new ControladorDeClientes(mapCreator, Controlador.this);
+                            }else {
+                                throw  new Exception("Por favor espere unos segundos mientras se carga el mapa");
+                            }
+
+                        }catch (Exception xe){
+                            JOptionPane.showMessageDialog(null, xe.getMessage(),"Atencion", JOptionPane.INFORMATION_MESSAGE);
+                        }
                     }
                     case "2" -> {
                         Home.dispose();
@@ -56,6 +68,17 @@ public class Controlador {
             }
         }
     }
+
+    private class HiloMapa extends Thread{
+
+        @Override
+        public void run() {
+            mapCreator = new mapHandler(new ControladorDeClientes.MousePositionListener(), new ControladorDeClientes.MousePositionListener());
+
+        }
+
+    }
+
 
 
 }

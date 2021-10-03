@@ -1,20 +1,17 @@
 package modelo;
 
 import modelo.cliente.Cliente;
-import modelo.cliente.ListaClientesHandler;
+import modelo.cliente.ListaClientes;
 import modelo.cliente.ModeloTablaCliente;
 import modelo.pago.Pago;
 import modelo.prestamo.Prestamo;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.util.ArrayList;
 
 public class ModelHandler {
 
     //Clientes
-    private ListaClientesHandler clientes;
+    private ListaClientes clientes;
     private ModeloTablaCliente modeloTablaCliente;
 
     //Parser

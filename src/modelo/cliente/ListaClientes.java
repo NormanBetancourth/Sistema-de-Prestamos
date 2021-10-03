@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ListaClientesHandler {
+public class ListaClientes {
     List<Cliente> lista;
 
-    public ListaClientesHandler() {
+    public ListaClientes() {
         lista = new ArrayList<>();
     }
 
@@ -15,7 +15,7 @@ public class ListaClientesHandler {
         lista.add(c);
     }
 
-    public ListaClientesHandler(List<Cliente> lista) {
+    public ListaClientes(List<Cliente> lista) {
         this.lista = lista;
     }
 
