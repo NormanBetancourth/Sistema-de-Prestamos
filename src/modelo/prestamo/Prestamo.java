@@ -12,6 +12,7 @@ public class Prestamo {
     private int plazo;
     private double cuota;
     private LocalDate fecha;
+    private boolean estado;
     private ArrayList<Pago> listaDePagos;
 
     public Prestamo() {
@@ -21,6 +22,7 @@ public class Prestamo {
         this.plazo = 0;
         this.cuota = 0;
         this.fecha = LocalDate.now();
+        this.estado = true;
         this.listaDePagos = new ArrayList<>();
     }
 
@@ -31,6 +33,7 @@ public class Prestamo {
         this.plazo = plazo;
         this.cuota = calculoDeCuota();
         this.fecha = LocalDate.now();
+        this.estado = true;
         this.listaDePagos = new ArrayList<>();
     }
 
@@ -72,6 +75,14 @@ public class Prestamo {
 
     public void setCuota(double cuota) {
         this.cuota = cuota;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     public ArrayList<Pago> getListaDePagos() {

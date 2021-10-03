@@ -4,9 +4,15 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
+// int numeroDePago, double montoPagado, double interes, double amortizacion
 
 public class VistaPagos extends VentanaGestion{
+    private  JComboBox prestamosButton;
     private JTextField idTextField = new JTextField();
+    private JTextField numeroTextField = new JTextField();
     private JTextField montoPagadoTextField = new JTextField();
     private JTextField tasaDeInteresTextField = new JTextField();
     private JTextField amortizacionTextField = new JTextField();
@@ -56,6 +62,8 @@ public class VistaPagos extends VentanaGestion{
 
     public void clearFields(){
         idTextField.setText(null);
+        numeroTextField.setText(null);
+        prestamosButton.removeAllItems();
         montoPagadoTextField.setText(null);
         tasaDeInteresTextField.setText(null);
         amortizacionTextField.setText(null);
@@ -64,6 +72,15 @@ public class VistaPagos extends VentanaGestion{
     public JTextField getIdTextField(){
         return idTextField;
     }
+
+    public JTextField getNumeroTextField() {
+        return numeroTextField;
+    }
+
+    public JComboBox getPrestamosButton() {
+        return prestamosButton;
+    }
+
     public JTextField getMontoPagadoTextField(){
         return montoPagadoTextField;
     }
@@ -76,6 +93,15 @@ public class VistaPagos extends VentanaGestion{
     public String getTextoId(){
         return idTextField.getText();
     }
+
+    public String getTextoNumero(){
+        return numeroTextField.getText();
+    }
+
+    public String getTextoPrestamo(){
+        return prestamosButton.getSelectedItem().toString();
+    }
+
     public String getTextoMontoPagado(){
         return montoPagadoTextField.getText();
     }
@@ -86,12 +112,83 @@ public class VistaPagos extends VentanaGestion{
         return amortizacionTextField.getText();
     }
 
+    public void configuraPrestamosBoton(ArrayList<String> listaPrestamos){
+        prestamosButton = new JComboBox(listaPrestamos.toArray());
+        prestamosButton.setFocusable(false);
+    }
+
     private void setContentAgregarPago(ActionListener e){
         mainPanel.remove(mainConten);
         mainConten = new JPanel();
         mainConten.setLayout(new BorderLayout());
-        mainConten.setBackground(Color.GREEN);
+
+        JPanel panelInfor = new JPanel(new GridLayout(7, 2, 50, 20));
+        panelInfor.setBackground(Color.WHITE);
+        panelInfor.setBorder(BorderFactory.createEmptyBorder(50, 20, 50, 200));
+
+        JLabel idLabel = new JLabel("Cedula: ");
+        idLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        idTextField.setPreferredSize(new Dimension(150, 20));
+        idTextField.setActionCommand("3-1-0");
+        idTextField.addActionListener(e);
+        panelInfor.add(idLabel);
+        panelInfor.add(idTextField);
+
+        JLabel prestamosLabel = new JLabel("Prestamo: ");
+        prestamosLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        prestamosButton = new JComboBox();
+        prestamosButton.setFocusable(false);
+        prestamosButton.setPreferredSize(new Dimension(150, 20));
+        panelInfor.add(prestamosLabel);
+        panelInfor.add(prestamosButton);
+
+        JLabel numeroLabel = new JLabel("Numero de pago: ");
+        numeroLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        numeroTextField.setPreferredSize(new Dimension(150, 20));
+        panelInfor.add(numeroLabel);
+        panelInfor.add(numeroTextField);
+
+        //JLabel nombreLabel = new JLabel("Nombre: ");
+        //nombreLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        //nombreClienteTextField.setPreferredSize(new Dimension(150, 20));
+        //nombreClienteTextField.setEditable(false);
+        //panelInfor.add(nombreLabel);
+        //panelInfor.add(nombreClienteTextField);
+
+        JLabel montoLabel = new JLabel("Monto: ");
+        montoLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        montoPagadoTextField.setPreferredSize(new Dimension(150, 20));
+        panelInfor.add(montoLabel);
+        panelInfor.add(montoPagadoTextField);
+
+        JLabel tasaDeInteresLabel = new JLabel("Tasa de interes: ");
+        tasaDeInteresLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        tasaDeInteresTextField.setPreferredSize(new Dimension(150, 20));
+        panelInfor.add(tasaDeInteresLabel);
+        panelInfor.add(tasaDeInteresTextField);
+
+        JLabel amortizacionLabel = new JLabel("Amortizacion: ");
+        amortizacionLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        amortizacionTextField.setPreferredSize(new Dimension(150, 25));
+        panelInfor.add(amortizacionLabel);
+        panelInfor.add(amortizacionTextField);
+
+        JLabel enviarLabel = new JLabel(" ");
+        enviarLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+
+        JButton pagarButton = VistaBuilder.ButtonFactory("Enviar", "3-1-1", e);
+        pagarButton.setPreferredSize(new Dimension(100, 25));
+        pagarButton.setBackground(Color.decode("#DAF7A6"));
+        pagarButton.setBorder(null);
+        panelInfor.add(enviarLabel);
+        panelInfor.add(pagarButton);
+
+        mainConten.add(panelInfor, BorderLayout.NORTH);
+        mainConten.setBackground(Color.WHITE);
         mainPanel.add(mainConten, BorderLayout.CENTER);
+        mainConten.setBackground(Color.decode("#E7EAF0"));
+        mainPanel.add(mainConten, BorderLayout.CENTER);
+
         this.setVisible(true);
     }
 

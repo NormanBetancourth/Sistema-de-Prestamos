@@ -34,4 +34,7 @@ public class VentanaGestion extends JFrame {
         return listarBoton;
     }
 
+    public void leerError(String errorMessage){
+        JOptionPane.showMessageDialog(this, errorMessage, "Format error", JOptionPane.ERROR_MESSAGE);
+    }
 }

@@ -57,7 +57,15 @@ public class ModelHandler {
         return false;
     }
 
-
+    public ArrayList<String> retornaPrestamosActivos(Cliente cliente){
+        ArrayList<String> prestamos = new ArrayList<>();
+        for(Prestamo prestamo : cliente.getListaDePrestamos()){
+            if(prestamo.isEstado()){
+                prestamos.add(prestamo.getId());
+            }
+        }
+        return prestamos;
+    }
 
     public Cliente getAlgunCliente(int idCliente){
         for(Cliente cliente : getListaDeClientes()) {
@@ -79,6 +87,10 @@ public class ModelHandler {
 
     public String getPrestamosDeAlgunCliente(int idCliente){
        return getAlgunCliente(idCliente).getListaDePrestamos().toString();
+    }
+
+    public String retornaNombrePorId(int idCliente){
+        return getAlgunCliente(idCliente).getNombre();
     }
 
     public void registrarPrestamoAUnCliente(Cliente cliente, double monto, double tasaDeInteres, int plazo){

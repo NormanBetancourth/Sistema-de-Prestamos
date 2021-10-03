@@ -1,9 +1,11 @@
 package controlador;
 
+import modelo.cliente.Cliente;
 import vista.VistaPrestamos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class ControladorDePrestamos {
     private VistaPrestamos vistaPrestamos;
@@ -20,6 +22,8 @@ public class ControladorDePrestamos {
         @Override
         public void actionPerformed(ActionEvent e) {
             String valor = e.getActionCommand();
+            String nombre = null;
+            int id = 0;
             double monto = 0.0;
             double interes = 0.0;
             int plazo = 0;
@@ -32,19 +36,62 @@ public class ControladorDePrestamos {
                             ctrl.setVisible();
                         }
                 case "2-1" ->
-                        //Agregar prestamo
+                        //Agregar prestamo vista
                         {
                             vistaPrestamos.mainContentHandler(1, new ListenerHandler());
                             vistaPrestamos.clearFields();
                         }
+                case "2-1-1"->
+                        // Agregar prestamo boton
+                        {
+                            try{
+                                if(vistaPrestamos.getTextoId().isBlank() || vistaPrestamos.getTextoMonto().isBlank() ||
+                                    vistaPrestamos.getTextoTasaDeInteres().isBlank() || vistaPrestamos.getTextoPlazo().isBlank()){
+                                    throw new Exception("Existen campos de texto vacios");
+                                }
+                                else{
+                                    try{
+                                        id = Integer.parseInt(vistaPrestamos.getTextoId());
+                                        monto = Double.parseDouble(vistaPrestamos.getTextoMonto());
+                                        interes = Double.parseDouble(vistaPrestamos.getTextoTasaDeInteres());
+                                        plazo = Integer.parseInt(vistaPrestamos.getTextoPlazo());
+                                    }
+                                    catch (NumberFormatException exception){
+                                        vistaPrestamos.leerError("Solo se aceptan numeros para determinadas variables");
+                                        vistaPrestamos.clearFields();
+                                        break;
+                                    }
+                                    try{
+                                        if(!ctrl.getModelo().clienteEstaRegistrado(id)){
+                                            throw new Exception("El usuario indicado no se encuentra en el sistema");
+                                        }
+                                        else{
+                                            Cliente cliente = ctrl.getModelo().getAlgunCliente(id);
+                                            ctrl.getModelo().registrarPrestamoAUnCliente(cliente, monto, interes, plazo);
+                                        }
+                                    }
+                                    catch (Exception exception){
+                                        vistaPrestamos.leerError(exception.getMessage());
+                                        vistaPrestamos.clearFields();
+                                        break;
+                                    }
+                                }
+                            }
+                            catch (Exception exception){
+                                vistaPrestamos.leerError(exception.getMessage());
+                                vistaPrestamos.clearFields();
+                                break;
+                            }
+                            vistaPrestamos.clearFields();
+                        }
                 case "2-2" ->
-                        //Buscar prestamo
+                        //Buscar prestamo vista
                         {
                             vistaPrestamos.mainContentHandler(2, new ListenerHandler());
                             vistaPrestamos.clearFields();
                         }
                 case "2-3" ->
-                        //Listado de prestamos
+                        //Listado de prestamos vista
                         {
                             vistaPrestamos.mainContentHandler(3, new ListenerHandler());
                         }
