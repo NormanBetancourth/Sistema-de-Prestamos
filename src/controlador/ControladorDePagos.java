@@ -151,6 +151,7 @@ public class ControladorDePagos {
                     }
                     vistaPagos.setEditableButtons();
                     vistaPagos.clearFields();
+
                 }
                 break;
                 case "3-2":
@@ -162,6 +163,7 @@ public class ControladorDePagos {
                 break;
                 case "3-2-0":
                     //Buscar Pago
+                    /////////////////
                 {
                     try {
                         if (vistaPagos.getTextoId().isBlank()) {
