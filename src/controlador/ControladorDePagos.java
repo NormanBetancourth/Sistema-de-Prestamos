@@ -16,22 +16,11 @@ import java.util.ArrayList;
 public class ControladorDePagos {
     private VistaPagos vistaPagos;
     private Controlador ctrl;
-    private ModeloTablaPrestamos modeloTablaPrestamos;
-    private ModeloTablaPagos modeloTablaPagos;
 
     public ControladorDePagos(Controlador c) {
         ctrl = c;
         vistaPagos = new VistaPagos();
         vistaPagos.addComponents(new ListenerHandler());
-
-        //ctrl.getModelo().registrarCliente(111,"Rebe","Heredia","Heredia","Heredia");
-        //Cliente cliente = ctrl.getModelo().getAlgunCliente(111);
-        //ctrl.getModelo().registrarPrestamoAUnCliente(cliente, 200.0,0.2,100);
-    }
-
-    public void configuraTablaPagos(Cliente cliente){
-        modeloTablaPrestamos = new ModeloTablaPrestamos(cliente.getListaDePrestamos().getLista());
-        vistaPagos.setModeloTablaPrestamos(modeloTablaPrestamos);
     }
 
     private class ListenerHandler implements ActionListener, MouseListener {
@@ -82,9 +71,9 @@ public class ControladorDePagos {
                                     throw new Exception("El usuario indicado no se encuentra registrado en el sistema");
                                 }
                                 else{
-                                    //Cliente cliente = ctrl.getModelo().cli(idCliente);
+                                    Cliente cliente = ctrl.getModelo().getClientePorID(idCliente);
                                     Prestamo prestamo = ctrl.getModelo().getAlgunPrestamo("3441");
-                                    //configuraTablaPagos(cliente);
+                                    //ctrl.getModelo().pr(cliente);
 
                                 }
                             }

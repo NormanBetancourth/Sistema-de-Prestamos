@@ -36,6 +36,12 @@ public class ModelHandler {
         prestamos.add(c);
     }
 
+    public ModeloTablaPrestamos configuraModelo(Cliente cliente){
+        modeloTablaPrestamos = new ModeloTablaPrestamos(cliente.getListaDePrestamos().getLista());
+        //vistaPrestamos.setModeloTabla(modeloTablaPrestamos);
+        return modeloTablaPrestamos;
+    }
+
     public void addListeners(TableModelListener e){
         if (modeloTablaCliente!=null)
             modeloTablaCliente.addTableModelListener(e);
@@ -126,7 +132,14 @@ public class ModelHandler {
         return prestamos;
     }
 
-
+    public Cliente getClientePorID(int id){
+        for(Cliente cliente: getListaDeClientes().getLista()){
+            if(cliente.getId() == id){
+                return cliente;
+            }
+        }
+        return null;
+    }
 
     public Prestamo getAlgunPrestamo(String idPrestamo){
         for(Cliente cliente : getListaDeClientes().getLista()) {

@@ -14,7 +14,6 @@ import java.awt.event.ActionListener;
 public class ControladorDePrestamos {
     private VistaPrestamos vistaPrestamos;
     private Controlador ctrl;
-    ModeloTablaPrestamos modeloTablaPrestamos;
 
     public ControladorDePrestamos(Controlador c) {
         ctrl = c;
@@ -23,8 +22,8 @@ public class ControladorDePrestamos {
     }
 
     public void configuraTablaPrestamos(Cliente cliente){
-        //modeloTablaPrestamos = new ModeloTablaPrestamos(cliente.getListaDePrestamos());
-        vistaPrestamos.setModeloTabla(modeloTablaPrestamos);
+        ModeloTablaPrestamos modelo = ctrl.getModelo().configuraModelo(cliente);
+        vistaPrestamos.setModeloTabla(modelo);
     }
 
     private class ListenerHandler implements ActionListener{
