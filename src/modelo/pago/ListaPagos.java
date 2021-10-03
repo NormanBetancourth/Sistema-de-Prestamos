@@ -20,6 +20,8 @@ public class ListaPagos {
         this.lista = lista;
     }
 
+    public int getCantidadDePagos(){return lista.size();}
+
     public List<Pago> getLista() {
         return lista;
     }

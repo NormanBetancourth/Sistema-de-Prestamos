@@ -1,10 +1,13 @@
 package vista;
 
+import com.sun.tools.xjc.model.Model;
 import modelo.pago.ModeloTablaPagos;
 import modelo.prestamo.ModeloTablaPrestamos;
+import org.glassfish.jaxb.runtime.v2.model.impl.ModelBuilder;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
@@ -21,6 +24,7 @@ public class VistaPagos extends VentanaGestion{
     private JTextField amortizacionTextField = new JTextField();
     private JTextField prestamoTextField = new JTextField();
     private JTextField pagoTextField = new JTextField();
+    JButton boton;
     private JTable tabla;
     private JScrollPane scrollPane;
 
@@ -67,13 +71,24 @@ public class VistaPagos extends VentanaGestion{
         this.setVisible(true);
     }
 
+    public void setEditableButtons(){
+        idTextField.setEditable(true);
+        prestamoTextField.setEditable(false);
+        numeroTextField.setEditable(false);
+        montoPagadoTextField.setEditable(false);
+        tasaDeInteresTextField.setEditable(false);
+        amortizacionTextField.setEditable(false);
+    }
+
     public void clearFields(){
         idTextField.setText(null);
+        prestamoTextField.setText(null);
+        pagoTextField.setText(null);
         numeroTextField.setText(null);
         montoPagadoTextField.setText(null);
         tasaDeInteresTextField.setText(null);
         amortizacionTextField.setText(null);
-        tabla.setModel(new ModeloTablaPrestamos(new ArrayList<>()));
+        tabla.setModel(new DefaultTableModel());
     }
 
     public JTextField getIdTextField() {
@@ -158,6 +173,14 @@ public class VistaPagos extends VentanaGestion{
         pagoTextField.setText(id);
     }
 
+    public JButton getBoton() {
+        return boton;
+    }
+
+    public void setBoton(JButton boton) {
+        this.boton = boton;
+    }
+
     public JTable getTabla() {
         return tabla;
     }
@@ -211,12 +234,6 @@ public class VistaPagos extends VentanaGestion{
         panelInfor.add(numeroLabel);
         panelInfor.add(numeroTextField);
 
-        JLabel montoLabel = new JLabel("Monto: ");
-        montoLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
-        montoPagadoTextField.setPreferredSize(new Dimension(150, 20));
-        montoPagadoTextField.setEditable(false);
-        panelInfor.add(montoLabel);
-        panelInfor.add(montoPagadoTextField);
 
         JLabel tasaDeInteresLabel = new JLabel("Tasa de interes: ");
         tasaDeInteresLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
@@ -232,19 +249,27 @@ public class VistaPagos extends VentanaGestion{
         panelInfor.add(amortizacionLabel);
         panelInfor.add(amortizacionTextField);
 
+        JLabel montoLabel = new JLabel("Monto: ");
+        montoLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        montoPagadoTextField.setPreferredSize(new Dimension(150, 20));
+        montoPagadoTextField.setEditable(false);
+        panelInfor.add(montoLabel);
+        panelInfor.add(montoPagadoTextField);
+
         JLabel enviarLabel = new JLabel(" ");
         enviarLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
 
-        JButton pagarButton = VistaBuilder.ButtonFactory("Enviar", "3-1-0", e);
-        pagarButton.setPreferredSize(new Dimension(100, 20));
-        pagarButton.setBackground(Color.decode("#DAF7A6"));
-        pagarButton.setBorder(null);
+        boton = VistaBuilder.ButtonFactory("Enviar", "3-1-0", e);
+        boton.setPreferredSize(new Dimension(100, 20));
+        boton.setBackground(Color.decode("#DAF7A6"));
+        boton.setBorder(null);
         panelInfor.add(enviarLabel);
-        panelInfor.add(pagarButton);
+        panelInfor.add(boton);
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(20,100,100,100));
         tabla = new JTable();
+        tabla.setModel(new DefaultTableModel());
         tabla.addMouseListener((MouseListener) e);
         //tabla.setBorder(BorderFactory.createEmptyBorder(50,20,50,20));
         scrollPane = new JScrollPane(tabla);

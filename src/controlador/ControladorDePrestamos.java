@@ -75,8 +75,8 @@ public class ControladorDePrestamos {
                                             throw new Exception("El usuario indicado no se encuentra en el sistema");
                                         }
                                         else{
-                                            //Cliente cliente = ctrl.getModelo().getAlgunCliente(id);
-                                            //ctrl.getModelo().registrarPrestamoAUnCliente(cliente, monto, interes, plazo);
+                                            Cliente cliente = ctrl.getModelo().getClientePorID(id);
+                                            ctrl.getModelo().registrarPrestamoAUnCliente(cliente, monto, interes, plazo);
                                         }
                                     }
                                     catch (Exception exception){

@@ -12,6 +12,7 @@ import modelo.prestamo.Prestamo;
 
 import javax.swing.event.TableModelListener;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ModelHandler {
 
@@ -25,7 +26,8 @@ public class ModelHandler {
     private ModeloTablaCliente modeloTablaCliente;
 
     //Parser
-    JAXBParser parser;
+    JAXBParser parser = new JAXBParser();
+
     public void agregarCliente(Cliente c){
         clientes.add(c);
     }
@@ -37,8 +39,8 @@ public class ModelHandler {
     }
 
     public ModeloTablaPrestamos configuraModelo(Cliente cliente){
-        modeloTablaPrestamos = new ModeloTablaPrestamos(cliente.getListaDePrestamos().getLista());
-        //vistaPrestamos.setModeloTabla(modeloTablaPrestamos);
+        ListaPrestamos listaPrestamos = retornaPrestamosActivos(cliente);
+        modeloTablaPrestamos = new ModeloTablaPrestamos(listaPrestamos.getLista());
         return modeloTablaPrestamos;
     }
 
@@ -54,7 +56,6 @@ public class ModelHandler {
     public void cargarDatos(){
         try {
             clientes = (ListaClientes) parser.unmarshall(new ListaClientes(), "src/modelo/dataBase/Clientes.xml");
-
             if (clientes== null){
                 clientes = new ListaClientes();
             }
@@ -100,9 +101,6 @@ public class ModelHandler {
 
     private void cargarClientes() {
     }
-
-
-
 
     public ListaClientes getListaDeClientes() {
         return clientes;

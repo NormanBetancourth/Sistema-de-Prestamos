@@ -124,6 +124,10 @@ public class Prestamo {
         pago.setId(getId() + "-" + pago.getNumeroDePago());
     }
 
+    public int numeroDePagos(){
+        return listaDePagos.getCantidadDePagos();
+    }
+
     public void agregarPago(Pago pago){
         agregarCodigoAPago(pago);
         getListaDePagos().add(pago);
