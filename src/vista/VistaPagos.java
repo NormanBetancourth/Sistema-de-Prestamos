@@ -24,7 +24,8 @@ public class VistaPagos extends VentanaGestion{
     private JTextField amortizacionTextField = new JTextField();
     private JTextField prestamoTextField = new JTextField();
     private JTextField pagoTextField = new JTextField();
-    JButton boton;
+    private JButton boton;
+    private JButton boton2;
     private JTable tabla;
     private JScrollPane scrollPane;
 
@@ -176,6 +177,10 @@ public class VistaPagos extends VentanaGestion{
         return boton;
     }
 
+    public JButton getBoton2() {
+        return boton2;
+    }
+
     public void setBoton(JButton boton) {
         this.boton = boton;
     }
@@ -315,12 +320,12 @@ public class VistaPagos extends VentanaGestion{
         JLabel enviarLabel = new JLabel(" ");
         enviarLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
 
-        JButton prestamoButton = VistaBuilder.ButtonFactory("Enviar", "3-2-0", e);
-        prestamoButton.setPreferredSize(new Dimension(100, 20));
-        prestamoButton.setBackground(Color.decode("#DAF7A6"));
-        prestamoButton.setBorder(null);
+        boton2 = VistaBuilder.ButtonFactory("Enviar", "3-2-0", e);
+        boton2.setPreferredSize(new Dimension(100, 20));
+        boton2.setBackground(Color.decode("#DAF7A6"));
+        boton2.setBorder(null);
         panelInfor.add(enviarLabel);
-        panelInfor.add(prestamoButton);
+        panelInfor.add(boton2);
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(20,100,100,100));

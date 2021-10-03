@@ -102,7 +102,7 @@ public class ControladorDePagos {
                     } catch (Exception exception) {
                         vistaPagos.leerError(exception.getMessage());
                         vistaPagos.clearFields();
-                        vistaPagos.setEditableButtons();
+                        //vistaPagos.setEditableButtons();
                         break;
                     }
                 }
@@ -197,6 +197,15 @@ public class ControladorDePagos {
                     }
                 }
                 break;
+                case "3-2-1":
+                    //Buscar Pago
+                {
+                    Cliente cliente = ctrl.getModelo().getClientePorID(idCliente);
+                    Prestamo prestamo = ctrl.getModelo().getAlgunPrestamo("3441");
+                    ModeloTablaPagos modelo = ctrl.getModelo().configuraModelo(prestamo);
+                    vistaPagos.setModeloTabla(modelo);
+                }
+                break;
                 case "3-3":
                     //Listado de pagos
                 {
@@ -211,7 +220,7 @@ public class ControladorDePagos {
             JTable jTable = vistaPagos.getTabla();
             if (e.getSource().equals(jTable)) {
                 int selectedRow = jTable.getSelectedRow();
-                vistaPagos.setTextoPrestamo(String.valueOf(jTable.getValueAt(selectedRow, 0)));
+                vistaPagos.setTextoPrestamo(String.valueOf(jTable.getValueAt(selectedRow,0)));
                 vistaPagos.setTextoMonto(String.valueOf(jTable.getValueAt(selectedRow, 4)));
                 vistaPagos.setTextoInteres(String.valueOf(jTable.getValueAt(selectedRow, 2)));
                 vistaPagos.getBoton().setText("Confirmar");

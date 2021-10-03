@@ -44,6 +44,12 @@ public class ModelHandler {
         return modeloTablaPrestamos;
     }
 
+    public ModeloTablaPagos configuraModelo(Prestamo prestamo){
+        ListaPagos listaPagos = prestamo.getListaDePagos();
+        modeloTablaPagos = new ModeloTablaPagos(listaPagos.getLista());
+        return modeloTablaPagos;
+    }
+
     public void addListeners(TableModelListener e){
         if (modeloTablaCliente!=null)
             modeloTablaCliente.addTableModelListener(e);
