@@ -285,47 +285,6 @@ public class VistaPagos extends VentanaGestion{
         this.setVisible(true);
     }
 
-    private void setContentComplementario(ActionListener e){
-        mainPanel.remove(mainConten);
-        mainConten = new JPanel();
-        mainConten.setLayout(new BorderLayout());
-
-        JPanel panelInfor = new JPanel(new GridLayout(2, 2, 50, 20));
-        panelInfor.setBackground(Color.WHITE);
-        panelInfor.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 200));
-
-        JLabel idLabel = new JLabel("Cedula: ");
-        idLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
-        idTextField.setPreferredSize(new Dimension(150, 20));
-        panelInfor.add(idLabel);
-        panelInfor.add(idTextField);
-
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBorder(BorderFactory.createEmptyBorder(20,100,100,100));
-        tabla = new JTable();
-        scrollPane = new JScrollPane(tabla);
-        panel.add(scrollPane, BorderLayout.NORTH);
-
-        JLabel enviarLabel = new JLabel(" ");
-        enviarLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
-
-        JButton pagarButton = VistaBuilder.ButtonFactory("Enviar", "3-1-1", e);
-        pagarButton.setPreferredSize(new Dimension(100, 20));
-        pagarButton.setBackground(Color.decode("#DAF7A6"));
-        pagarButton.setBorder(null);
-        panelInfor.add(enviarLabel);
-        panelInfor.add(pagarButton);
-
-        mainConten.setBackground(Color.WHITE);
-        mainConten.add(panelInfor, BorderLayout.NORTH);
-        mainConten.add(panel, BorderLayout.CENTER);
-        mainPanel.add(mainConten, BorderLayout.CENTER);
-        mainConten.setBackground(Color.decode("#E7EAF0"));
-        mainPanel.add(mainConten, BorderLayout.CENTER);
-
-        this.setVisible(true);
-    }
-
     private void setContentBuscarPago(ActionListener e){
         mainPanel.remove(mainConten);
         mainConten = new JPanel();

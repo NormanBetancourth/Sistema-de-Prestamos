@@ -108,7 +108,6 @@ public class ControladorDePagos {
                         vistaPagos.clearFields();
                         break;
                     }
-                    //vistaPagos.clearFields();
                 }
                 break;
                 case "3-1-1":
