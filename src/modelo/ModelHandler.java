@@ -23,7 +23,6 @@ public class ModelHandler {
 
 
 
-
     //cambiar ->
     private ArrayList<Cliente> listaDeClientes;
 

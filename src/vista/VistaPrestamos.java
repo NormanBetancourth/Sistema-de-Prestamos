@@ -4,8 +4,10 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class VistaPrestamos extends VentanaGestion{
+    private JComboBox prestamosButton = new JComboBox();
     private JTextField nombreClienteTextField = new JTextField();
     private JTextField idClienteTextField = new JTextField();
     private JTextField montoTextField = new JTextField();
@@ -58,6 +60,7 @@ public class VistaPrestamos extends VentanaGestion{
     }
 
     public void clearFields(){
+        prestamosButton.setSelectedItem(null);
         nombreClienteTextField.setText(null);
         idClienteTextField.setText(null);
         montoTextField.setText(null);
@@ -106,7 +109,7 @@ public class VistaPrestamos extends VentanaGestion{
 
         JPanel panelInfor = new JPanel(new GridLayout(5, 2, 50, 20));
         panelInfor.setBackground(Color.WHITE);
-        panelInfor.setBorder(BorderFactory.createEmptyBorder(50, 20, 50, 200));
+        panelInfor.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 200));
 
         JLabel idLabel = new JLabel("Cedula: ");
         idLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
@@ -135,7 +138,7 @@ public class VistaPrestamos extends VentanaGestion{
 
         JLabel plazoLabel = new JLabel("Plazo: ");
         plazoLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
-        plazoTextField.setPreferredSize(new Dimension(150, 25));
+        plazoTextField.setPreferredSize(new Dimension(150, 20));
         panelInfor.add(plazoLabel);
         panelInfor.add(plazoTextField);
 
@@ -143,7 +146,7 @@ public class VistaPrestamos extends VentanaGestion{
         enviarLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
 
         JButton prestamoButton = VistaBuilder.ButtonFactory("   Enviar", "2-1-1", e);
-        prestamoButton.setPreferredSize(new Dimension(100, 25));
+        prestamoButton.setPreferredSize(new Dimension(100, 20));
         prestamoButton.setBackground(Color.decode("#DAF7A6"));
         prestamoButton.setBorder(null);
         panelInfor.add(enviarLabel);
@@ -158,13 +161,52 @@ public class VistaPrestamos extends VentanaGestion{
         this.setVisible(true);
     }
 
+    public void configuraPrestamosBoton(ArrayList<String> listaPrestamos){
+        prestamosButton = new JComboBox(listaPrestamos.toArray());
+        prestamosButton.setFocusable(false);
+    }
+
     private void setContentBuscarPrestamo(ActionListener e){
         mainPanel.remove(mainConten);
         mainConten = new JPanel();
         mainConten.setLayout(new BorderLayout());
-        mainConten.setBackground(Color.GREEN);
+
+        JPanel panelInfor = new JPanel(new GridLayout(3, 2, 50, 20));
+        panelInfor.setBackground(Color.WHITE);
+        panelInfor.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 200));
+
+        JLabel idLabel = new JLabel("Cedula: ");
+        idLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        idClienteTextField.setPreferredSize(new Dimension(150, 20));
+        panelInfor.add(idLabel);
+        panelInfor.add(idClienteTextField);
+
+        JLabel prestamosLabel = new JLabel("Prestamo: ");
+        prestamosLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        prestamosButton = new JComboBox();
+        prestamosButton.setFocusable(false);
+        prestamosButton.setPreferredSize(new Dimension(150, 20));
+        panelInfor.add(prestamosLabel);
+        panelInfor.add(prestamosButton);
+
+        JLabel enviarLabel = new JLabel(" ");
+        enviarLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+
+        JButton prestamoButton = VistaBuilder.ButtonFactory("   Enviar", "2-1-1", e);
+        prestamoButton.setPreferredSize(new Dimension(100, 20));
+        prestamoButton.setBackground(Color.decode("#DAF7A6"));
+        prestamoButton.setBorder(null);
+        panelInfor.add(enviarLabel);
+        panelInfor.add(prestamoButton);
+
+
+        mainConten.add(panelInfor, BorderLayout.NORTH);
+        mainConten.setBackground(Color.WHITE);
         mainPanel.add(mainConten, BorderLayout.CENTER);
-        this.setVisible(true);
+        mainConten.setBackground(Color.decode("#E7EAF0"));
+        mainPanel.add(mainConten, BorderLayout.CENTER);
+
+        setVisible(true);
     }
 
     private void setConetentPaneListarPrestamos(ActionListener e){

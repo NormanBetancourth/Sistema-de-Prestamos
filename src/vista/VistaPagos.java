@@ -169,7 +169,7 @@ public class VistaPagos extends VentanaGestion{
 
         JLabel amortizacionLabel = new JLabel("Amortizacion: ");
         amortizacionLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
-        amortizacionTextField.setPreferredSize(new Dimension(150, 25));
+        amortizacionTextField.setPreferredSize(new Dimension(150, 20));
         panelInfor.add(amortizacionLabel);
         panelInfor.add(amortizacionTextField);
 
@@ -177,7 +177,7 @@ public class VistaPagos extends VentanaGestion{
         enviarLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
 
         JButton pagarButton = VistaBuilder.ButtonFactory("Enviar", "3-1-1", e);
-        pagarButton.setPreferredSize(new Dimension(100, 25));
+        pagarButton.setPreferredSize(new Dimension(100, 20));
         pagarButton.setBackground(Color.decode("#DAF7A6"));
         pagarButton.setBorder(null);
         panelInfor.add(enviarLabel);
