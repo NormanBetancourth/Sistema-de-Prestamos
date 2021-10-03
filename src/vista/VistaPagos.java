@@ -74,6 +74,7 @@ public class VistaPagos extends VentanaGestion{
     public void setEditableButtons(){
         idTextField.setEditable(true);
         prestamoTextField.setEditable(false);
+        pagoTextField.setEditable(false);
         numeroTextField.setEditable(false);
         montoPagadoTextField.setEditable(false);
         tasaDeInteresTextField.setEditable(false);
@@ -136,11 +137,9 @@ public class VistaPagos extends VentanaGestion{
     public String getTextoAmortizacion(){
         return amortizacionTextField.getText();
     }
-
     public String getTextoPrestamo(){
         return prestamoTextField.getText();
     }
-
     public String getTextoPago(){
         return getPagoTextField().getText();
     }
@@ -286,6 +285,7 @@ public class VistaPagos extends VentanaGestion{
     }
 
     private void setContentBuscarPago(ActionListener e){
+        setEditableButtons();
         mainPanel.remove(mainConten);
         mainConten = new JPanel();
         mainConten.setLayout(new BorderLayout());
@@ -315,21 +315,30 @@ public class VistaPagos extends VentanaGestion{
         JLabel enviarLabel = new JLabel(" ");
         enviarLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
 
-        JButton prestamoButton = VistaBuilder.ButtonFactory("Enviar", "2-1-1", e);
+        JButton prestamoButton = VistaBuilder.ButtonFactory("Enviar", "3-2-0", e);
         prestamoButton.setPreferredSize(new Dimension(100, 20));
         prestamoButton.setBackground(Color.decode("#DAF7A6"));
         prestamoButton.setBorder(null);
         panelInfor.add(enviarLabel);
         panelInfor.add(prestamoButton);
 
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(20,100,100,100));
+        tabla = new JTable();
+        tabla.setModel(new DefaultTableModel());
+        tabla.addMouseListener((MouseListener) e);
+        scrollPane = new JScrollPane(tabla);
+        panel.add(scrollPane, BorderLayout.NORTH);
 
-        mainConten.add(panelInfor, BorderLayout.NORTH);
+
         mainConten.setBackground(Color.WHITE);
+        mainConten.add(panelInfor, BorderLayout.NORTH);
+        mainConten.add(panel, BorderLayout.CENTER);
         mainPanel.add(mainConten, BorderLayout.CENTER);
         mainConten.setBackground(Color.decode("#E7EAF0"));
         mainPanel.add(mainConten, BorderLayout.CENTER);
 
-        setVisible(true);
+        this.setVisible(true);
     }
 
     private void setContentListarPagos(ActionListener e){

@@ -129,6 +129,7 @@ public class Prestamo {
     }
 
     public void agregarPago(Pago pago){
+        pago.setNumeroDePago(numeroDePagos() + 1);
         agregarCodigoAPago(pago);
         getListaDePagos().add(pago);
         setMonto(getMonto() - pago.getMontoPagado());
