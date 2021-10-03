@@ -1,7 +1,14 @@
 package modelo.pago;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
 import java.time.LocalDate;
 
+@XmlRootElement(name = "Pago")
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class Pago {
     String id;
     int numeroDePago;

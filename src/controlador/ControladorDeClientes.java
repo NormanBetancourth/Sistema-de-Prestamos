@@ -87,7 +87,7 @@ public class ControladorDeClientes {
 
         @Override
         public void mouseMoved(MouseEvent e) {
-            mapCreator.refresh();
+           mapCreator.refresh();
         }
 
         @Override
@@ -98,10 +98,6 @@ public class ControladorDeClientes {
             if (i != -1){
                 vistaCliente.cargarCantones(i);
             }
-
-
-
-
 
         }
 

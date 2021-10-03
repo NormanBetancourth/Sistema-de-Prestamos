@@ -1,15 +1,24 @@
 package modelo.cliente;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import modelo.prestamo.ListaPrestamos;
 import modelo.prestamo.Prestamo;
 
 import java.util.ArrayList;
 
+@XmlRootElement(name = "Clientes")
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class Cliente {
     private int id;
     private String nombre;
     private String provincia;
     private String distrito;
     private String canton;
-    private ArrayList<Prestamo> listaDePrestamos;
+    private ListaPrestamos listaDePrestamos;
+
+
 
     public Cliente() {
         int id = 0;
@@ -17,7 +26,7 @@ public class Cliente {
         String provincia = "Indefinido";
         String distrito = "Indefinido";
         String canton = "Indefinido";
-        ArrayList<Prestamo> listaDePrestamos = new ArrayList<>();
+        listaDePrestamos = new ListaPrestamos();
     }
 
     public Cliente(int id, String nombre, String provincia, String distrito, String canton) {
@@ -26,7 +35,7 @@ public class Cliente {
         this.provincia = provincia;
         this.distrito = distrito;
         this.canton = canton;
-        this.listaDePrestamos = new ArrayList<>();
+        this.listaDePrestamos = new ListaPrestamos();
     }
 
     public int getId() {
@@ -69,16 +78,17 @@ public class Cliente {
         this.canton = canton;
     }
 
-    public ArrayList<Prestamo> getListaDePrestamos() {
+    @XmlElement(name = "Prestamo")
+    public ListaPrestamos getListaDePrestamos() {
         return listaDePrestamos;
     }
 
-    public void setListaDePrestamos(ArrayList<Prestamo> listaDePrestamos) {
+    public void setListaDePrestamos(ListaPrestamos listaDePrestamos) {
         this.listaDePrestamos = listaDePrestamos;
     }
 
     public Prestamo getAlgunPrestamo(String idPrestamo){
-        for(Prestamo prestamo : getListaDePrestamos()){
+        for(Prestamo prestamo : getListaDePrestamos().getLista()){
             if(prestamo.getId().equals(idPrestamo)){
                 return prestamo;
             }

@@ -1,6 +1,7 @@
 package controlador;
 
 import modelo.cliente.Cliente;
+import modelo.prestamo.ListaPrestamos;
 import vista.VistaPagos;
 
 import java.awt.event.ActionEvent;
@@ -54,7 +55,7 @@ public class ControladorDePagos {
                         }
                         else{
                             try{
-                                ArrayList<String> prestamos = ctrl.getModelo().retornaPrestamosActivos(cliente);
+                                ListaPrestamos prestamos = ctrl.getModelo().retornaPrestamosActivos(cliente);
                                 if(prestamos == null){
                                     throw new Exception("El usuario no cuenta con prestamos vigentes");
                                 }

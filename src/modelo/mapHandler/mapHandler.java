@@ -159,6 +159,7 @@ public class mapHandler {
         output.setIcon(new ImageIcon(getImage()));
     }
 
+
     private BufferedImage getImage() {
         BufferedImage bi = new BufferedImage(
                 514, 495, BufferedImage.TYPE_INT_RGB);

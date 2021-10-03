@@ -20,6 +20,7 @@ public class Controlador {
         Home = new HomeFrame();
         Home.addComponents(new ListenerHandler());
         HiloMapa h1 = new HiloMapa();
+        h1.setPriority(10);
         h1.start();
         modelo = new ModelHandler();
     }

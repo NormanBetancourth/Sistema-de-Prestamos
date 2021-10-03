@@ -1,10 +1,16 @@
 package modelo.prestamo;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import modelo.pago.ListaPagos;
 import modelo.pago.Pago;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-
+@XmlRootElement(name = "Prestamos")
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class Prestamo {
     private String id;
     private double monto;
@@ -13,7 +19,7 @@ public class Prestamo {
     private double cuota;
     private LocalDate fecha;
     private boolean estado;
-    private ArrayList<Pago> listaDePagos;
+    private ListaPagos listaDePagos;
 
     public Prestamo() {
         this.id = "Indefinido";
@@ -23,7 +29,7 @@ public class Prestamo {
         this.cuota = 0;
         this.fecha = LocalDate.now();
         this.estado = true;
-        this.listaDePagos = new ArrayList<>();
+        this.listaDePagos = new ListaPagos();
     }
 
     public Prestamo(double monto, double tasaDeInteres, int plazo) {
@@ -34,7 +40,7 @@ public class Prestamo {
         this.cuota = calculoDeCuota();
         this.fecha = LocalDate.now();
         this.estado = true;
-        this.listaDePagos = new ArrayList<>();
+        this.listaDePagos = new ListaPagos();
     }
 
     public String getId() {
@@ -85,11 +91,12 @@ public class Prestamo {
         this.estado = estado;
     }
 
-    public ArrayList<Pago> getListaDePagos() {
+    @XmlElement(name = "Pago")
+    public ListaPagos getListaDePagos() {
         return listaDePagos;
     }
 
-    public void setListaDePagos(ArrayList<Pago> listaDePagos) {
+    public void setListaDePagos(ListaPagos listaDePagos) {
         this.listaDePagos = listaDePagos;
     }
 

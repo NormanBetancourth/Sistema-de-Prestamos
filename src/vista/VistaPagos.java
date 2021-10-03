@@ -1,5 +1,7 @@
 package vista;
 
+import modelo.prestamo.ListaPrestamos;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -112,8 +114,8 @@ public class VistaPagos extends VentanaGestion{
         return amortizacionTextField.getText();
     }
 
-    public void configuraPrestamosBoton(ArrayList<String> listaPrestamos){
-        prestamosButton = new JComboBox(listaPrestamos.toArray());
+    public void configuraPrestamosBoton(ListaPrestamos listaPrestamos){
+        prestamosButton = new JComboBox(listaPrestamos.getLista().toArray());
         prestamosButton.setFocusable(false);
     }
 

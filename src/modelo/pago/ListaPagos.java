@@ -1,5 +1,7 @@
 package modelo.pago;
 
+import modelo.prestamo.Prestamo;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,4 +38,12 @@ public class ListaPagos {
         return null;
     }
 
+    @Override
+    public String toString() {
+        String ss = "";
+        for (Pago p : getLista()){
+            ss = ss + p.toString();
+        }
+        return ss;
+    }
 }

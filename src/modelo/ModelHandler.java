@@ -3,40 +3,64 @@ package modelo;
 import modelo.cliente.Cliente;
 import modelo.cliente.ListaClientes;
 import modelo.cliente.ModeloTablaCliente;
+import modelo.pago.ListaPagos;
+import modelo.pago.ModeloTablaPagos;
 import modelo.pago.Pago;
+import modelo.prestamo.ListaPrestamos;
+import modelo.prestamo.ModeloTablaPrestamos;
 import modelo.prestamo.Prestamo;
 
+import javax.swing.event.TableModelListener;
 import java.util.ArrayList;
 
 public class ModelHandler {
 
     //Clientes
     private ListaClientes clientes;
+    private ListaPagos pagos;
+    private ListaPrestamos prestamos;
+
+    private ModeloTablaPrestamos modeloTablaPrestamos;
+    private ModeloTablaPagos modeloTablaPagos;
     private ModeloTablaCliente modeloTablaCliente;
 
     //Parser
     JAXBParser parser;
+    public void agregarCliente(Cliente c){
+        clientes.add(c);
+    }
+    public void agregarPago(Pago c){
+        pagos.add(c);
+    }
+    public void agregarPrestamo(Prestamo c){
+        prestamos.add(c);
+    }
+
+    public void addListeners(TableModelListener e){
+        if (modeloTablaCliente!=null)
+            modeloTablaCliente.addTableModelListener(e);
+        if (modeloTablaPagos!=null)
+            modeloTablaPagos.addTableModelListener(e);
+        if (modeloTablaPrestamos!=null)
+            modeloTablaPrestamos.addTableModelListener(e);
+    }
 
 
+    public ModelHandler() {
+        clientes = new ListaClientes();
+        pagos = new ListaPagos();
+        prestamos = new ListaPrestamos();
+        cargarClientes();
+    }
+
+    private void cargarClientes() {
+    }
 
 
     //cambiar ->
-    private ArrayList<Cliente> listaDeClientes;
 
-    public ModelHandler() {
-        listaDeClientes = new ArrayList<>();
-    }
-
-    public ModelHandler(ArrayList<Cliente> listaDeClientes) {
-        this.listaDeClientes = listaDeClientes;
-    }
-
-    public ArrayList<Cliente> getListaDeClientes() {
-        return listaDeClientes;
-    }
-
-    public void setListaDeClientes(ArrayList<Cliente> listaDeClientes) {
-        this.listaDeClientes = listaDeClientes;
+    public ListaClientes getListaDeClientes() {
+        return clientes;
     }
 
     //String id, String nombre, String provincia, String distrito, String canton
@@ -45,7 +69,7 @@ public class ModelHandler {
     }
 
     public boolean clienteEstaRegistrado(int idCliente){
-        for(Cliente cliente : getListaDeClientes()) {
+        for(Cliente cliente : getListaDeClientes().getLista()) {
             if (cliente.getId() == (idCliente)) {
                 return true;
             }
@@ -53,18 +77,18 @@ public class ModelHandler {
         return false;
     }
 
-    public ArrayList<String> retornaPrestamosActivos(Cliente cliente){
-        ArrayList<String> prestamos = new ArrayList<>();
-        for(Prestamo prestamo : cliente.getListaDePrestamos()){
+    public ListaPrestamos retornaPrestamosActivos(Cliente cliente){
+        ListaPrestamos prestamos = new ListaPrestamos();
+        for(Prestamo prestamo : cliente.getListaDePrestamos().getLista()){
             if(prestamo.isEstado()){
-                prestamos.add(prestamo.getId());
+                prestamos.add(prestamo);
             }
         }
         return prestamos;
     }
 
     public Cliente getAlgunCliente(int idCliente){
-        for(Cliente cliente : getListaDeClientes()) {
+        for(Cliente cliente : getListaDeClientes().getLista()) {
             if (cliente.getId() == idCliente) {
                 return cliente;
             }
@@ -73,7 +97,7 @@ public class ModelHandler {
     }
 
     public Prestamo getAlgunPrestamo(String idPrestamo){
-        for(Cliente cliente : getListaDeClientes()) {
+        for(Cliente cliente : getListaDeClientes().getLista()) {
             if (cliente.getAlgunPrestamo(idPrestamo) != null) {
                 return cliente.getAlgunPrestamo(idPrestamo);
             }
@@ -81,8 +105,8 @@ public class ModelHandler {
         return null;
     }
 
-    public String getPrestamosDeAlgunCliente(int idCliente){
-       return getAlgunCliente(idCliente).getListaDePrestamos().toString();
+    public ListaPrestamos getPrestamosDeAlgunCliente(int idCliente){
+       return getAlgunCliente(idCliente).getListaDePrestamos();
     }
 
     public String retornaNombrePorId(int idCliente){

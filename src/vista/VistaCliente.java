@@ -239,14 +239,16 @@ public class VistaCliente extends VentanaGestion{
         mainConten.setLayout(new BorderLayout());
         mainConten.setBackground(Color.GREEN);
         mainPanel.add(mainConten, BorderLayout.CENTER);
+        validate();
     }
 
     private void setContentListarClientes(ActionListener e){
         mainPanel.remove(mainConten);
         mainConten = new JPanel();
         mainConten.setLayout(new BorderLayout());
-        mainConten.setBackground(Color.GREEN);
+        mainConten.setBackground(Color.RED);
         mainPanel.add(mainConten, BorderLayout.CENTER);
+        validate();
     }
 
     public void mainContentHandler(int code, ActionListener e,JPanel mapa){
