@@ -12,6 +12,7 @@ public class ModeloTablaPrestamos extends AbstractTableModel {
     public ModeloTablaPrestamos(List<Prestamo> filas) {
         this.filas = filas;
     }
+
     @Override
     public int getRowCount() {
         return filas.size();

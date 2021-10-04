@@ -509,6 +509,7 @@ public class VistaCliente extends VentanaGestion{
         frame.add(panel, BorderLayout.NORTH);
         JScrollPane scrollPane = new JScrollPane(panelPrestamos);
         frame.add(scrollPane, BorderLayout.CENTER);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
 

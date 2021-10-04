@@ -9,6 +9,8 @@ import modelo.pago.Pago;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+
 @XmlRootElement(name = "Prestamos")
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Prestamo {
@@ -85,6 +87,19 @@ public class Prestamo {
 
     public boolean isEstado() {
         return estado;
+    }
+
+    public boolean tienePagos(){
+        List<Pago> listaPagos = getListaDePagos().getLista();
+        return listaPagos.isEmpty();
+    }
+
+    public String leeEstado(){
+        return isEstado() ? "Pendiente" : "Completado";
+    }
+
+    public List<Pago> getListaPagosRaw(){
+        return listaDePagos.getLista();
     }
 
     public void setEstado(boolean estado) {

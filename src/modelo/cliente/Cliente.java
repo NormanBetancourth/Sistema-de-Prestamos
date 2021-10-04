@@ -104,9 +104,6 @@ public class Cliente {
 
     }
 
-
-
-    // TODO Configurar para presentarlo en vista
     @Override
     public String toString() {
         return "\tCliente\n" +

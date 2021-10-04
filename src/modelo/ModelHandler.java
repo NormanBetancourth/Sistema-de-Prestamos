@@ -141,8 +141,9 @@ public class ModelHandler {
     }
 
     public ListaPrestamos retornaPrestamosActivos(Cliente cliente){
+        ListaPrestamos listaPrestamos = cliente.getListaDePrestamos();
         ListaPrestamos prestamos = new ListaPrestamos();
-        for(Prestamo prestamo : cliente.getListaDePrestamos().getLista()){
+        for(Prestamo prestamo : listaPrestamos.getLista()){
             if(prestamo.isEstado()){
                 prestamos.add(prestamo);
             }
@@ -171,6 +172,7 @@ public class ModelHandler {
     public ListaPrestamos getPrestamosDeAlgunCliente(int idCliente){
        return buscarCliente(idCliente).getListaDePrestamos();
     }
+
 
     public String retornaNombrePorId(int idCliente){
         return buscarCliente(idCliente).getNombre();

@@ -1,12 +1,16 @@
 package vista;
 
 import com.sun.tools.xjc.model.Model;
+import modelo.cliente.Cliente;
 import modelo.pago.ModeloTablaPagos;
+import modelo.pago.Pago;
 import modelo.prestamo.ModeloTablaPrestamos;
+import modelo.prestamo.Prestamo;
 import org.glassfish.jaxb.runtime.v2.model.impl.ModelBuilder;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -52,10 +56,10 @@ public class VistaPagos extends VentanaGestion{
         botonera.add(inicioBoton);
         agregarBoton = VistaBuilder.ButtonFactory("Agregar Pago", "3-1",e);
         botonera.add(agregarBoton);
-        buscarBoton = VistaBuilder.ButtonFactory("Buscar Pago", "3-2",e);
+        buscarBoton = VistaBuilder.ButtonFactory("Listado y Busqueda de Pagos", "3-2",e);
         botonera.add(buscarBoton);
-        listarBoton = VistaBuilder.ButtonFactory("Listado de Pagos", "3-3",e);
-        botonera.add(listarBoton);
+        //listarBoton = VistaBuilder.ButtonFactory("Listado de Pagos", "3-3",e);
+        //botonera.add(listarBoton);
 
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(botonera, BorderLayout.NORTH);
@@ -66,7 +70,7 @@ public class VistaPagos extends VentanaGestion{
         southPanel.setPreferredSize(new Dimension(100,20));
         southPanel.setBackground(Color.decode("#081F62"));
 
-        mainContentHandler(1,e);
+        //mainContentHandler(1,null);
 
         this.add(southPanel, BorderLayout.SOUTH);
         this.setVisible(true);
@@ -83,6 +87,7 @@ public class VistaPagos extends VentanaGestion{
     }
 
     public void clearFields(){
+        boton.setText("Enviar");
         idTextField.setText(null);
         prestamoTextField.setText(null);
         pagoTextField.setText(null);
@@ -193,11 +198,11 @@ public class VistaPagos extends VentanaGestion{
         this.tabla = tabla;
     }
 
-    public void setModeloTablaPrestamos(ModeloTablaPrestamos modeloTablaPrestamos){
+    public void setModeloTablaPrestamos(AbstractTableModel modeloTablaPrestamos){
         tabla.setModel(modeloTablaPrestamos);
     }
 
-    public void setModeloTabla(ModeloTablaPagos modeloTablaPagos){
+    public void setModeloTablaPagos(AbstractTableModel modeloTablaPagos){
         tabla.setModel(modeloTablaPagos);
     }
 
@@ -271,11 +276,10 @@ public class VistaPagos extends VentanaGestion{
         panelInfor.add(boton);
 
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBorder(BorderFactory.createEmptyBorder(20,100,100,100));
+        panel.setBorder(BorderFactory.createEmptyBorder(20,150,100,150));
         tabla = new JTable();
         tabla.setModel(new DefaultTableModel());
         tabla.addMouseListener((MouseListener) e);
-        //tabla.setBorder(BorderFactory.createEmptyBorder(50,20,50,20));
         scrollPane = new JScrollPane(tabla);
         panel.add(scrollPane, BorderLayout.NORTH);
 
@@ -346,20 +350,94 @@ public class VistaPagos extends VentanaGestion{
         this.setVisible(true);
     }
 
-    private void setContentListarPagos(ActionListener e){
-        mainPanel.remove(mainConten);
-        mainConten = new JPanel();
-        mainConten.setLayout(new BorderLayout());
-        mainConten.setBackground(Color.GREEN);
-        mainPanel.add(mainConten, BorderLayout.CENTER);
-        this.setVisible(true);
+    public void seleccionarIntervalo(int index1, int index2){
+        tabla.setRowSelectionInterval(index1, index2);
+    }
+
+    public void mostrarVentantaInfoPago(Prestamo prestamo) {
+        JPanel panel = new JPanel();
+        panel.setBorder(new EmptyBorder(10,20,20,20));
+        panel.setFont(new Font("TimesRoman", Font.BOLD, 15));
+        panel.setBackground(Color.decode("#081F62"));
+        panel.setForeground(Color.WHITE);
+        panel.setPreferredSize(new Dimension(400,140));
+        panel.setLayout(new GridLayout(3,2));
+
+        JLabel auxLabel = new JLabel("Prestamo: ");
+        auxLabel.setForeground(Color.WHITE);
+        auxLabel.setFont(new Font("TimesRoman", Font.BOLD, 15));
+        panel.add(auxLabel);
+
+        auxLabel = new JLabel(String.valueOf(prestamo.getId()));
+        auxLabel.setForeground(Color.WHITE);
+        auxLabel.setFont(new Font("TimesRoman", Font.BOLD, 15));
+        panel.add(auxLabel);
+
+        auxLabel = new JLabel("Estado: ");
+        auxLabel.setForeground(Color.WHITE);
+        auxLabel.setFont(new Font("TimesRoman", Font.BOLD, 15));
+        panel.add(auxLabel);
+
+
+        auxLabel = new JLabel(String.valueOf(prestamo.leeEstado()));
+        auxLabel.setForeground(Color.WHITE);
+        auxLabel.setFont(new Font("TimesRoman", Font.BOLD, 15));
+        panel.add(auxLabel);
+
+        auxLabel = new JLabel("Monto Total: ");
+        auxLabel.setForeground(Color.WHITE);
+        auxLabel.setFont(new Font("TimesRoman", Font.BOLD, 15));
+        panel.add(auxLabel);
+
+        auxLabel = new JLabel(String.valueOf(prestamo.getMonto()));
+        auxLabel.setForeground(Color.WHITE);
+        auxLabel.setFont(new Font("TimesRoman", Font.BOLD, 15));
+        panel.add(auxLabel);
+
+        JPanel panelPagos = new JPanel();
+        panelPagos.setFont(new Font("TimesRoman", Font.PLAIN, 10));
+        panelPagos.setBackground(Color.WHITE);
+
+        panelPagos.setBorder(new EmptyBorder(20,30,20,30));
+
+        panelPagos.setPreferredSize(new Dimension(400,300));
+        panelPagos.setLayout(new GridLayout(14,2));
+        panelPagos.add(new JLabel("Pagos"));
+        panelPagos.add(new JLabel(" "));
+        if (prestamo.tienePagos()){
+            for (Pago pago: prestamo.getListaPagosRaw()){
+                panelPagos.add(new JLabel("Numero de Pago: "));
+                panelPagos.add(new JLabel(String.valueOf(pago.getNumeroDePago())));
+
+                panelPagos.add(new JLabel("Codigo: "));
+                panelPagos.add(new JLabel(String.valueOf(pago.getId())));
+
+                panelPagos.add(new JLabel("Monto: "));
+                panelPagos.add(new JLabel(String.valueOf(pago.getMontoPagado())));
+
+                panelPagos.add(new JLabel("Fecha: "));
+                panelPagos.add(new JLabel(String.valueOf(pago.getFecha())));
+
+            }
+
+        }
+
+        JFrame frame = new JFrame("Informacion de pagos");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(600,500);
+        frame.setLayout(new BorderLayout());
+        frame.add(panel, BorderLayout.NORTH);
+        JScrollPane scrollPane = new JScrollPane(panelPagos);
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
     }
 
     public void mainContentHandler(int code, ActionListener e){
         switch (code) {
             case 1 -> setContentAgregarPago(e);
             case 2 -> setContentBuscarPago(e);
-            case 3 -> setContentListarPagos(e);
         }
     }
 
