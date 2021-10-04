@@ -89,16 +89,16 @@ public class Prestamo {
         return estado;
     }
 
-    public boolean tienePagos(){
-        List<Pago> listaPagos = getListaDePagos().getLista();
-        return listaPagos.isEmpty();
-    }
-
     public String leeEstado(){
         return isEstado() ? "Pendiente" : "Completado";
     }
 
-    public List<Pago> getListaPagosRaw(){
+    public boolean tienePagos(){
+        List<Pago> listaPagos = getListaPagosRow();
+        return listaPagos.size() > 0;
+    }
+
+    public List<Pago> getListaPagosRow(){
         return listaDePagos.getLista();
     }
 

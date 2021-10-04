@@ -148,6 +148,9 @@ public class ControladorDePagos {
                                         if (!ctrl.getModelo().clienteEstaRegistrado(idCliente)) {
                                             throw new Exception("El usuario indicado no se encuentra en el sistema");
                                         } else {
+                                            if (!ctrl.getModelo().isPrestamoActivo(idPrestamo)) {
+                                                throw new Exception("El prestamo ya ha sido completamente cancelado");
+                                            }
                                             ctrl.getModelo().cancelacionDeCuota(idPrestamo, numeroPago, montoPagado, interes, amortizacion);
                                         }
                                     } catch (Exception exception) {
@@ -163,9 +166,16 @@ public class ControladorDePagos {
                                 vistaPagos.setEditableButtons();
                                 break;
                             }
+                            vistaPagos.getBoton2().setEnabled(false);
                             vistaPagos.setEditableButtons();
                             vistaPagos.clearFields();
                         }
+                case "3-1-2" -> {
+                    vistaPagos.getBoton().setActionCommand("3-1-0");
+                    vistaPagos.clearFields();
+                    vistaPagos.setEditableButtons();
+                    vistaPagos.getBoton2().setEnabled(false);
+                }
             }
         }
 
@@ -179,6 +189,7 @@ public class ControladorDePagos {
                 vistaPagos.setTextoInteres(String.valueOf(jTable.getValueAt(selectedRow, 2)));
                 vistaPagos.getBoton().setText("Confirmar");
                 vistaPagos.getBoton().setActionCommand("3-1-1");
+                vistaPagos.getBoton2().setEnabled(true);
                 vistaPagos.getIdTextField().setEditable(false);
                 vistaPagos.getAmortizacionTextField().setEditable(true);
                 vistaPagos.getMontoPagadoTextField().setEditable(true);
@@ -210,7 +221,7 @@ public class ControladorDePagos {
         }
     }
 
-    //BUSCAR PAGO
+    //LISTAR PAGOS
     private class ListenerHandler2 implements ActionListener, MouseListener {
 
         @Override
@@ -219,7 +230,7 @@ public class ControladorDePagos {
             int idCliente = 0;
             String valor = e.getActionCommand();
             switch (valor) {
-                case "3-2-0": {
+                case "3-2-0" -> {
                     try {
                         if (vistaPagos.getTextoId().isBlank()) {
                             throw new Exception("Existen campos de texto vacios");
@@ -251,29 +262,33 @@ public class ControladorDePagos {
                         break;
                     }
                 }
-                break;
-                case "3-2-1": {
+                case "3-2-1" -> {
                     String codigo = vistaPagos.getTextoPrestamo();
-                    Prestamo prestamo =  ctrl.getModelo().getAlgunPrestamo(codigo);
+                    Prestamo prestamo = ctrl.getModelo().getAlgunPrestamo(codigo);
                     vistaPagos.mostrarVentantaInfoPago(prestamo);
+                    vistaPagos.setEditableButtons();
+                    vistaPagos.clearFields();
+                    vistaPagos.getBoton2().setEnabled(false);
                 }
-                break;
+                case "3-2-2" ->{
+                    vistaPagos.getBoton().setActionCommand("3-2-0");
+                    vistaPagos.clearFields();
+                    vistaPagos.setEditableButtons();
+                    vistaPagos.getBoton2().setEnabled(false);
+                }
             }
         }
 
         @Override
         public void mouseClicked(MouseEvent e) {
             JTable jTable = vistaPagos.getTabla();
-
             if (e.getSource().equals(jTable)) {
                 int selectedRow = jTable.getSelectedRow();
                 vistaPagos.setTextoPrestamo(String.valueOf(jTable.getValueAt(selectedRow, 0)));
                 vistaPagos.getBoton().setText("Confirmar");
                 vistaPagos.getBoton().setActionCommand("3-2-1");
-                String idPrestamo = vistaPagos.getTextoPrestamo();
-                Prestamo prestamo = ctrl.getModelo().getAlgunPrestamo(idPrestamo);
                 vistaPagos.getIdTextField().setEditable(false);
-                actualizaTablaPagos(prestamo);
+                vistaPagos.getBoton2().setEnabled(true);
             }
         }
 

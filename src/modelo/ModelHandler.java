@@ -191,9 +191,20 @@ public class ModelHandler {
         prestamo.setId(String.valueOf(cliente.hashCode()));
     }
 
+    public boolean isPrestamoActivo(String idPrestamo){
+        Prestamo prestamo = getAlgunPrestamo(idPrestamo);
+        return prestamo.isEstado();
+    }
+
     public void cancelacionDeCuota(String idPrestamo, int numeroDePago, double montoPagado, double interes, double amortizacion){
         //int numeroDePago, double montoPagado, double interes, double amortizacion
-        getAlgunPrestamo(idPrestamo).agregarPago(new Pago(numeroDePago, montoPagado, interes, amortizacion));
+        Prestamo prestamo = getAlgunPrestamo(idPrestamo);
+        if(prestamo.isEstado()){
+            prestamo.agregarPago(new Pago(numeroDePago, montoPagado, interes, amortizacion));
+            if(prestamo.getCuota() == 0){
+                prestamo.setEstado(false);
+            }
+        }
     }
 
     public ListaPagos getListaDePagosPorPrestamo(String idPrestamo) {

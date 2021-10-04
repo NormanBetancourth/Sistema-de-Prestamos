@@ -56,7 +56,7 @@ public class VistaPagos extends VentanaGestion{
         botonera.add(inicioBoton);
         agregarBoton = VistaBuilder.ButtonFactory("Agregar Pago", "3-1",e);
         botonera.add(agregarBoton);
-        buscarBoton = VistaBuilder.ButtonFactory("Listado y Busqueda de Pagos", "3-2",e);
+        buscarBoton = VistaBuilder.ButtonFactory("Listado de Pagos", "3-2",e);
         botonera.add(buscarBoton);
         //listarBoton = VistaBuilder.ButtonFactory("Listado de Pagos", "3-3",e);
         //botonera.add(listarBoton);
@@ -182,12 +182,16 @@ public class VistaPagos extends VentanaGestion{
         return boton;
     }
 
+    public void setBoton(JButton boton) {
+        this.boton = boton;
+    }
+
     public JButton getBoton2() {
         return boton2;
     }
 
-    public void setBoton(JButton boton) {
-        this.boton = boton;
+    public void setBoton2(JButton boton2) {
+        this.boton2 = boton2;
     }
 
     public JTable getTabla() {
@@ -219,7 +223,7 @@ public class VistaPagos extends VentanaGestion{
         mainConten = new JPanel();
         mainConten.setLayout(new BorderLayout());
 
-        JPanel panelInfor = new JPanel(new GridLayout(7, 2, 50, 20));
+        JPanel panelInfor = new JPanel(new GridLayout(8, 2, 50, 20));
         panelInfor.setBackground(Color.WHITE);
         panelInfor.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 200));
 
@@ -275,6 +279,17 @@ public class VistaPagos extends VentanaGestion{
         panelInfor.add(enviarLabel);
         panelInfor.add(boton);
 
+        JLabel cancelarLabel = new JLabel(" ");
+        enviarLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+
+        boton2 = VistaBuilder.ButtonFactory("Cancelar", "3-1-2", e);
+        boton2.setPreferredSize(new Dimension(100, 20));
+        boton2.setBackground(Color.decode("#C27A8F"));
+        boton2.setBorder(null);
+        boton2.setEnabled(false);
+        panelInfor.add(cancelarLabel);
+        panelInfor.add(boton2);
+
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(20,150,100,150));
         tabla = new JTable();
@@ -293,12 +308,13 @@ public class VistaPagos extends VentanaGestion{
         this.setVisible(true);
     }
 
-    private void setContentBuscarPago(ActionListener e){
+    private void setContentListarPagos(ActionListener e){
         setEditableButtons();
         mainPanel.remove(mainConten);
         mainConten = new JPanel();
         mainConten.setLayout(new BorderLayout());
 
+        //JPanel panelInfor = new JPanel(new GridLayout(5, 2, 50, 20));
         JPanel panelInfor = new JPanel(new GridLayout(4, 2, 50, 20));
         panelInfor.setBackground(Color.WHITE);
         panelInfor.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 200));
@@ -315,20 +331,31 @@ public class VistaPagos extends VentanaGestion{
         panelInfor.add(prestamoLabel);
         panelInfor.add(prestamoTextField);
 
-        JLabel pagoLabel = new JLabel("Pago: ");
-        pagoLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
-        pagoTextField.setPreferredSize(new Dimension(150, 20));
-        panelInfor.add(pagoLabel);
-        panelInfor.add(pagoTextField);
+        //JLabel pagoLabel = new JLabel("Pago: ");
+        //pagoLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        //pagoTextField.setPreferredSize(new Dimension(150, 20));
+        //panelInfor.add(pagoLabel);
+        //panelInfor.add(pagoTextField);
 
         JLabel enviarLabel = new JLabel(" ");
         enviarLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
 
-        boton2 = VistaBuilder.ButtonFactory("Enviar", "3-2-0", e);
-        boton2.setPreferredSize(new Dimension(100, 20));
-        boton2.setBackground(Color.decode("#DAF7A6"));
-        boton2.setBorder(null);
+        boton = VistaBuilder.ButtonFactory("Enviar", "3-2-0", e);
+        boton.setPreferredSize(new Dimension(100, 20));
+        boton.setBackground(Color.decode("#DAF7A6"));
+        boton.setBorder(null);
         panelInfor.add(enviarLabel);
+        panelInfor.add(boton);
+
+        JLabel cancelarLabel = new JLabel(" ");
+        enviarLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+
+        boton2 = VistaBuilder.ButtonFactory("Cancelar", "3-2-2", e);
+        boton2.setPreferredSize(new Dimension(100, 20));
+        boton2.setBackground(Color.decode("#C27A8F"));
+        boton2.setBorder(null);
+        boton2.setEnabled(false);
+        panelInfor.add(cancelarLabel);
         panelInfor.add(boton2);
 
         JPanel panel = new JPanel(new BorderLayout());
@@ -348,10 +375,6 @@ public class VistaPagos extends VentanaGestion{
         mainPanel.add(mainConten, BorderLayout.CENTER);
 
         this.setVisible(true);
-    }
-
-    public void seleccionarIntervalo(int index1, int index2){
-        tabla.setRowSelectionInterval(index1, index2);
     }
 
     public void mostrarVentantaInfoPago(Prestamo prestamo) {
@@ -384,7 +407,7 @@ public class VistaPagos extends VentanaGestion{
         auxLabel.setFont(new Font("TimesRoman", Font.BOLD, 15));
         panel.add(auxLabel);
 
-        auxLabel = new JLabel("Monto Total: ");
+        auxLabel = new JLabel("Monto Restante: ");
         auxLabel.setForeground(Color.WHITE);
         auxLabel.setFont(new Font("TimesRoman", Font.BOLD, 15));
         panel.add(auxLabel);
@@ -401,11 +424,11 @@ public class VistaPagos extends VentanaGestion{
         panelPagos.setBorder(new EmptyBorder(20,30,20,30));
 
         panelPagos.setPreferredSize(new Dimension(400,300));
-        panelPagos.setLayout(new GridLayout(14,2));
+        panelPagos.setLayout(new GridLayout(10,2));
         panelPagos.add(new JLabel("Pagos"));
         panelPagos.add(new JLabel(" "));
         if (prestamo.tienePagos()){
-            for (Pago pago: prestamo.getListaPagosRaw()){
+            for (Pago pago: prestamo.getListaPagosRow()){
                 panelPagos.add(new JLabel("Numero de Pago: "));
                 panelPagos.add(new JLabel(String.valueOf(pago.getNumeroDePago())));
 
@@ -418,7 +441,9 @@ public class VistaPagos extends VentanaGestion{
                 panelPagos.add(new JLabel("Fecha: "));
                 panelPagos.add(new JLabel(String.valueOf(pago.getFecha())));
 
-            }
+                panelPagos.add(new JLabel(" "));
+                panelPagos.add(new JLabel(" "));
+          }
 
         }
 
@@ -431,13 +456,12 @@ public class VistaPagos extends VentanaGestion{
         frame.add(scrollPane, BorderLayout.CENTER);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
     }
 
     public void mainContentHandler(int code, ActionListener e){
         switch (code) {
             case 1 -> setContentAgregarPago(e);
-            case 2 -> setContentBuscarPago(e);
+            case 2 -> setContentListarPagos(e);
         }
     }
 
