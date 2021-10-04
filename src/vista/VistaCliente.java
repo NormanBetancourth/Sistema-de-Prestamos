@@ -1,11 +1,16 @@
 package vista;
 
+import controlador.ControladorDeClientes;
+import modelo.cliente.Cliente;
 import modelo.mapHandler.SubMapHandler;
+import modelo.prestamo.Prestamo;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 public class VistaCliente extends VentanaGestion{
@@ -19,15 +24,21 @@ public class VistaCliente extends VentanaGestion{
     private ArrayList<String>  distritos;
     private JButton inicioBoton;
     private JPanel mapConteiner; // label donde va el mapa
+    private JScrollPane ScrollPane;
+    private JPanel center;
+    private JTable table;
+    private JTextField prestamoTextField;
+    private JButton buscarClientebtn;
+
 
     public VistaCliente() throws HeadlessException {
-        // TODO ajustar
         provincias = new String[]{"Heredia", "Alajuela", "Guanacaste", "Puntarenas", "Cartago", "Limon", "San Jose","Puntarenas"};
         provinciaCombo = new JComboBox(provincias);
         provinciaCombo.setSelectedItem("Seleccione");
         provinciaCombo.setEnabled(false);
         provinciaCombo.setBackground(Color.white);
         provinciaCombo.setForeground(Color.BLACK);
+        prestamoTextField = new JTextField();
 
         cantonCombo= new JComboBox();
         distritoCombo= new JComboBox();
@@ -37,6 +48,8 @@ public class VistaCliente extends VentanaGestion{
         provinciaCombo.setActionCommand("Provincia");
         cantonCombo.setActionCommand("Canton");
         distritoCombo.setActionCommand("Distrito");
+        table = new JTable();
+        center = new JPanel();
     }
 
 /*
@@ -71,9 +84,9 @@ public class VistaCliente extends VentanaGestion{
         botonera.add(inicioBoton);
         agregarBoton = VistaBuilder.ButtonFactory("Agregar Cliente", "1-1",e);
         botonera.add(agregarBoton);
-        buscarBoton = VistaBuilder.ButtonFactory("Buscar Cliente", "1-2",e);
-        botonera.add(buscarBoton);
-        listarBoton = VistaBuilder.ButtonFactory("Listado de Clientes", "1-3",e);
+//        buscarBoton = VistaBuilder.ButtonFactory("Buscar Cliente", "1-2",e);
+//        botonera.add(buscarBoton);
+        listarBoton = VistaBuilder.ButtonFactory("Listado y busqueda de Clientes", "1-3",e);
         botonera.add(listarBoton);
 
         mainPanel.setLayout(new BorderLayout());
@@ -147,7 +160,7 @@ public class VistaCliente extends VentanaGestion{
 
         //formulario
         labelAux.setBorder(new EmptyBorder(0,190,0,0));
-        JButton btnAux = VistaBuilder.ButtonFactory("Guardar", "guardar", e);
+        JButton btnAux = VistaBuilder.ButtonFactory("Guardar", "1-9", e);
         auxPanel.setLayout(new GridLayout(2,2, 50,10));
         auxPanel.add(labelAux);
         auxPanel.add(nameTextField);
@@ -238,6 +251,11 @@ public class VistaCliente extends VentanaGestion{
         mainConten = new JPanel();
         mainConten.setLayout(new BorderLayout());
         mainConten.setBackground(Color.GREEN);
+
+
+
+
+
         mainPanel.add(mainConten, BorderLayout.CENTER);
         validate();
     }
@@ -248,10 +266,56 @@ public class VistaCliente extends VentanaGestion{
         mainConten.setLayout(new BorderLayout());
         mainConten.setBackground(Color.RED);
         mainPanel.add(mainConten, BorderLayout.CENTER);
+
+        JPanel panelInfor = new JPanel(new GridLayout(3, 2, 50, 20));
+        panelInfor.setBackground(Color.WHITE);
+        panelInfor.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 200));
+
+        JLabel idLabel = new JLabel("Ingrese la cedula del Cliente: ");
+        idLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        idLabel.setHorizontalAlignment(JLabel.CENTER);
+        prestamoTextField.setPreferredSize(new Dimension(150, 20));
+        panelInfor.add(idLabel);
+        panelInfor.add(prestamoTextField);
+
+        JLabel enviarLabel = new JLabel(" ");
+        enviarLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+
+        buscarClientebtn = VistaBuilder.ButtonFactory("Buscar", "buscarCliente", e);
+        buscarClientebtn.setPreferredSize(new Dimension(100, 20));
+        buscarClientebtn.setBackground(Color.decode("#DAF7A6"));
+        buscarClientebtn.setBorder(null);
+        panelInfor.add(enviarLabel);
+        panelInfor.add(buscarClientebtn);
+        JLabel a = new JLabel("Doble click sobre el cliente para ver mas detalles");
+        a.setHorizontalAlignment(JLabel.RIGHT);
+        panelInfor.add(a);
+
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(20,100,100,100));
+
+        center.setSize(new Dimension(getWidth()-20, 500));
+        update();
+        panel.add(center, BorderLayout.NORTH);
+
+
+        mainConten.setBackground(Color.WHITE);
+        mainConten.add(panelInfor, BorderLayout.NORTH);
+        mainConten.add(panel, BorderLayout.CENTER);
+        mainPanel.add(mainConten, BorderLayout.CENTER);
+        mainConten.setBackground(Color.decode("#E7EAF0"));
+
+
+
         validate();
     }
 
-    public void mainContentHandler(int code, ActionListener e,JPanel mapa){
+    public String getPrestamoTextField() {
+        return prestamoTextField.getText();
+    }
+
+    public void mainContentHandler(int code, ActionListener e, JPanel mapa){
         switch (code) {
             case 1 -> setContentAgregarCliente(e, mapa);
             case 2 -> setContentBuscarCliente(e);
@@ -321,6 +385,133 @@ public class VistaCliente extends VentanaGestion{
     }
     public String getSelectedDistrito(){
         return (String) distritoCombo.getSelectedItem();
+    }
+
+    public String getId() {
+        return idTextField.getText();
+    }
+
+    public String getComboProvincia() {
+        return (String) provinciaCombo.getSelectedItem();
+    }
+
+    public String getComboCanton() {
+        return (String) cantonCombo.getSelectedItem();
+
+    }
+
+    public String getComboDistrito() {
+        return (String) distritoCombo.getSelectedItem();
+    }
+
+    public void setTable(JTable table) {
+        this.table = table;
+        update();
+    }
+
+    private void update() {
+        ScrollPane = new JScrollPane(table);
+        if (center.getComponentCount() > 0){
+            center.remove(0);//en centro va la tabla
+        }
+        center.add(ScrollPane);
+        center.validate();
+    }
+
+    public void addListeners(ControladorDeClientes.ListenerHandler listenerHandler) {
+        table.addMouseListener(listenerHandler);
+
+    }
+
+    public JTable getTable() {
+        return table;
+    }
+
+    public int getSelectedRow() {
+        return table.getSelectedRow();
+    }
+
+    public void mostrarVentantaInfoCLiente(Cliente cliente) {
+
+        JPanel panel = new JPanel();
+        panel.setBorder(new EmptyBorder(10,20,20,20));
+        panel.setFont(new Font("TimesRoman", Font.BOLD, 15));
+        panel.setBackground(Color.decode("#081F62"));
+        panel.setForeground(Color.WHITE);
+        panel.setPreferredSize(new Dimension(400,140));
+        panel.setLayout(new GridLayout(3,2));
+
+        JLabel auxLabel = new JLabel("Nombre: ");
+        auxLabel.setForeground(Color.WHITE);
+        auxLabel.setFont(new Font("TimesRoman", Font.BOLD, 15));
+        panel.add(auxLabel);
+
+
+        auxLabel = new JLabel(cliente.getNombre());
+        auxLabel.setForeground(Color.WHITE);
+        auxLabel.setFont(new Font("TimesRoman", Font.BOLD, 15));
+        panel.add(auxLabel);
+
+
+        auxLabel = new JLabel("ID: ");
+        auxLabel.setForeground(Color.WHITE);
+        auxLabel.setFont(new Font("TimesRoman", Font.BOLD, 15));
+        panel.add(auxLabel);
+
+
+        auxLabel = new JLabel(String.valueOf(cliente.getId()));
+        auxLabel.setForeground(Color.WHITE);
+        auxLabel.setFont(new Font("TimesRoman", Font.BOLD, 15));
+        panel.add(auxLabel);
+
+        auxLabel = new JLabel("Direccion: ");
+        auxLabel.setForeground(Color.WHITE);
+        auxLabel.setFont(new Font("TimesRoman", Font.BOLD, 15));
+        panel.add(auxLabel);
+
+        auxLabel = new JLabel(cliente.getProvincia()+", "+cliente.getCanton()+ ", "+ cliente.getProvincia());
+        auxLabel.setForeground(Color.WHITE);
+        auxLabel.setFont(new Font("TimesRoman", Font.BOLD, 15));
+        panel.add(auxLabel);
+
+        JPanel panelPrestamos = new JPanel();
+        panelPrestamos.setFont(new Font("TimesRoman", Font.PLAIN, 10));
+        panelPrestamos.setBackground(Color.WHITE);
+
+        panelPrestamos.setBorder(new EmptyBorder(20,30,20,30));
+
+        panelPrestamos.setPreferredSize(new Dimension(400,300));
+        panelPrestamos.setLayout(new GridLayout(14,2));
+        panelPrestamos.add(new JLabel("Prestamos"));
+        panelPrestamos.add(new JLabel(" "));
+        if (cliente.tienePrestamos()){
+            for (Prestamo p: cliente.getListaDePrestamosRaw()){
+                panelPrestamos.add(new JLabel("ID: "));
+                panelPrestamos.add(new JLabel(p.getId()));
+
+                panelPrestamos.add(new JLabel("Monto: "));
+                panelPrestamos.add(new JLabel(String.valueOf(p.getMonto())));
+
+                panelPrestamos.add(new JLabel("Fecha: "));
+                panelPrestamos.add(new JLabel(p.getFecha()));
+
+                panelPrestamos.add(new JLabel(" "));
+                panelPrestamos.add(new JLabel(" "));
+
+            }
+
+        }
+
+        JFrame frame = new JFrame("Informacion detallada de un cliente");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(600,500);
+        frame.setLayout(new BorderLayout());
+        frame.add(panel, BorderLayout.NORTH);
+        JScrollPane scrollPane = new JScrollPane(panelPrestamos);
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.setVisible(true);
+
+
     }
 }
 

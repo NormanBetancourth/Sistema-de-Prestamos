@@ -1,22 +1,36 @@
 package controlador;
+import modelo.cliente.Cliente;
 import modelo.mapHandler.SubMapHandler;
 import modelo.mapHandler.mapHandler;
+import modelo.prestamo.Prestamo;
 import vista.VistaCliente;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import java.awt.*;
 import java.awt.event.*;
+import java.beans.EventHandler;
 
 public class ControladorDeClientes {
     private static VistaCliente vistaCliente;
     private JPanel mapa;
     private static mapHandler mapCreator;
     private Controlador ctrl;
+
+    JTable table;
     public ControladorDeClientes(mapHandler mapC, Controlador c) {
         ctrl = c;
         mapCreator = mapC;
         mapa = (JPanel) mapCreator.getUI();
         vistaCliente = new VistaCliente();
         vistaCliente.addComponents(new ListenerHandler(), mapa);
+        vistaCliente.addListeners(new ListenerHandler());
+        table = new JTable();
+        table.setModel(ctrl.getModeloTablaCliente());
+        vistaCliente.setTable(table);
+        vistaCliente.addListeners(new ListenerHandler());
     }
 
     public void setMapa(JPanel mapa) {
@@ -28,7 +42,7 @@ public class ControladorDeClientes {
     }
 
 
-    private class ListenerHandler implements ActionListener {
+    public class ListenerHandler implements ActionListener, TableModelListener, MouseListener {
         //Cliente: cédula, nombre y provincia, cantón y distrito de su dirección
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -41,12 +55,72 @@ public class ControladorDeClientes {
 
             switch (valor) {
 
+                case "buscarCliente" ->{
+                    int idCliente = 0;
+                    try{
+                        idCliente = Integer.parseInt(vistaCliente.getPrestamoTextField());
+                    } catch (NumberFormatException numberFormatException) {
+                        JOptionPane.showMessageDialog(null, "Solo debes ingresar numeros","Atencion", JOptionPane.INFORMATION_MESSAGE);
+                        return;
+                    }
+                    Cliente cliente = ctrl.buscaCliente(idCliente);
+                    if (cliente != null){
+                        vistaCliente.mostrarVentantaInfoCLiente(cliente);
+                    }else {
+                        JOptionPane.showMessageDialog(null, "No existe ningun cliente con ese id","Atencion", JOptionPane.INFORMATION_MESSAGE);
+
+                    }
+
+
+
+                }
 
                 case "Canton" ->{
                     if (vistaCliente.getSelectedCanton() != null){
                         vistaCliente.cargarDistritos(vistaCliente.getSelectedCanton());
                     }
-                    break;
+
+                }
+                case "guardar-btn" -> {
+                    System.out.println('8');
+                    try{
+                       try{
+                           cedula = Integer.parseInt(vistaCliente.getId());
+                       } catch (NumberFormatException numberFormatException) {
+                           JOptionPane.showMessageDialog(null, "Solo debes ingresar numeros","Atencion", JOptionPane.INFORMATION_MESSAGE);
+                       }
+                        nombre = vistaCliente.getTextoName();
+                        provincia = vistaCliente.getComboProvincia();
+                        canton = vistaCliente.getComboCanton();
+                        distrito = vistaCliente.getComboDistrito();
+
+
+                        if (String.valueOf(cedula).isEmpty() || nombre.isEmpty() || provincia.isEmpty()|| canton.isBlank()|| distrito.isBlank()) {
+                            JOptionPane.showMessageDialog(null, "Debes Ingresar los datos","Atencion", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        else {
+                            Cliente cliente = new Cliente(cedula,nombre,provincia,distrito,canton);
+
+                            if (ctrl.buscaCliente(cliente.getId()) == null){
+                                System.out.println(cliente);
+                                ctrl.addCliente(cliente);
+                                table = new JTable();
+                                table.setModel(ctrl.getModeloTablaCliente());
+                                vistaCliente.setTable(table);
+                                vistaCliente.addListeners(new ListenerHandler());
+
+                            }else {
+                                JOptionPane.showMessageDialog(null, "Ya existe un cliente con esa informacion","Atencion", JOptionPane.INFORMATION_MESSAGE);
+
+                            }
+
+
+                        }
+
+
+                    } catch (Exception exception) {
+
+                    }
                 }
 
                 case "1-0" ->
@@ -62,6 +136,7 @@ public class ControladorDeClientes {
                             //campos de texto
                             vistaCliente.mainContentHandler(1, new ListenerHandler(), mapa);
                             vistaCliente.clearFields();
+
                         }
                 case "1-2" ->
                         //Buscar cliente
@@ -75,6 +150,47 @@ public class ControladorDeClientes {
                             vistaCliente.mainContentHandler(3, new ListenerHandler(), null);
                         }
             }
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+
+
+            if (e.getClickCount() >= 2){
+                int selectedRow = vistaCliente.getSelectedRow();
+                int idCliente = ctrl.getIdClienteTabla(selectedRow,0);
+
+
+                Cliente cliente = ctrl.buscaCliente(idCliente);
+                vistaCliente.mostrarVentantaInfoCLiente(cliente);
+            }
+
+
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
+
+        @Override
+        public void tableChanged(TableModelEvent e) {
+
         }
     }
 

@@ -146,12 +146,10 @@ public class Prestamo {
     //TODO configurar para presentarlo bonito en vista
     @Override
     public String toString() {
-        return "Prestamo{" +
-                "id='" + id + '\'' +
-                ", monto=" + monto +
-                ", tasaDeInteres=" + tasaDeInteres +
-                ", fecha=" + getFecha() +
-                ", listaDePagos=" + listaDePagos.toString() +
-                '}';
+        return "\t->\n" +
+                "id= " + id + "\n"+
+                "monto=" + monto +'\n'+
+                "tasaDeInteres=" + tasaDeInteres +'\n'+
+                "fecha=" + getFecha()+'\n'+'\n';
     }
 }

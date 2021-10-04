@@ -109,14 +109,13 @@ public class Cliente {
     // TODO Configurar para presentarlo en vista
     @Override
     public String toString() {
-        return "Cliente{" +
-                "id='" + id + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", provincia='" + provincia + '\'' +
-                ", distrito='" + distrito + '\'' +
-                ", canton='" + canton + '\'' +
-                ", listaDePrestamos=" + listaDePrestamos.toString() +
-                '}';
+        return "\tCliente\n" +
+                "id= " + id + '\n' +
+                "nombre= " + nombre + '\n' +
+                "provincia= " + provincia + '\n' +
+                "distrito= " + distrito + '\n' +
+                "canton= " + canton + '\n'+'\n' +
+                "listaDePrestamos\n" + listaDePrestamos.toString()+ '\n';
     }
 
     public List<Prestamo> getListaDePrestamosRaw() {
@@ -125,5 +124,9 @@ public class Cliente {
 
     public void addPrestamo(Prestamo prestamo) {
         listaDePrestamos.add(prestamo);
+    }
+
+    public boolean tienePrestamos() {
+        return listaDePrestamos.size() >0;
     }
 }

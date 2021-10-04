@@ -1,10 +1,13 @@
 package controlador;
 
 import modelo.ModelHandler;
+import modelo.cliente.Cliente;
+import modelo.cliente.ModeloTablaCliente;
 import modelo.mapHandler.mapHandler;
 import vista.HomeFrame;
 
 import javax.swing.*;
+import javax.swing.table.TableModel;
 import java.awt.event.*;
 
 public class Controlador {
@@ -33,6 +36,21 @@ public class Controlador {
         Home.setVisible(true);
     }
 
+    public void addCliente(Cliente c) {
+        modelo.agregarCliente(c);
+    }
+
+    public Cliente buscaCliente(int id) {
+        return modelo.buscarCliente(id);
+    }
+
+    public ModeloTablaCliente getModeloTablaCliente() {
+        return modelo.getModeloTablaCliente();
+    }
+
+    public int getIdClienteTabla(int selectedRow, int i) {
+        return modelo.getValueModeloCliente(selectedRow, i);
+    }
 
 
     private  class ListenerHandler implements ActionListener {

@@ -59,6 +59,13 @@ public class ModelHandler {
             modeloTablaPrestamos.addTableModelListener(e);
     }
 
+    public void cargarModeloTablaClientes(){
+        modeloTablaCliente = new ModeloTablaCliente(clientes.getLista());
+    }
+    public void cargarModeloTablaPrestamos(){
+        modeloTablaPrestamos = new ModeloTablaPrestamos(prestamos.getLista());
+    }
+
     public void cargarDatos(){
         try {
             clientes = (ListaClientes) parser.unmarshall(new ListaClientes(), "src/modelo/dataBase/Clientes.xml");
@@ -94,14 +101,21 @@ public class ModelHandler {
         return prestamos.buscar(id);
     }
 
-    private Cliente buscarCliente(int id) {
+    public Cliente buscarCliente(int id) {
         return clientes.buscar(id);
     }
+
+    public ModeloTablaCliente getModeloTablaCliente() {
+        cargarModeloTablaClientes();
+        return modeloTablaCliente;
+    }
+
 
     public ModelHandler() {
         clientes = new ListaClientes();
         pagos = new ListaPagos();
         prestamos = new ListaPrestamos();
+        parser = new JAXBParser();
         cargarDatos();
     }
 
@@ -184,4 +198,7 @@ public class ModelHandler {
         return getAlgunPrestamo(idPrestamo).getListaDePagos();
     }
 
+    public int getValueModeloCliente(int selectedRow, int i) {
+       return (Integer) modeloTablaCliente.getValueAt(selectedRow,i);
+    }
 }
