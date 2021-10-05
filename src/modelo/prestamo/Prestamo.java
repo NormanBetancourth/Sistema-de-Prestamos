@@ -54,7 +54,7 @@ public class Prestamo {
     }
 
     public double getMonto() {
-        return monto;
+        return formatearDecimales(monto, 2);
     }
 
     public void setMonto(double monto) {
@@ -62,7 +62,7 @@ public class Prestamo {
     }
 
     public double getTasaDeInteres() {
-        return tasaDeInteres;
+        return formatearDecimales(tasaDeInteres,2);
     }
 
     public void setTasaDeInteres(double tasaDeInteres) {
@@ -140,12 +140,13 @@ public class Prestamo {
     }
 
     public double interesDelPago(){
-        return getMonto() * getTasaDeInteres();
+        return formatearDecimales(getMonto() * getTasaDeInteres(), 2);
     }
 
     public int numeroDePagos(){
         return listaDePagos.getCantidadDePagos();
     }
+
 
     public void agregarPago(Pago pago){
         double nuevoMonto = 0.0;
@@ -158,7 +159,7 @@ public class Prestamo {
         setMonto(formatearDecimales(nuevoMonto, 2));
         if(verificaExcedeCuotaEsperada(pago)){
             // Si excede el monto esperado, se vuelve a calcular la cuota
-          setCuota(calculoDeCuota());
+            setCuota(calculoDeCuota());
         }
     }
 

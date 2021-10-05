@@ -197,12 +197,12 @@ public class ModelHandler {
         return prestamo.isEstado();
     }
 
-    public void cancelacionDeCuota(String idPrestamo, double montoPagado){
+    public void cancelacionDeCuota(String idPrestamo, double montoPagado) {
         //int numeroDePago, double montoPagado, double interes, double amortizacion
         Prestamo prestamo = getAlgunPrestamo(idPrestamo);
         if(prestamo.isEstado()){
             prestamo.agregarPago(new Pago(montoPagado));
-            if(prestamo.getCuota() == 0){
+            if(prestamo.getMonto() <= 0){
                 prestamo.setEstado(false);
             }
         }

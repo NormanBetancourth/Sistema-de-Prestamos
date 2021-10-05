@@ -52,7 +52,7 @@ public class Pago {
     }
 
     public double getMontoPagado() {
-        return montoPagado;
+        return formatearDecimales(montoPagado,2);
     }
 
     public void setMontoPagado(double montoPagado) {
@@ -60,7 +60,7 @@ public class Pago {
     }
 
     public double getInteres() {
-        return interes;
+        return formatearDecimales(interes, 2);
     }
 
     public void setInteres(double interes) {
@@ -85,8 +85,12 @@ public class Pago {
         return fecha.toString();
     }
 
+    public static Double formatearDecimales(Double numero, Integer numeroDecimales) {
+        return Math.round(numero * Math.pow(10, numeroDecimales)) / Math.pow(10, numeroDecimales);
+    }
+
     public double calculoAmortizacion(){
-        return getMontoPagado() - getInteres();
+        return formatearDecimales(getMontoPagado() - getInteres(), 2);
     }
 
     @Override

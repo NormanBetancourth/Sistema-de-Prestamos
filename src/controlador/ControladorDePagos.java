@@ -162,6 +162,7 @@ public class ControladorDePagos {
                             vistaPagos.getBoton2().setEnabled(false);
                             vistaPagos.setEditableButtons();
                             vistaPagos.clearFields();
+                            vistaPagos.getBoton().setActionCommand("3-1-0");
                         }
                 case "3-1-2" -> {
                     vistaPagos.getBoton().setActionCommand("3-1-0");
@@ -260,6 +261,7 @@ public class ControladorDePagos {
                     vistaPagos.setEditableButtons();
                     vistaPagos.clearFields();
                     vistaPagos.getBoton2().setEnabled(false);
+                    vistaPagos.getBoton().setActionCommand("3-2-0");
                 }
                 case "3-2-2" ->{
                     vistaPagos.getBoton().setActionCommand("3-2-0");

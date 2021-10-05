@@ -371,7 +371,7 @@ public class VistaPagos extends VentanaGestion{
         auxLabel.setFont(new Font("TimesRoman", Font.BOLD, 15));
         panel.add(auxLabel);
 
-        auxLabel = new JLabel("Monto Restante: ");
+        auxLabel = new JLabel("Saldo: ");
         auxLabel.setForeground(Color.WHITE);
         auxLabel.setFont(new Font("TimesRoman", Font.BOLD, 15));
         panel.add(auxLabel);
@@ -387,11 +387,12 @@ public class VistaPagos extends VentanaGestion{
 
         panelPagos.setBorder(new EmptyBorder(20,30,20,30));
 
-        panelPagos.setPreferredSize(new Dimension(400,300));
-        panelPagos.setLayout(new GridLayout(13,2));
+        //panelPagos.setPreferredSize(new Dimension(400,300));
+        panelPagos.setLayout(new GridLayout(8,2));
         panelPagos.add(new JLabel("Pagos"));
         panelPagos.add(new JLabel(" "));
         if (prestamo.tienePagos()){
+            panelPagos.setLayout(new GridLayout(8 * prestamo.numeroDePagos(),2));
             for (Pago pago: prestamo.getListaPagosRow()){
                 panelPagos.add(new JLabel("Numero de Pago: "));
                 panelPagos.add(new JLabel(String.valueOf(pago.getNumeroDePago())));
@@ -405,7 +406,7 @@ public class VistaPagos extends VentanaGestion{
                 panelPagos.add(new JLabel("Amortizacion: "));
                 panelPagos.add(new JLabel(String.valueOf(pago.getAmortizacion())));
 
-                panelPagos.add(new JLabel("Saldo: "));
+                panelPagos.add(new JLabel("Monto: "));
                 panelPagos.add(new JLabel(String.valueOf(pago.getMontoPagado())));
 
                 panelPagos.add(new JLabel("Fecha: "));
