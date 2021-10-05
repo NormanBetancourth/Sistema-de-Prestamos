@@ -18,7 +18,7 @@ public class Pago {
     LocalDate fecha;
 
     public Pago() {
-        this.id = "Indefinido";
+        this.id = null;
         this.numeroDePago = 0;
         this.montoPagado = 0;
         this.interes = 0;
@@ -26,12 +26,12 @@ public class Pago {
         this.fecha = LocalDate.now();
     }
 
-    public Pago(int numeroDePago, double montoPagado, double interes, double amortizacion) {
+    public Pago(double montoPagado) {
         this.id = "Indefinido";
-        this.numeroDePago = numeroDePago;
+        this.numeroDePago = 0;
         this.montoPagado = montoPagado;
         this.interes = interes;
-        this.amortizacion = amortizacion;
+        this.amortizacion = calculoAmortizacion();
         this.fecha = LocalDate.now();
     }
 
@@ -68,7 +68,7 @@ public class Pago {
     }
 
     public double getAmortizacion() {
-        return amortizacion;
+        return calculoAmortizacion();
     }
 
     public void setAmortizacion(double amortizacion) {
@@ -83,6 +83,10 @@ public class Pago {
         //LocalDate fecha = LocalDate.now();
         //return fecha.toString();
         return fecha.toString();
+    }
+
+    public double calculoAmortizacion(){
+        return getMontoPagado() - getInteres();
     }
 
     @Override

@@ -139,15 +139,23 @@ public class Prestamo {
         pago.setId(getId() + "-" + pago.getNumeroDePago());
     }
 
+    public double interesDelPago(){
+        return getMonto() * getTasaDeInteres();
+    }
+
     public int numeroDePagos(){
         return listaDePagos.getCantidadDePagos();
     }
 
     public void agregarPago(Pago pago){
+        double nuevoMonto = 0.0;
         pago.setNumeroDePago(numeroDePagos() + 1);
+        pago.setInteres(interesDelPago());
+        pago.calculoAmortizacion();
         agregarCodigoAPago(pago);
         getListaDePagos().add(pago);
-        setMonto(getMonto() - pago.getMontoPagado());
+        nuevoMonto = (getMonto() - pago.getMontoPagado()) + pago.getInteres();
+        setMonto(formatearDecimales(nuevoMonto, 2));
         if(verificaExcedeCuotaEsperada(pago)){
             // Si excede el monto esperado, se vuelve a calcular la cuota
           setCuota(calculoDeCuota());

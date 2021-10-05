@@ -15,8 +15,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.LinkedList;
 
 // int numeroDePago, double montoPagado, double interes, double amortizacion
 
@@ -24,8 +22,6 @@ public class VistaPagos extends VentanaGestion{
     private JTextField idTextField = new JTextField();
     private JTextField numeroTextField = new JTextField();
     private JTextField montoPagadoTextField = new JTextField();
-    private JTextField tasaDeInteresTextField = new JTextField();
-    private JTextField amortizacionTextField = new JTextField();
     private JTextField prestamoTextField = new JTextField();
     private JTextField pagoTextField = new JTextField();
     private JButton boton;
@@ -82,8 +78,6 @@ public class VistaPagos extends VentanaGestion{
         pagoTextField.setEditable(false);
         numeroTextField.setEditable(false);
         montoPagadoTextField.setEditable(false);
-        tasaDeInteresTextField.setEditable(false);
-        amortizacionTextField.setEditable(false);
     }
 
     public void clearFields(){
@@ -93,8 +87,6 @@ public class VistaPagos extends VentanaGestion{
         pagoTextField.setText(null);
         numeroTextField.setText(null);
         montoPagadoTextField.setText(null);
-        tasaDeInteresTextField.setText(null);
-        amortizacionTextField.setText(null);
         tabla.setModel(new DefaultTableModel());
     }
 
@@ -108,14 +100,6 @@ public class VistaPagos extends VentanaGestion{
 
     public JTextField getMontoPagadoTextField() {
         return montoPagadoTextField;
-    }
-
-    public JTextField getTasaDeInteresTextField() {
-        return tasaDeInteresTextField;
-    }
-
-    public JTextField getAmortizacionTextField() {
-        return amortizacionTextField;
     }
 
     public JTextField getPrestamoTextField() {
@@ -137,12 +121,6 @@ public class VistaPagos extends VentanaGestion{
     public String getTextoMontoPagado(){
         return montoPagadoTextField.getText();
     }
-    public String getTextoTasaDeInteres(){
-        return tasaDeInteresTextField.getText();
-    }
-    public String getTextoAmortizacion(){
-        return amortizacionTextField.getText();
-    }
     public String getTextoPrestamo(){
         return prestamoTextField.getText();
     }
@@ -160,14 +138,6 @@ public class VistaPagos extends VentanaGestion{
 
     public void setTextoMonto(String monto){
         montoPagadoTextField.setText(monto);
-    }
-
-    public void setTextoInteres(String interes){
-        tasaDeInteresTextField.setText(interes);
-    }
-
-    public void setTextoAmortizacion(String amortizacion){
-        amortizacionTextField.setText(amortizacion);
     }
 
     public void setTextoPrestamo(String id){
@@ -223,7 +193,7 @@ public class VistaPagos extends VentanaGestion{
         mainConten = new JPanel();
         mainConten.setLayout(new BorderLayout());
 
-        JPanel panelInfor = new JPanel(new GridLayout(8, 2, 50, 20));
+        JPanel panelInfor = new JPanel(new GridLayout(6, 2, 50, 20));
         panelInfor.setBackground(Color.WHITE);
         panelInfor.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 200));
 
@@ -248,19 +218,13 @@ public class VistaPagos extends VentanaGestion{
         panelInfor.add(numeroTextField);
 
 
-        JLabel tasaDeInteresLabel = new JLabel("Tasa de interes: ");
-        tasaDeInteresLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
-        tasaDeInteresTextField.setPreferredSize(new Dimension(150, 20));
-        tasaDeInteresTextField.setEditable(false);
-        panelInfor.add(tasaDeInteresLabel);
-        panelInfor.add(tasaDeInteresTextField);
+        //JLabel tasaDeInteresLabel = new JLabel("Tasa de interes: ");
+        //tasaDeInteresLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        //tasaDeInteresTextField.setPreferredSize(new Dimension(150, 20));
+        //tasaDeInteresTextField.setEditable(false);
+        //panelInfor.add(tasaDeInteresLabel);
+        //panelInfor.add(tasaDeInteresTextField);
 
-        JLabel amortizacionLabel = new JLabel("Amortizacion: ");
-        amortizacionLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
-        amortizacionTextField.setPreferredSize(new Dimension(150, 20));
-        amortizacionTextField.setEditable(false);
-        panelInfor.add(amortizacionLabel);
-        panelInfor.add(amortizacionTextField);
 
         JLabel montoLabel = new JLabel("Monto: ");
         montoLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
@@ -424,7 +388,7 @@ public class VistaPagos extends VentanaGestion{
         panelPagos.setBorder(new EmptyBorder(20,30,20,30));
 
         panelPagos.setPreferredSize(new Dimension(400,300));
-        panelPagos.setLayout(new GridLayout(10,2));
+        panelPagos.setLayout(new GridLayout(13,2));
         panelPagos.add(new JLabel("Pagos"));
         panelPagos.add(new JLabel(" "));
         if (prestamo.tienePagos()){
@@ -435,7 +399,13 @@ public class VistaPagos extends VentanaGestion{
                 panelPagos.add(new JLabel("Codigo: "));
                 panelPagos.add(new JLabel(String.valueOf(pago.getId())));
 
-                panelPagos.add(new JLabel("Monto: "));
+                panelPagos.add(new JLabel("Tasa de interes: "));
+                panelPagos.add(new JLabel(String.valueOf(pago.getInteres())));
+
+                panelPagos.add(new JLabel("Amortizacion: "));
+                panelPagos.add(new JLabel(String.valueOf(pago.getAmortizacion())));
+
+                panelPagos.add(new JLabel("Saldo: "));
                 panelPagos.add(new JLabel(String.valueOf(pago.getMontoPagado())));
 
                 panelPagos.add(new JLabel("Fecha: "));

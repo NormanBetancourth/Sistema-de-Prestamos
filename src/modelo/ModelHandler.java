@@ -39,7 +39,8 @@ public class ModelHandler {
     }
 
     public ModeloTablaPrestamos configuraModelo(Cliente cliente){
-        ListaPrestamos listaPrestamos = retornaPrestamosActivos(cliente);
+        //ListaPrestamos listaPrestamos = retornaPrestamosActivos(cliente);
+        ListaPrestamos listaPrestamos = cliente.getListaDePrestamos();
         modeloTablaPrestamos = new ModeloTablaPrestamos(listaPrestamos.getLista());
         return modeloTablaPrestamos;
     }
@@ -196,11 +197,11 @@ public class ModelHandler {
         return prestamo.isEstado();
     }
 
-    public void cancelacionDeCuota(String idPrestamo, int numeroDePago, double montoPagado, double interes, double amortizacion){
+    public void cancelacionDeCuota(String idPrestamo, double montoPagado){
         //int numeroDePago, double montoPagado, double interes, double amortizacion
         Prestamo prestamo = getAlgunPrestamo(idPrestamo);
         if(prestamo.isEstado()){
-            prestamo.agregarPago(new Pago(numeroDePago, montoPagado, interes, amortizacion));
+            prestamo.agregarPago(new Pago(montoPagado));
             if(prestamo.getCuota() == 0){
                 prestamo.setEstado(false);
             }

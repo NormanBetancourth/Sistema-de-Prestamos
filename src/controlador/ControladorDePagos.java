@@ -46,10 +46,10 @@ public class ControladorDePagos {
         Cliente cliente3 = ctrl.getModelo().getClientePorID(333);
         Cliente cliente4 = ctrl.getModelo().getClientePorID(444);
 
-        ctrl.getModelo().registrarPrestamoAUnCliente(cliente1, 200, 0.2, 2);
-        ctrl.getModelo().registrarPrestamoAUnCliente(cliente2, 200, 0.2, 100);
-        ctrl.getModelo().registrarPrestamoAUnCliente(cliente3, 200, 0.2, 100);
-        ctrl.getModelo().registrarPrestamoAUnCliente(cliente4, 200, 0.2, 100);
+        ctrl.getModelo().registrarPrestamoAUnCliente(cliente1, 10000, 0.06, 6);
+        ctrl.getModelo().registrarPrestamoAUnCliente(cliente2, 200, 0.0, 100);
+        ctrl.getModelo().registrarPrestamoAUnCliente(cliente3, 200, 0.0, 100);
+        ctrl.getModelo().registrarPrestamoAUnCliente(cliente4, 200, 0.0, 100);
     }
 
     // Cambiar vista de acuerdo al botón seleccionado
@@ -80,12 +80,9 @@ public class ControladorDePagos {
         @Override
         public void actionPerformed(ActionEvent e) {
             String valor = e.getActionCommand();
-            int numeroPago = 0;
             int idCliente = 0;
             String idPrestamo = null;
             double montoPagado = 0.0;
-            double interes = 0.0;
-            double amortizacion = 0.0;
 
             switch (valor) {
                 case "3-1-0" -> {
@@ -127,17 +124,13 @@ public class ControladorDePagos {
                         {
                             try {
                                 if (vistaPagos.getTextoId().isBlank() || vistaPagos.getTextoNumero().isBlank() ||
-                                        vistaPagos.getTextoMontoPagado().isBlank() || vistaPagos.getTextoTasaDeInteres().isBlank() ||
-                                        vistaPagos.getTextoAmortizacion().isBlank() || vistaPagos.getTextoPrestamo().isBlank()) {
+                                        vistaPagos.getTextoMontoPagado().isBlank() || vistaPagos.getTextoPrestamo().isBlank()) {
                                     throw new Exception("Existen campos de texto vacios");
                                 } else {
                                     try {
-                                        numeroPago = Integer.parseInt(vistaPagos.getTextoNumero());
                                         idCliente = Integer.parseInt(vistaPagos.getTextoId());
                                         idPrestamo = vistaPagos.getTextoPrestamo();
                                         montoPagado = Double.parseDouble(vistaPagos.getTextoMontoPagado());
-                                        interes = Double.parseDouble(vistaPagos.getTextoTasaDeInteres());
-                                        amortizacion = Double.parseDouble(vistaPagos.getTextoAmortizacion());
                                     } catch (NumberFormatException exception) {
                                         vistaPagos.leerError("Solo se aceptan numeros para determinadas variables");
                                         vistaPagos.clearFields();
@@ -151,7 +144,7 @@ public class ControladorDePagos {
                                             if (!ctrl.getModelo().isPrestamoActivo(idPrestamo)) {
                                                 throw new Exception("El prestamo ya ha sido completamente cancelado");
                                             }
-                                            ctrl.getModelo().cancelacionDeCuota(idPrestamo, numeroPago, montoPagado, interes, amortizacion);
+                                            ctrl.getModelo().cancelacionDeCuota(idPrestamo, montoPagado);
                                         }
                                     } catch (Exception exception) {
                                         vistaPagos.leerError(exception.getMessage());
@@ -186,12 +179,10 @@ public class ControladorDePagos {
                 int selectedRow = jTable.getSelectedRow();
                 vistaPagos.setTextoPrestamo(String.valueOf(jTable.getValueAt(selectedRow, 0)));
                 vistaPagos.setTextoMonto(String.valueOf(jTable.getValueAt(selectedRow, 4)));
-                vistaPagos.setTextoInteres(String.valueOf(jTable.getValueAt(selectedRow, 2)));
                 vistaPagos.getBoton().setText("Confirmar");
                 vistaPagos.getBoton().setActionCommand("3-1-1");
                 vistaPagos.getBoton2().setEnabled(true);
                 vistaPagos.getIdTextField().setEditable(false);
-                vistaPagos.getAmortizacionTextField().setEditable(true);
                 vistaPagos.getMontoPagadoTextField().setEditable(true);
                 String id = vistaPagos.getTextoPrestamo();
                 Prestamo prestamo = ctrl.getModelo().getAlgunPrestamo(id);
