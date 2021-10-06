@@ -81,9 +81,7 @@ public class ModelHandler {
     }
 
     public void guardarDatos(){
-        if (clientes.getSize()>0){//todo quitar demeter
-            parser.marshall(clientes, "src/modelo/dataBase/Clientes.xml");
-        }
+        parser.marshall(clientes, "src/modelo/dataBase/Clientes.xml");
     }
 
     public void cargarPrestamos(){

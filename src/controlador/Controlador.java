@@ -52,6 +52,10 @@ public class Controlador {
         return modelo.getValueModeloCliente(selectedRow, i);
     }
 
+    public void guardar() {
+        modelo.guardarDatos();
+    }
+
 
     private  class ListenerHandler implements ActionListener {
         @Override

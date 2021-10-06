@@ -113,6 +113,7 @@ public class ControladorDeClientes {
                                 table.setModel(ctrl.getModeloTablaCliente());
                                 vistaCliente.setTable(table);
                                 vistaCliente.addListeners(new ListenerHandler());
+                                ctrl.guardar();
 
                             }else {
                                 JOptionPane.showMessageDialog(null, "Ya existe un cliente con esa informacion","Atencion", JOptionPane.INFORMATION_MESSAGE);

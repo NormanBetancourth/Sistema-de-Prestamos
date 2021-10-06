@@ -11,21 +11,21 @@
                 <id>Indefinido</id>
                 <Pago>
                     <lista>
-                        <amortizacion>5.0</amortizacion>
+                        <amortizacion>999.5</amortizacion>
                         <id>Indefinido</id>
                         <interes>0.5</interes>
                         <montoPagado>1000.0</montoPagado>
                         <numeroDePago>1</numeroDePago>
                     </lista>
                     <lista>
-                        <amortizacion>5.0</amortizacion>
+                        <amortizacion>999.5</amortizacion>
                         <id>Indefinido</id>
                         <interes>0.5</interes>
                         <montoPagado>1000.0</montoPagado>
                         <numeroDePago>2</numeroDePago>
                     </lista>
                     <lista>
-                        <amortizacion>5.0</amortizacion>
+                        <amortizacion>999.5</amortizacion>
                         <id>Indefinido</id>
                         <interes>0.5</interes>
                         <montoPagado>1000.0</montoPagado>
@@ -48,5 +48,13 @@
         </Prestamo>
         <nombre>Norman</nombre>
         <provincia>San Jose</provincia>
+    </Cliente>
+    <Cliente>
+        <canton>LIMON</canton>
+        <distrito>Limón</distrito>
+        <id>123</id>
+        <Prestamo/>
+        <nombre>Jose</nombre>
+        <provincia>Limon</provincia>
     </Cliente>
 </Clientes>

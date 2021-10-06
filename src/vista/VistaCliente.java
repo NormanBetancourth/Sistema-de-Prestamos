@@ -154,7 +154,7 @@ public class VistaCliente extends VentanaGestion{
         auxPanel.add(idLabel);
         auxPanel.add(idTextField);
 
-        boton1 = VistaBuilder.ButtonFactory("Enviar", "1-9", e);
+        boton1 = VistaBuilder.ButtonFactory("Guardar", "guardar-btn", e);
         boton1.setPreferredSize(new Dimension(100, 20));
         boton1.setBackground(Color.decode("#DAF7A6"));
         boton1.setBorder(null);
