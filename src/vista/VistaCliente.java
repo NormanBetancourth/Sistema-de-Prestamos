@@ -51,6 +51,7 @@ public class VistaCliente extends VentanaGestion{
     }
 
     public void addComponents(ActionListener e , JPanel mapa){
+        this.setSize(getWidth(), getHeight()+60);
         ImageIcon imageIcon = new ImageIcon("src/vista/images/icons8-client-64.png");
         this.setIconImage(imageIcon.getImage());
 
@@ -171,7 +172,7 @@ public class VistaCliente extends VentanaGestion{
         boton2.setPreferredSize(new Dimension(100, 20));
         boton2.setBackground(Color.decode("#C27A8F"));
         boton2.setBorder(null);
-        boton2.setEnabled(false);
+        //boton2.setEnabled(false);
         auxPanel.add(boton2);
 
         mainConten.add(auxPanel, BorderLayout.NORTH);
@@ -468,6 +469,16 @@ public class VistaCliente extends VentanaGestion{
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
+
+    public void cancelar() {
+        idTextField.setText(null);
+        nameTextField.setText(null);
+        cantonCombo.setSelectedItem(null);
+        distritoCombo.setSelectedItem(null);
+        provinciaCombo.setSelectedItem(null);
+    }
+
+
 }
 
 /*

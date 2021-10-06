@@ -1,60 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Clientes>
     <Cliente>
-        <canton>San  Jose</canton>
+        <canton>SAN JOSE</canton>
         <distrito>Merced</distrito>
-        <id>1</id>
-        <Prestamo>
-            <lista>
-                <cuota>1715000.0</cuota>
-                <estado>true</estado>
-                <id>Indefinido</id>
-                <Pago>
-                    <lista>
-                        <amortizacion>999.5</amortizacion>
-                        <id>Indefinido</id>
-                        <interes>0.5</interes>
-                        <montoPagado>1000.0</montoPagado>
-                        <numeroDePago>1</numeroDePago>
-                    </lista>
-                    <lista>
-                        <amortizacion>999.5</amortizacion>
-                        <id>Indefinido</id>
-                        <interes>0.5</interes>
-                        <montoPagado>1000.0</montoPagado>
-                        <numeroDePago>2</numeroDePago>
-                    </lista>
-                    <lista>
-                        <amortizacion>999.5</amortizacion>
-                        <id>Indefinido</id>
-                        <interes>0.5</interes>
-                        <montoPagado>1000.0</montoPagado>
-                        <numeroDePago>3</numeroDePago>
-                    </lista>
-                </Pago>
-                <monto>343000.0</monto>
-                <plazo>60</plazo>
-                <tasaDeInteres>5.0</tasaDeInteres>
-            </lista>
-            <lista>
-                <cuota>1715000.0</cuota>
-                <estado>true</estado>
-                <id>Indefinido</id>
-                <Pago/>
-                <monto>343000.0</monto>
-                <plazo>60</plazo>
-                <tasaDeInteres>5.0</tasaDeInteres>
-            </lista>
-        </Prestamo>
+        <id>222</id>
+        <Prestamo/>
         <nombre>Norman</nombre>
         <provincia>San Jose</provincia>
     </Cliente>
     <Cliente>
-        <canton>LIMON</canton>
-        <distrito>Limón</distrito>
-        <id>123</id>
+        <canton>ALAJUELA</canton>
+        <distrito>Alajuela</distrito>
+        <id>21</id>
         <Prestamo/>
         <nombre>Jose</nombre>
-        <provincia>Limon</provincia>
+        <provincia>Alajuela</provincia>
+    </Cliente>
+    <Cliente>
+        <canton>ALAJUELA</canton>
+        <distrito>Alajuela</distrito>
+        <id>123</id>
+        <Prestamo/>
+        <nombre>Andres</nombre>
+        <provincia>Alajuela</provincia>
     </Cliente>
 </Clientes>

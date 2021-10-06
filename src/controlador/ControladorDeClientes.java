@@ -53,8 +53,8 @@ public class ControladorDeClientes {
                 case "buscarCliente" -> {
                     try {
                         if (vistaCliente.getId().isBlank() || vistaCliente.getTextoName().isBlank() ||
-                                vistaCliente.getComboProvincia().isBlank() || vistaCliente.getComboCanton().isBlank() ||
-                                vistaCliente.getComboDistrito().isBlank()) {
+                                vistaCliente.getProvinciaSelected() == null || vistaCliente.getSelectedDistrito() == null ||
+                                vistaCliente.getSelectedCanton() == null) {
                             throw new Exception("Existen campos de informacion vacios");
                         } else {
                             try {
@@ -92,7 +92,7 @@ public class ControladorDeClientes {
                        try{
                            cedula = Integer.parseInt(vistaCliente.getId());
                        } catch (NumberFormatException numberFormatException) {
-                           JOptionPane.showMessageDialog(null, "Solo debes ingresar numeros","Atencion", JOptionPane.INFORMATION_MESSAGE);
+                           JOptionPane.showMessageDialog(null, "La cedula solo puede contener numeros","Atencion", JOptionPane.INFORMATION_MESSAGE);
                        }
                         nombre = vistaCliente.getTextoName();
                         provincia = vistaCliente.getComboProvincia();
@@ -101,7 +101,7 @@ public class ControladorDeClientes {
 
 
                         if (String.valueOf(cedula).isEmpty() || nombre.isEmpty() || provincia.isEmpty()|| canton.isBlank()|| distrito.isBlank()) {
-                            JOptionPane.showMessageDialog(null, "Debes Ingresar los datos","Atencion", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Debes Ingresar todos los datos requeridos","Atencion", JOptionPane.INFORMATION_MESSAGE);
                         }
                         else {
                             cliente = new Cliente(cedula,nombre,provincia,distrito,canton);
@@ -114,6 +114,7 @@ public class ControladorDeClientes {
                                 vistaCliente.setTable(table);
                                 vistaCliente.addListeners(new ListenerHandler());
                                 ctrl.guardar();
+                                vistaCliente.cancelar();
 
                             }else {
                                 JOptionPane.showMessageDialog(null, "Ya existe un cliente con esa informacion","Atencion", JOptionPane.INFORMATION_MESSAGE);
@@ -127,6 +128,11 @@ public class ControladorDeClientes {
                     } catch (Exception exception) {
 
                     }
+                }
+
+                case "1-10" ->{
+                    //cancelar
+                    vistaCliente.cancelar();
                 }
 
                 case "1-0" ->
