@@ -21,8 +21,7 @@ public class HomeFrame extends JFrame implements VistaBuilder {
     }
 
     public HomeFrame() throws HeadlessException {
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 
     public void addComponents(ActionListener e){
@@ -55,9 +54,9 @@ public class HomeFrame extends JFrame implements VistaBuilder {
         btn3.setPreferredSize(new Dimension(140,30));
         btn3.setToolTipText("Listado y registro de pagos");
         leftPane.add(btn3);
-        btn4.setPreferredSize(new Dimension(140,30));
-        btn4.setToolTipText("Generar reportes");
-        leftPane.add(btn4);
+        //btn4.setPreferredSize(new Dimension(140,30));
+        //btn4.setToolTipText("Generar reportes");
+        //leftPane.add(btn4);
 
         JPanel jj = new JPanel();
         jj.setPreferredSize(new Dimension(100,20));
@@ -69,6 +68,9 @@ public class HomeFrame extends JFrame implements VistaBuilder {
 
         addListener(e);
 
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 

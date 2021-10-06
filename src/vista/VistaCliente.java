@@ -7,10 +7,8 @@ import modelo.prestamo.Prestamo;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 public class VistaCliente extends VentanaGestion{
@@ -23,12 +21,13 @@ public class VistaCliente extends VentanaGestion{
     private ArrayList<String> cantones;
     private ArrayList<String>  distritos;
     private JButton inicioBoton;
-    private JPanel mapConteiner; // label donde va el mapa
+    private JPanel mapConteiner; // panel donde va el mapa
     private JScrollPane ScrollPane;
     private JPanel center;
     private JTable table;
-    private JTextField prestamoTextField;
     private JButton buscarClientebtn;
+    private JButton boton1;
+    private JButton boton2;
 
 
     public VistaCliente() throws HeadlessException {
@@ -38,7 +37,6 @@ public class VistaCliente extends VentanaGestion{
         provinciaCombo.setEnabled(false);
         provinciaCombo.setBackground(Color.white);
         provinciaCombo.setForeground(Color.BLACK);
-        prestamoTextField = new JTextField();
 
         cantonCombo= new JComboBox();
         distritoCombo= new JComboBox();
@@ -51,16 +49,6 @@ public class VistaCliente extends VentanaGestion{
         table = new JTable();
         center = new JPanel();
     }
-
-/*
-    public void configuraComboBoxes(HashMap<String, HashMap<String, Object>> cantonesDistritos){
-        provinciaCombo = new JComboBox(provincias);
-        // Obteniendo las llaves del mapa (cantones) y pasando todos estos valores
-        // a que sean del tipo array
-        cantonCombo = new JComboBox(cantonesDistritos.keySet().toArray());
-        distritoCombo = new JComboBox(cantonesDistritos.keySet().toArray());
-    }
-     */
 
     public void addComponents(ActionListener e , JPanel mapa){
         ImageIcon imageIcon = new ImageIcon("src/vista/images/icons8-client-64.png");
@@ -86,7 +74,7 @@ public class VistaCliente extends VentanaGestion{
         botonera.add(agregarBoton);
 //        buscarBoton = VistaBuilder.ButtonFactory("Buscar Cliente", "1-2",e);
 //        botonera.add(buscarBoton);
-        listarBoton = VistaBuilder.ButtonFactory("Listado y busqueda de Clientes", "1-3",e);
+        listarBoton = VistaBuilder.ButtonFactory("Busqueda de Clientes", "1-2",e);
         botonera.add(listarBoton);
 
         mainPanel.setLayout(new BorderLayout());
@@ -101,7 +89,7 @@ public class VistaCliente extends VentanaGestion{
         cantonCombo.addActionListener(e);
         distritoCombo.addActionListener(e);
 
-        mainContentHandler(1,e, mapa);
+        //mainContentHandler(1,e, mapa);
 
         this.add(southPanel, BorderLayout.SOUTH);
         this.setVisible(true);
@@ -150,27 +138,41 @@ public class VistaCliente extends VentanaGestion{
         return idTextField.getText();
     }
 
+
     private void setContentAgregarCliente(ActionListener e, JPanel mapa){
         mainPanel.remove(mainConten);
         mainConten = new JPanel();
         mainConten.setLayout(new BorderLayout());
-        //aux
-        JPanel auxPanel = new JPanel();
-        JLabel labelAux = new JLabel("Nombre: ");
 
-        //formulario
-        labelAux.setBorder(new EmptyBorder(0,190,0,0));
-        JButton btnAux = VistaBuilder.ButtonFactory("Guardar", "1-9", e);
-        auxPanel.setLayout(new GridLayout(2,2, 50,10));
-        auxPanel.add(labelAux);
-        auxPanel.add(nameTextField);
-        labelAux = new JLabel("Cedula: ");
-        labelAux.setBorder(new EmptyBorder(0,190,0,0));
-        auxPanel.add(labelAux);
-        idTextField.setPreferredSize(new Dimension(150,20));
+        JPanel auxPanel = new JPanel(new GridLayout(2, 3, 50, 20));
+        auxPanel.setBorder(new EmptyBorder(20,100,10,220));
+
+        JLabel idLabel = new JLabel("Cedula: ", JLabel.RIGHT);
+        //idLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        idTextField.setPreferredSize(new Dimension(100, 20));
+        idTextField.setEditable(true);
+        auxPanel.add(idLabel);
         auxPanel.add(idTextField);
 
-        auxPanel.setBorder(new EmptyBorder(20,20,20,200));
+        boton1 = VistaBuilder.ButtonFactory("Enviar", "1-9", e);
+        boton1.setPreferredSize(new Dimension(100, 20));
+        boton1.setBackground(Color.decode("#DAF7A6"));
+        boton1.setBorder(null);
+        auxPanel.add(boton1);
+
+        JLabel nombreLabel = new JLabel("Nombre: ", JLabel.RIGHT);
+        //nombreLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        nameTextField.setPreferredSize(new Dimension(100, 20));
+        nameTextField.setEditable(true);
+        auxPanel.add(nombreLabel);
+        auxPanel.add(nameTextField);
+
+        boton2 = VistaBuilder.ButtonFactory("Cancelar", "1-10", e);
+        boton2.setPreferredSize(new Dimension(100, 20));
+        boton2.setBackground(Color.decode("#C27A8F"));
+        boton2.setBorder(null);
+        boton2.setEnabled(false);
+        auxPanel.add(boton2);
 
         mainConten.add(auxPanel, BorderLayout.NORTH);
         mainConten.setBackground(Color.WHITE);
@@ -181,55 +183,37 @@ public class VistaCliente extends VentanaGestion{
         auxPanel.setLayout(new BorderLayout());
 
         JPanel comboButtonPanel = new JPanel();
-        comboButtonPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        comboButtonPanel.add(new JLabel("Provincia: "));
+        comboButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        JLabel label = new JLabel("Provincia: ", JLabel.RIGHT);
+        label.setBorder(BorderFactory.createEmptyBorder(0,20,0,10));
+        comboButtonPanel.add(label);
+        provinciaCombo.setPreferredSize(new Dimension(130,20));
         comboButtonPanel.add(provinciaCombo);
-        comboButtonPanel.add(new JLabel("Canton: "));
+
+        label = new JLabel("Canton: ", JLabel.RIGHT);
+        label.setBorder(BorderFactory.createEmptyBorder(0,20,0,10));
+        comboButtonPanel.add(label);
+        cantonCombo.setPreferredSize(new Dimension(130,20));
         comboButtonPanel.add(cantonCombo);
-        comboButtonPanel.add(new JLabel("Distrito"));
+
+        label = new JLabel("Distrito: ", JLabel.RIGHT);
+        label.setBorder(BorderFactory.createEmptyBorder(0,20,0,10));
+        comboButtonPanel.add(label);
+        distritoCombo.setPreferredSize(new Dimension(130,20));
         comboButtonPanel.add(distritoCombo);
 
-        ImageIcon saveImg = new ImageIcon("src/vista/images/floppy-disk_1f4be.png");
-
-        JButton btnGuardar= VistaBuilder.ButtonFactory("", "guardar-btn",e);
-
-        btnGuardar.setIcon(saveImg);
-        btnGuardar.setPreferredSize(new Dimension(60,39));
-        btnGuardar.setBackground(Color.decode("#E7EAF0"));
-        btnGuardar.setBorder(null);
-        comboButtonPanel.add(btnGuardar);
-        comboButtonPanel.setBorder(new EmptyBorder(10,0,10,0));
+        comboButtonPanel.setBorder(new EmptyBorder(10,0,20,0));
         comboButtonPanel.setBackground(Color.decode("#E7EAF0"));
-
         auxPanel.add(comboButtonPanel, BorderLayout.NORTH);
         mainConten.add(auxPanel,BorderLayout.CENTER);
 
         //mapa
         mapConteiner = mapa;
+        mapConteiner.setBorder(BorderFactory.createEmptyBorder(0,0,130,0));
         mapConteiner.setLayout(new FlowLayout(FlowLayout.CENTER));
         mapConteiner.setBackground(Color.white);
         auxPanel.add(mapConteiner, BorderLayout.CENTER);
-
-        //rigth column
-        //TODO Agregar ToolTipText
-        JButton prestamo = VistaBuilder.ButtonFactory("","pretamo-btn",e);
-        saveImg = new ImageIcon("src/vista/images/icons8-money-48.png");
-
-        prestamo.setIcon(saveImg);
-
-        JPanel panelPrestamo = new JPanel();
-        panelPrestamo.setBackground(Color.decode("#E7EAF0"));
-        panelPrestamo.setPreferredSize(new Dimension(100,30));
-        panelPrestamo.setLayout(null);
-        JLabel prestamoLabel = new JLabel("     Prestamos");
-        panelPrestamo.add(prestamoLabel);
-        prestamoLabel.setBounds(5,15, 100,30);
-
-        panelPrestamo.add(prestamo);
-        prestamo.setBounds(17,50,60,40);
-        prestamo.setBorder(null);
-        prestamo.setBackground(Color.decode("#E7EAF0"));
-        auxPanel.add(panelPrestamo, BorderLayout.EAST);
 
         mainPanel.add(mainConten, BorderLayout.CENTER);
         this.setVisible(true);
@@ -244,22 +228,6 @@ public class VistaCliente extends VentanaGestion{
 
     }
 
-    private void setContentBuscarCliente(ActionListener e){
-
-        //mainContent.setContentPane(new clase x);
-        mainPanel.remove(mainConten);
-        mainConten = new JPanel();
-        mainConten.setLayout(new BorderLayout());
-        mainConten.setBackground(Color.GREEN);
-
-
-
-
-
-        mainPanel.add(mainConten, BorderLayout.CENTER);
-        validate();
-    }
-
     private void setContentListarClientes(ActionListener e){
         mainPanel.remove(mainConten);
         mainConten = new JPanel();
@@ -271,12 +239,12 @@ public class VistaCliente extends VentanaGestion{
         panelInfor.setBackground(Color.WHITE);
         panelInfor.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 200));
 
-        JLabel idLabel = new JLabel("Ingrese la cedula del Cliente: ");
+        JLabel idLabel = new JLabel("Cedula: ");
         idLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
         idLabel.setHorizontalAlignment(JLabel.CENTER);
-        prestamoTextField.setPreferredSize(new Dimension(150, 20));
+        idTextField.setPreferredSize(new Dimension(150, 20));
         panelInfor.add(idLabel);
-        panelInfor.add(prestamoTextField);
+        panelInfor.add(idTextField);
 
         JLabel enviarLabel = new JLabel(" ");
         enviarLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
@@ -287,18 +255,14 @@ public class VistaCliente extends VentanaGestion{
         buscarClientebtn.setBorder(null);
         panelInfor.add(enviarLabel);
         panelInfor.add(buscarClientebtn);
-        JLabel a = new JLabel("Doble click sobre el cliente para ver mas detalles");
-        a.setHorizontalAlignment(JLabel.RIGHT);
-        panelInfor.add(a);
-
+        JLabel a = new JLabel("Doble click sobre el cliente para ver mas detalles", JLabel.RIGHT);
+        panelInfor.add(a, BorderLayout.EAST);
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(20,100,100,100));
-
-        center.setSize(new Dimension(getWidth()-20, 500));
+        //center.setSize(new Dimension(getWidth()-20, 500));
         update();
         panel.add(center, BorderLayout.NORTH);
-
 
         mainConten.setBackground(Color.WHITE);
         mainConten.add(panelInfor, BorderLayout.NORTH);
@@ -306,20 +270,14 @@ public class VistaCliente extends VentanaGestion{
         mainPanel.add(mainConten, BorderLayout.CENTER);
         mainConten.setBackground(Color.decode("#E7EAF0"));
 
-
-
         validate();
     }
 
-    public String getPrestamoTextField() {
-        return prestamoTextField.getText();
-    }
 
     public void mainContentHandler(int code, ActionListener e, JPanel mapa){
         switch (code) {
             case 1 -> setContentAgregarCliente(e, mapa);
-            case 2 -> setContentBuscarCliente(e);
-            case 3 -> setContentListarClientes(e);
+            case 2 -> setContentListarClientes(e);
         }
     }
 
@@ -446,14 +404,12 @@ public class VistaCliente extends VentanaGestion{
         auxLabel.setFont(new Font("TimesRoman", Font.BOLD, 15));
         panel.add(auxLabel);
 
-
-        auxLabel = new JLabel(cliente.getNombre());
+        auxLabel = new JLabel(String.valueOf(cliente.getNombre()));
         auxLabel.setForeground(Color.WHITE);
         auxLabel.setFont(new Font("TimesRoman", Font.BOLD, 15));
         panel.add(auxLabel);
 
-
-        auxLabel = new JLabel("ID: ");
+        auxLabel = new JLabel("Codigo: ");
         auxLabel.setForeground(Color.WHITE);
         auxLabel.setFont(new Font("TimesRoman", Font.BOLD, 15));
         panel.add(auxLabel);
@@ -480,20 +436,20 @@ public class VistaCliente extends VentanaGestion{
 
         panelPrestamos.setBorder(new EmptyBorder(20,30,20,30));
 
-        panelPrestamos.setPreferredSize(new Dimension(400,300));
-        panelPrestamos.setLayout(new GridLayout(14,2));
+        panelPrestamos.setLayout(new GridLayout(5,2));
         panelPrestamos.add(new JLabel("Prestamos"));
         panelPrestamos.add(new JLabel(" "));
         if (cliente.tienePrestamos()){
-            for (Prestamo p: cliente.getListaDePrestamosRaw()){
+            panelPrestamos.setLayout(new GridLayout(5 * cliente.getNumeroDePrestamos(),2));
+            for (Prestamo prestamo: cliente.getListaDePrestamosRaw()){
                 panelPrestamos.add(new JLabel("ID: "));
-                panelPrestamos.add(new JLabel(p.getId()));
+                panelPrestamos.add(new JLabel(prestamo.getId()));
 
                 panelPrestamos.add(new JLabel("Monto: "));
-                panelPrestamos.add(new JLabel(String.valueOf(p.getMonto())));
+                panelPrestamos.add(new JLabel(String.valueOf(prestamo.getMonto())));
 
                 panelPrestamos.add(new JLabel("Fecha: "));
-                panelPrestamos.add(new JLabel(p.getFecha()));
+                panelPrestamos.add(new JLabel(prestamo.getFecha()));
 
                 panelPrestamos.add(new JLabel(" "));
                 panelPrestamos.add(new JLabel(" "));
@@ -502,7 +458,7 @@ public class VistaCliente extends VentanaGestion{
 
         }
 
-        JFrame frame = new JFrame("Informacion detallada de un cliente");
+        JFrame frame = new JFrame("Informacion del cliente");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(600,500);
         frame.setLayout(new BorderLayout());
@@ -511,8 +467,6 @@ public class VistaCliente extends VentanaGestion{
         frame.add(scrollPane, BorderLayout.CENTER);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
-
     }
 }
 

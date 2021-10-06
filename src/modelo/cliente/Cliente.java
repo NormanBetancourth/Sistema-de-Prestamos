@@ -86,6 +86,10 @@ public class Cliente {
         this.listaDePrestamos = listaDePrestamos;
     }
 
+    public int getNumeroDePrestamos(){
+        return listaDePrestamos.size();
+    }
+
     public Prestamo getAlgunPrestamo(String idPrestamo){
         for(Prestamo prestamo : getListaDePrestamos().getLista()){
             if(prestamo.getId().equals(idPrestamo)){

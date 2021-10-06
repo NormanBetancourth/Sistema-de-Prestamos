@@ -1,25 +1,20 @@
 package controlador;
 import modelo.cliente.Cliente;
-import modelo.mapHandler.SubMapHandler;
 import modelo.mapHandler.mapHandler;
-import modelo.prestamo.Prestamo;
 import vista.VistaCliente;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import java.awt.*;
 import java.awt.event.*;
-import java.beans.EventHandler;
 
 public class ControladorDeClientes {
     private static VistaCliente vistaCliente;
     private JPanel mapa;
     private static mapHandler mapCreator;
     private Controlador ctrl;
-
     JTable table;
+
     public ControladorDeClientes(mapHandler mapC, Controlador c) {
         ctrl = c;
         mapCreator = mapC;
@@ -41,8 +36,7 @@ public class ControladorDeClientes {
 
     }
 
-
-    public class ListenerHandler implements ActionListener, TableModelListener, MouseListener {
+    public class ListenerHandler implements ActionListener, MouseListener {
         //Cliente: cédula, nombre y provincia, cantón y distrito de su dirección
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -52,34 +46,45 @@ public class ControladorDeClientes {
             String provincia = null;
             String canton = null;
             String distrito = null;
+            int idCliente = 0;
+            Cliente cliente = null;
 
             switch (valor) {
-
-                case "buscarCliente" ->{
-                    int idCliente = 0;
-                    try{
-                        idCliente = Integer.parseInt(vistaCliente.getPrestamoTextField());
-                    } catch (NumberFormatException numberFormatException) {
-                        JOptionPane.showMessageDialog(null, "Solo debes ingresar numeros","Atencion", JOptionPane.INFORMATION_MESSAGE);
-                        return;
+                case "buscarCliente" -> {
+                    try {
+                        if (vistaCliente.getId().isBlank() || vistaCliente.getTextoName().isBlank() ||
+                                vistaCliente.getComboProvincia().isBlank() || vistaCliente.getComboCanton().isBlank() ||
+                                vistaCliente.getComboDistrito().isBlank()) {
+                            throw new Exception("Existen campos de informacion vacios");
+                        } else {
+                            try {
+                                idCliente = Integer.parseInt(vistaCliente.getId());
+                            } catch (NumberFormatException numberFormatException) {
+                                vistaCliente.leerError("Solo se aceptan numeros para determinadas variables");
+                                vistaCliente.clearFields();
+                                break;
+                            }
+                            try {
+                                cliente = ctrl.buscaCliente(idCliente);
+                                if (cliente == null) {
+                                    throw new Exception("El usuario indicado no se encuentra registrado en el sistema");
+                                } else {
+                                    vistaCliente.mostrarVentantaInfoCLiente(cliente);
+                                }
+                            } catch (Exception exception) {
+                                vistaCliente.leerError(exception.getMessage());
+                                vistaCliente.clearFields();
+                                break;
+                            }
+                        }
+                    } catch (Exception exception) {
+                        vistaCliente.leerError(exception.getMessage());
                     }
-                    Cliente cliente = ctrl.buscaCliente(idCliente);
-                    if (cliente != null){
-                        vistaCliente.mostrarVentantaInfoCLiente(cliente);
-                    }else {
-                        JOptionPane.showMessageDialog(null, "No existe ningun cliente con ese id","Atencion", JOptionPane.INFORMATION_MESSAGE);
-
-                    }
-
-
-
                 }
-
                 case "Canton" ->{
                     if (vistaCliente.getSelectedCanton() != null){
                         vistaCliente.cargarDistritos(vistaCliente.getSelectedCanton());
                     }
-
                 }
                 case "guardar-btn" -> {
                     System.out.println('8');
@@ -99,7 +104,7 @@ public class ControladorDeClientes {
                             JOptionPane.showMessageDialog(null, "Debes Ingresar los datos","Atencion", JOptionPane.INFORMATION_MESSAGE);
                         }
                         else {
-                            Cliente cliente = new Cliente(cedula,nombre,provincia,distrito,canton);
+                            cliente = new Cliente(cedula,nombre,provincia,distrito,canton);
 
                             if (ctrl.buscaCliente(cliente.getId()) == null){
                                 System.out.println(cliente);
@@ -188,10 +193,6 @@ public class ControladorDeClientes {
 
         }
 
-        @Override
-        public void tableChanged(TableModelEvent e) {
-
-        }
     }
 
      public static class MousePositionListener implements MouseMotionListener, MouseListener {

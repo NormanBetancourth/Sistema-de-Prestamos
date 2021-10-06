@@ -29,11 +29,6 @@ public class ControladorDePagos {
         vistaPagos.setModeloTablaPrestamos(modelo);
     }
 
-    public void actualizaTablaPagos(Prestamo prestamo) {
-        ModeloTablaPagos modelo = ctrl.getModelo().configuraModelo(prestamo);
-        vistaPagos.setModeloTablaPagos(modelo);
-    }
-
     //BORRAR
     public void datosBase() {
         ctrl.getModelo().registrarCliente(111, "Rebeca1", "H", "H", "H");

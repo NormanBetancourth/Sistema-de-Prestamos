@@ -1,12 +1,7 @@
 package vista;
 
-import com.sun.tools.xjc.model.Model;
-import modelo.cliente.Cliente;
-import modelo.pago.ModeloTablaPagos;
 import modelo.pago.Pago;
-import modelo.prestamo.ModeloTablaPrestamos;
 import modelo.prestamo.Prestamo;
-import org.glassfish.jaxb.runtime.v2.model.impl.ModelBuilder;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -283,7 +278,7 @@ public class VistaPagos extends VentanaGestion{
         panelInfor.setBackground(Color.WHITE);
         panelInfor.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 200));
 
-        JLabel idLabel = new JLabel("Cedula del Cliente: ");
+        JLabel idLabel = new JLabel("Cedula: ");
         idLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
         idTextField.setPreferredSize(new Dimension(150, 20));
         panelInfor.add(idLabel);
