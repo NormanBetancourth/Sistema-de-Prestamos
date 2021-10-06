@@ -6,6 +6,7 @@ import modelo.prestamo.ListaPrestamos;
 import modelo.prestamo.Prestamo;
 
 import java.util.List;
+import java.util.Random;
 
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Cliente {

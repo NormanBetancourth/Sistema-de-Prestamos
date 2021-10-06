@@ -11,8 +11,10 @@ import modelo.prestamo.ModeloTablaPrestamos;
 import modelo.prestamo.Prestamo;
 
 import javax.swing.event.TableModelListener;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ModelHandler {
 
@@ -187,9 +189,13 @@ public class ModelHandler {
     }
 
     public void asignarCodigoDelPrestamo(Prestamo prestamo, Cliente cliente){
-        // Combinación para el codigo del prestamo es igual a
-        // id del cliente * 31
-        prestamo.setId(String.valueOf(cliente.hashCode()));
+        //TODO combinación para el codigo del prestamo es igual a
+        // id del cliente * 31 + 3 caracteres random
+        SecureRandom random = new SecureRandom();
+        char caracter1 = (char) (random.nextInt(26) + 'A');
+        char caracter2 = (char) (random.nextInt(26) + 'A');
+        char caracter3 = (char) (random.nextInt(26) + 'A');
+        prestamo.setId(String.valueOf(cliente.hashCode() + "-" + caracter1 + caracter2 + caracter3));
     }
 
     public boolean isPrestamoActivo(String idPrestamo){
