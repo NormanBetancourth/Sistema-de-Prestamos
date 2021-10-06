@@ -52,9 +52,7 @@ public class ControladorDeClientes {
             switch (valor) {
                 case "buscarCliente" -> {
                     try {
-                        if (vistaCliente.getId().isBlank() || vistaCliente.getTextoName().isBlank() ||
-                                vistaCliente.getProvinciaSelected() == null || vistaCliente.getSelectedDistrito() == null ||
-                                vistaCliente.getSelectedCanton() == null) {
+                        if (vistaCliente.getId().isBlank() ) {
                             throw new Exception("Existen campos de informacion vacios");
                         } else {
                             try {
@@ -100,7 +98,9 @@ public class ControladorDeClientes {
                         distrito = vistaCliente.getComboDistrito();
 
 
-                        if (String.valueOf(cedula).isEmpty() || nombre.isEmpty() || provincia.isEmpty()|| canton.isBlank()|| distrito.isBlank()) {
+                        if (String.valueOf(cedula).isEmpty() || vistaCliente.getTextoName().isBlank() ||
+                                vistaCliente.getProvinciaSelected() == null || vistaCliente.getSelectedDistrito() == null ||
+                                vistaCliente.getSelectedCanton() == null) {
                             JOptionPane.showMessageDialog(null, "Debes Ingresar todos los datos requeridos","Atencion", JOptionPane.INFORMATION_MESSAGE);
                         }
                         else {
