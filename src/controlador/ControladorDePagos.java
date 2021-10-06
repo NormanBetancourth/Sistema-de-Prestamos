@@ -21,30 +21,11 @@ public class ControladorDePagos {
         ctrl = c;
         vistaPagos = new VistaPagos();
         vistaPagos.addComponents(new ListenerHandler0());
-        datosBase();
     }
 
     public void actualizaTablaPrestamos(Cliente cliente) {
         ModeloTablaPrestamos modelo = ctrl.getModelo().configuraModelo(cliente);
         vistaPagos.setModeloTablaPrestamos(modelo);
-    }
-
-    //BORRAR
-    public void datosBase() {
-        ctrl.getModelo().registrarCliente(111, "Rebeca1", "H", "H", "H");
-        ctrl.getModelo().registrarCliente(222, "Rebeca2", "H", "H", "H");
-        ctrl.getModelo().registrarCliente(333, "Rebeca3", "H", "H", "H");
-        ctrl.getModelo().registrarCliente(444, "Rebeca4", "H", "H", "H");
-
-        Cliente cliente1 = ctrl.getModelo().getClientePorID(111);
-        Cliente cliente2 = ctrl.getModelo().getClientePorID(222);
-        Cliente cliente3 = ctrl.getModelo().getClientePorID(333);
-        Cliente cliente4 = ctrl.getModelo().getClientePorID(444);
-
-        ctrl.getModelo().registrarPrestamoAUnCliente(cliente1, 10000, 0.06, 6);
-        ctrl.getModelo().registrarPrestamoAUnCliente(cliente2, 200, 0.0, 100);
-        ctrl.getModelo().registrarPrestamoAUnCliente(cliente3, 200, 0.0, 100);
-        ctrl.getModelo().registrarPrestamoAUnCliente(cliente4, 200, 0.0, 100);
     }
 
     // Cambiar vista de acuerdo al botón seleccionado

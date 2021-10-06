@@ -35,6 +35,6 @@ public class VentanaGestion extends JFrame {
     }
 
     public void leerError(String errorMessage){
-        JOptionPane.showMessageDialog(this, errorMessage, "Format error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, errorMessage, "Aviso", JOptionPane.ERROR_MESSAGE);
     }
 }

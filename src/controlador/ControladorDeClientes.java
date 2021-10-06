@@ -41,7 +41,6 @@ public class ControladorDeClientes {
         @Override
         public void actionPerformed(ActionEvent e) {
             String valor = e.getActionCommand();
-            int cedula = 0;
             String nombre = null;
             String provincia = null;
             String canton = null;
@@ -52,7 +51,9 @@ public class ControladorDeClientes {
             switch (valor) {
                 case "buscarCliente" -> {
                     try {
-                        if (vistaCliente.getId().isBlank() ) {
+                        if (vistaCliente.getId().isBlank() || vistaCliente.getTextoName().isBlank() ||
+                                vistaCliente.getComboProvincia().isBlank() || vistaCliente.getComboCanton().isBlank() ||
+                                vistaCliente.getComboDistrito().isBlank()) {
                             throw new Exception("Existen campos de informacion vacios");
                         } else {
                             try {
@@ -88,7 +89,7 @@ public class ControladorDeClientes {
                     System.out.println('8');
                     try{
                        try{
-                           cedula = Integer.parseInt(vistaCliente.getId());
+                           idCliente = Integer.parseInt(vistaCliente.getId());
                        } catch (NumberFormatException numberFormatException) {
                            JOptionPane.showMessageDialog(null, "La cedula solo puede contener numeros","Atencion", JOptionPane.INFORMATION_MESSAGE);
                        }
@@ -98,13 +99,13 @@ public class ControladorDeClientes {
                         distrito = vistaCliente.getComboDistrito();
 
 
-                        if (String.valueOf(cedula).isEmpty() || vistaCliente.getTextoName().isBlank() ||
+                        if (String.valueOf(idCliente).isEmpty() || vistaCliente.getTextoName().isBlank() ||
                                 vistaCliente.getProvinciaSelected() == null || vistaCliente.getSelectedDistrito() == null ||
                                 vistaCliente.getSelectedCanton() == null) {
                             JOptionPane.showMessageDialog(null, "Debes Ingresar todos los datos requeridos","Atencion", JOptionPane.INFORMATION_MESSAGE);
                         }
                         else {
-                            cliente = new Cliente(cedula,nombre,provincia,distrito,canton);
+                            cliente = new Cliente(idCliente,nombre,provincia,distrito,canton);
 
                             if (ctrl.buscaCliente(cliente.getId()) == null){
                                 System.out.println(cliente);
@@ -120,8 +121,6 @@ public class ControladorDeClientes {
                                 JOptionPane.showMessageDialog(null, "Ya existe un cliente con esa informacion","Atencion", JOptionPane.INFORMATION_MESSAGE);
 
                             }
-
-
                         }
 
 

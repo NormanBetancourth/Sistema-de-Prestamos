@@ -51,7 +51,6 @@ public class VistaCliente extends VentanaGestion{
     }
 
     public void addComponents(ActionListener e , JPanel mapa){
-        this.setSize(getWidth(), getHeight()+60);
         ImageIcon imageIcon = new ImageIcon("src/vista/images/icons8-client-64.png");
         this.setIconImage(imageIcon.getImage());
 
@@ -73,8 +72,6 @@ public class VistaCliente extends VentanaGestion{
         botonera.add(inicioBoton);
         agregarBoton = VistaBuilder.ButtonFactory("Agregar Cliente", "1-1",e);
         botonera.add(agregarBoton);
-//        buscarBoton = VistaBuilder.ButtonFactory("Buscar Cliente", "1-2",e);
-//        botonera.add(buscarBoton);
         listarBoton = VistaBuilder.ButtonFactory("Busqueda de Clientes", "1-2",e);
         botonera.add(listarBoton);
 
@@ -100,9 +97,9 @@ public class VistaCliente extends VentanaGestion{
     public void clearFields(){
         nameTextField.setText(null);
         idTextField.setText(null);
-        provinciaCombo.setSelectedItem(0);
-        cantonCombo.setSelectedItem(0);
-        distritoCombo.setSelectedItem(0);
+        provinciaCombo.setSelectedItem(null);
+        cantonCombo.setSelectedItem(null);
+        distritoCombo.setSelectedItem(null);
     }
 
     public String[] getProvinciaSelected() {
@@ -340,10 +337,10 @@ public class VistaCliente extends VentanaGestion{
     }
 
     public String getSelectedCanton(){
-        return (String) cantonCombo.getSelectedItem();
+        return cantonCombo.getSelectedItem() == "Seleccione" ? null : String.valueOf(cantonCombo.getSelectedItem());
     }
     public String getSelectedDistrito(){
-        return (String) distritoCombo.getSelectedItem();
+        return distritoCombo.getSelectedItem() == "Seleccione" ? null : String.valueOf(distritoCombo.getSelectedItem());
     }
 
     public String getId() {
@@ -351,16 +348,15 @@ public class VistaCliente extends VentanaGestion{
     }
 
     public String getComboProvincia() {
-        return (String) provinciaCombo.getSelectedItem();
+        return provinciaCombo.getSelectedItem() == "Seleccione" ? null : String.valueOf(provinciaCombo.getSelectedItem());
     }
 
     public String getComboCanton() {
-        return (String) cantonCombo.getSelectedItem();
-
+        return cantonCombo.getSelectedItem() == "Seleccione" ? null : String.valueOf(cantonCombo.getSelectedItem());
     }
 
     public String getComboDistrito() {
-        return (String) distritoCombo.getSelectedItem();
+        return distritoCombo.getSelectedItem() == "Seleccione" ? null : String.valueOf(distritoCombo.getSelectedItem());
     }
 
     public void setTable(JTable table) {
