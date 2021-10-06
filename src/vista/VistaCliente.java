@@ -89,7 +89,7 @@ public class VistaCliente extends VentanaGestion{
         cantonCombo.addActionListener(e);
         distritoCombo.addActionListener(e);
 
-        //mainContentHandler(1,e, mapa);
+        mainContentHandler(1,e, mapa);
 
         this.add(southPanel, BorderLayout.SOUTH);
         this.setVisible(true);
