@@ -51,9 +51,7 @@ public class ControladorDeClientes {
             switch (valor) {
                 case "buscarCliente" -> {
                     try {
-                        if (vistaCliente.getId().isBlank() || vistaCliente.getTextoName().isBlank() ||
-                                vistaCliente.getComboProvincia().isBlank() || vistaCliente.getComboCanton().isBlank() ||
-                                vistaCliente.getComboDistrito().isBlank()) {
+                        if (vistaCliente.getId().isBlank()) {
                             throw new Exception("Existen campos de informacion vacios");
                         } else {
                             try {
@@ -86,12 +84,13 @@ public class ControladorDeClientes {
                     }
                 }
                 case "guardar-btn" -> {
-                    System.out.println('8');
                     try{
                        try{
                            idCliente = Integer.parseInt(vistaCliente.getId());
                        } catch (NumberFormatException numberFormatException) {
                            JOptionPane.showMessageDialog(null, "La cedula solo puede contener numeros","Atencion", JOptionPane.INFORMATION_MESSAGE);
+                           vistaCliente.cancelar();
+                           break;
                        }
                         nombre = vistaCliente.getTextoName();
                         provincia = vistaCliente.getComboProvincia();
@@ -103,6 +102,7 @@ public class ControladorDeClientes {
                                 vistaCliente.getProvinciaSelected() == null || vistaCliente.getSelectedDistrito() == null ||
                                 vistaCliente.getSelectedCanton() == null) {
                             JOptionPane.showMessageDialog(null, "Debes Ingresar todos los datos requeridos","Atencion", JOptionPane.INFORMATION_MESSAGE);
+
                         }
                         else {
                             cliente = new Cliente(idCliente,nombre,provincia,distrito,canton);

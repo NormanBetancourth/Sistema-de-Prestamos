@@ -16,13 +16,7 @@ public class principal {
     public static void main(String[] args) throws FileNotFoundException {
 
         SwingUtilities.invokeLater(()-> {
-
             Controlador ctrl = new Controlador();
-
-
-
-
-
         });
     }
 }

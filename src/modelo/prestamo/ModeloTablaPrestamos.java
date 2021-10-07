@@ -28,7 +28,7 @@ public class ModeloTablaPrestamos extends AbstractTableModel {
         Prestamo emp = filas.get(rowIndex);
         switch (columnIndex){
             case 0: return emp.getId();
-            case 1: return emp.getMonto();
+            case 1: return emp.getMonto() + (emp.getMonto() * emp.getTasaDeInteres());
             case 2: return emp.getTasaDeInteres();
             case 3: return emp.getPlazo();
             case 4: return emp.getCuota();

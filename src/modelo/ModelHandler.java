@@ -218,6 +218,8 @@ public class ModelHandler {
             prestamo.agregarPago(new Pago(montoPagado));
             if(prestamo.getMonto() <= 0){
                 prestamo.setEstado(false);
+                prestamo.setMonto(0);
+                prestamo.setCuota(0);
             }
         }
     }

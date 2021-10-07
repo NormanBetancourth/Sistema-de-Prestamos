@@ -343,10 +343,10 @@ public class VistaCliente extends VentanaGestion{
     }
 
     public String getSelectedCanton(){
-        return cantonCombo.getSelectedItem() == "Seleccione" ? null : String.valueOf(cantonCombo.getSelectedItem());
+        return (String) cantonCombo.getSelectedItem();
     }
     public String getSelectedDistrito(){
-        return distritoCombo.getSelectedItem() == "Seleccione" ? null : String.valueOf(distritoCombo.getSelectedItem());
+        return (String) distritoCombo.getSelectedItem();
     }
 
     public String getId() {

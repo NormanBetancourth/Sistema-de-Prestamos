@@ -121,6 +121,7 @@ public class ControladorDePagos {
                                                 throw new Exception("El prestamo ya ha sido completamente cancelado");
                                             }
                                             ctrl.getModelo().cancelacionDeCuota(idPrestamo, montoPagado);
+                                            ctrl.guardar();
                                         }
                                     } catch (Exception exception) {
                                         vistaPagos.leerError(exception.getMessage());

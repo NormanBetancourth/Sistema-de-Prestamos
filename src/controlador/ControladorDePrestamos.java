@@ -125,6 +125,7 @@ public class ControladorDePrestamos {
                                         } else {
                                             Cliente cliente = ctrl.getModelo().getClientePorID(idCliente);
                                             ctrl.getModelo().registrarPrestamoAUnCliente(cliente, monto, interes, plazo);
+                                            ctrl.guardar();
                                         }
                                     } catch (Exception exception) {
                                         vistaPrestamos.leerError(exception.getMessage());
