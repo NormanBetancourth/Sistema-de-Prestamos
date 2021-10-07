@@ -231,4 +231,22 @@ public class ModelHandler {
     public int getValueModeloCliente(int selectedRow, int i) {
        return (Integer) modeloTablaCliente.getValueAt(selectedRow,i);
     }
+
+    public ModeloTablaPrestamos getModeloTablaPrestamosRaw() {
+        return modeloTablaPrestamos;
+    }
+
+
+    public List<Prestamo> getTodosLosPrestamos() {
+        List<Prestamo> L = new ArrayList<>();
+        for (Cliente c: clientes.getLista()){
+            if (c.getCantidadPrestamos() > 0){
+                for (Prestamo p: c.getListaDePrestamosRaw()){
+                    L.add(p);
+                }
+            }
+        }
+        return L;
+
+    }
 }

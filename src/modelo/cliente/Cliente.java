@@ -103,6 +103,7 @@ public class Cliente {
     }
 
 
+
     @Override
     public int hashCode() {
         return !(getId() == 0) ? getId() * 31 : 0;

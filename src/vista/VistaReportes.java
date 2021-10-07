@@ -23,6 +23,7 @@ public class VistaReportes extends VentanaGestion{
     }
 
     public void addComponents(ActionListener e){
+        tabla = new JTable();
         JLabel label =  new JLabel("Gestion De Reportes");
         label.setForeground(Color.white);
         label.setFont(new Font("TimesRoman", Font.PLAIN, 15));
@@ -184,6 +185,7 @@ public class VistaReportes extends VentanaGestion{
         mainPanel.add(mainConten, BorderLayout.CENTER);
         mainConten.setBackground(Color.decode("#E7EAF0"));
         mainPanel.add(mainConten, BorderLayout.CENTER);
+        boton = new JButton();
 
         this.setVisible(true);
     }

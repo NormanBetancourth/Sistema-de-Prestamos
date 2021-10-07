@@ -30,8 +30,8 @@ public class ControladorDeReportes {
     }
 
     public void actualizaTablaPrestamos(){
-        ModeloTablaPrestamos modelo = ctrl.getModeloTablaPrestamos();
-        vistaReportes.setModeloTablaPrestamos(modelo);
+        ModeloTablaPrestamos modeloTabla = new ModeloTablaPrestamos(ctrl.getTodoslosPrestamos());
+        vistaReportes.setModeloTablaPrestamos(modeloTabla);
     }
 
     private class ListenerHandler implements ActionListener, MouseListener{

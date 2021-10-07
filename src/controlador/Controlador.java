@@ -5,11 +5,13 @@ import modelo.cliente.Cliente;
 import modelo.cliente.ModeloTablaCliente;
 import modelo.mapHandler.mapHandler;
 import modelo.prestamo.ModeloTablaPrestamos;
+import modelo.prestamo.Prestamo;
 import vista.HomeFrame;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;
 import java.awt.event.*;
+import java.util.List;
 
 public class Controlador {
     HomeFrame Home;
@@ -60,6 +62,14 @@ public class Controlador {
 
     public void guardar() {
         modelo.guardarDatos();
+    }
+
+    public ModeloTablaPrestamos getModeloTablaPrestamosRaw() {
+        return modelo.getModeloTablaPrestamosRaw();
+    }
+
+    public List<Prestamo> getTodoslosPrestamos() {
+        return modelo.getTodosLosPrestamos();
     }
 
 
