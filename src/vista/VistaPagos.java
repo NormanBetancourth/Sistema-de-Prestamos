@@ -250,7 +250,7 @@ public class VistaPagos extends VentanaGestion{
         panelInfor.add(boton2);
 
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBorder(BorderFactory.createEmptyBorder(20,150,100,150));
+        panel.setBorder(BorderFactory.createEmptyBorder(20,80,20,80));
         tabla = new JTable();
         tabla.setModel(new DefaultTableModel());
         tabla.addMouseListener((MouseListener) e);

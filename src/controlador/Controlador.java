@@ -16,6 +16,7 @@ public class Controlador {
     ControladorDeClientes controladorDeClientes;
     ControladorDePrestamos controladorDePrestamos;
     ControladorDePagos controladorDePagos;
+    ControladorDeReportes controladorDeReportes;
     private mapHandler mapCreator;
 
 
@@ -83,6 +84,10 @@ public class Controlador {
                     case "3" -> {
                         Home.dispose();
                         controladorDePagos = new ControladorDePagos(Controlador.this);
+                    }
+                    case "4" -> {
+                        Home.dispose();
+                        controladorDeReportes = new ControladorDeReportes(Controlador.this);
                     }
                 }
             }

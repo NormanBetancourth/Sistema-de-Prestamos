@@ -111,6 +111,14 @@ public class ModelHandler {
         return modeloTablaCliente;
     }
 
+    public ModeloTablaPrestamos getModeloTablaPrestamos(){
+        return modeloTablaPrestamos;
+    }
+
+    public Integer getIndexTablaCliente(String id){
+        return modeloTablaCliente.getIndex(id);
+    }
+
 
     public ModelHandler() {
         clientes = new ListaClientes();
@@ -182,6 +190,7 @@ public class ModelHandler {
     public void registrarPrestamoAUnCliente(Cliente cliente, double monto, double tasaDeInteres, int plazo){
         //double monto, double tasaDeInteres, int plazo
         Prestamo prestamo = new Prestamo(monto, tasaDeInteres, plazo);
+        prestamos.add(prestamo);
         asignarCodigoDelPrestamo(prestamo, cliente);
         buscarCliente(cliente.getId()).addPrestamo(prestamo);
     }

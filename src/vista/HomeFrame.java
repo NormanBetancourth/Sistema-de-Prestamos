@@ -54,9 +54,9 @@ public class HomeFrame extends JFrame implements VistaBuilder {
         btn3.setPreferredSize(new Dimension(140,30));
         btn3.setToolTipText("Listado y registro de pagos");
         leftPane.add(btn3);
-        //btn4.setPreferredSize(new Dimension(140,30));
-        //btn4.setToolTipText("Generar reportes");
-        //leftPane.add(btn4);
+        btn4.setPreferredSize(new Dimension(140,30));
+        btn4.setToolTipText("Generar reportes");
+        leftPane.add(btn4);
 
         JPanel jj = new JPanel();
         jj.setPreferredSize(new Dimension(100,20));

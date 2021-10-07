@@ -32,6 +32,14 @@ public class ModeloTablaCliente extends AbstractTableModel {
         }
     }
 
+    public Integer getIndex(String id){
+        for(int i = 0; i < getRowCount(); i++){
+            if(id.equals(String.valueOf(getValueAt(i, 0)))){
+                return i;
+            }
+        }
+        return null;
+    }
 
 
     @Override

@@ -24,4 +24,28 @@
         <nombre>Andres</nombre>
         <provincia>Alajuela</provincia>
     </Cliente>
+    <Cliente>
+        <canton>HEREDIA</canton>
+        <distrito>Heredia</distrito>
+        <id>0</id>
+        <Prestamo/>
+        <nombre>dqw</nombre>
+        <provincia>Heredia</provincia>
+    </Cliente>
+    <Cliente>
+        <canton>null</canton>
+        <distrito>null</distrito>
+        <id>666</id>
+        <Prestamo/>
+        <nombre>Rebeca Servellon</nombre>
+        <provincia>null</provincia>
+    </Cliente>
+    <Cliente>
+        <canton>HEREDIA</canton>
+        <distrito>Heredia</distrito>
+        <id>111</id>
+        <Prestamo/>
+        <nombre>Rebe</nombre>
+        <provincia>Heredia</provincia>
+    </Cliente>
 </Clientes>

@@ -233,7 +233,7 @@ public class VistaCliente extends VentanaGestion{
         mainConten.setBackground(Color.RED);
         mainPanel.add(mainConten, BorderLayout.CENTER);
 
-        JPanel panelInfor = new JPanel(new GridLayout(3, 2, 50, 20));
+        JPanel panelInfor = new JPanel(new GridLayout(2, 2, 50, 20));
         panelInfor.setBackground(Color.WHITE);
         panelInfor.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 200));
 
@@ -253,14 +253,20 @@ public class VistaCliente extends VentanaGestion{
         buscarClientebtn.setBorder(null);
         panelInfor.add(enviarLabel);
         panelInfor.add(buscarClientebtn);
-        JLabel a = new JLabel("Doble click sobre el cliente para ver mas detalles", JLabel.RIGHT);
-        panelInfor.add(a, BorderLayout.EAST);
 
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBorder(BorderFactory.createEmptyBorder(20,100,100,100));
+        panel.setBorder(BorderFactory.createEmptyBorder(20,80,20,80));
+
+        center = new JPanel(new BorderLayout());
+        //center.setBorder(BorderFactory.createEmptyBorder(20,80,20,80));
         //center.setSize(new Dimension(getWidth()-20, 500));
         update();
-        panel.add(center, BorderLayout.NORTH);
+
+        JLabel a = new JLabel("Doble click sobre el cliente para ver mas detalles", JLabel.CENTER);
+        a.setForeground(Color.GRAY);
+        a.setBorder(new EmptyBorder(5, 0, 5, 0));
+        panel.add(a, BorderLayout.NORTH);
+        panel.add(center, BorderLayout.CENTER);
 
         mainConten.setBackground(Color.WHITE);
         mainConten.add(panelInfor, BorderLayout.NORTH);
