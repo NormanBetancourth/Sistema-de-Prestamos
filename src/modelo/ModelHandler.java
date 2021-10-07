@@ -112,6 +112,7 @@ public class ModelHandler {
     }
 
     public ModeloTablaPrestamos getModeloTablaPrestamos(){
+        cargarModeloTablaPrestamos();
         return modeloTablaPrestamos;
     }
 

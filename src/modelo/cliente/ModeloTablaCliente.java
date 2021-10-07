@@ -2,6 +2,7 @@ package modelo.cliente;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
+import java.util.Locale;
 
 public class ModeloTablaCliente extends AbstractTableModel {
     private List<Cliente> filas;
@@ -23,10 +24,12 @@ public class ModeloTablaCliente extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Cliente emp = filas.get(rowIndex);
+        String canton = emp.getCanton().toLowerCase();
+        String direccion = canton.substring(0, 1).toUpperCase() + canton.substring(1);
         switch (columnIndex){
             case 0: return emp.getId();
             case 1: return emp.getNombre();
-            case 2: return emp.getProvincia()+" "+emp.getCanton()+" "+emp.getDistrito();
+            case 2: return emp.getProvincia() + ", " + direccion + ", " + emp.getDistrito();
             case 3: return emp.getCantidadPrestamos();
             default: return null;
         }

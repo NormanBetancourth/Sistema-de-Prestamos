@@ -30,7 +30,7 @@ public class ControladorDeReportes {
     }
 
     public void actualizaTablaPrestamos(){
-        ModeloTablaPrestamos modelo = ctrl.getModelo().getModeloTablaPrestamos();
+        ModeloTablaPrestamos modelo = ctrl.getModeloTablaPrestamos();
         vistaReportes.setModeloTablaPrestamos(modelo);
     }
 
@@ -117,8 +117,10 @@ public class ControladorDeReportes {
                 break;
                 case "4-3":
                 {
+                    // Vista reporte de pagos de un prestamo
                     vistaReportes.mainContentHandler(3, new ControladorDeReportes.ListenerHandler());
                     vistaReportes.clearFields();
+                    actualizaTablaPrestamos();
                 }
                 break;
                 case "Cancelacion":

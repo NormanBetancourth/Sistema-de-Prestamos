@@ -4,6 +4,7 @@ import modelo.ModelHandler;
 import modelo.cliente.Cliente;
 import modelo.cliente.ModeloTablaCliente;
 import modelo.mapHandler.mapHandler;
+import modelo.prestamo.ModeloTablaPrestamos;
 import vista.HomeFrame;
 
 import javax.swing.*;
@@ -47,6 +48,10 @@ public class Controlador {
 
     public ModeloTablaCliente getModeloTablaCliente() {
         return modelo.getModeloTablaCliente();
+    }
+
+    public ModeloTablaPrestamos getModeloTablaPrestamos(){
+        return modelo.getModeloTablaPrestamos();
     }
 
     public int getIdClienteTabla(int selectedRow, int i) {

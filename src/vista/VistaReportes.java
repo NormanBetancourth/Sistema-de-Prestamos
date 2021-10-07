@@ -41,7 +41,7 @@ public class VistaReportes extends VentanaGestion{
         botonera.add(inicioBoton);
         agregarBoton = VistaBuilder.ButtonFactory("Reporte De Clientes", "4-1",e);
         botonera.add(agregarBoton);
-        buscarBoton = VistaBuilder.ButtonFactory("Reporte de Prestamo", "4-2",e);
+        buscarBoton = VistaBuilder.ButtonFactory("Reporte de Prestamos", "4-2",e);
         botonera.add(buscarBoton);
         buscarBoton = VistaBuilder.ButtonFactory("Reporte de Pagos", "4-3",e);
         botonera.add(buscarBoton);
@@ -232,15 +232,10 @@ public class VistaReportes extends VentanaGestion{
         tabla.addMouseListener((MouseListener) e);
         scrollPane = new JScrollPane(tabla);
 
-        //JLabel texto = new JLabel(" ");
-        //enviarLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
-
         JLabel textoInfor = new JLabel("Tambien puede seleccionar una fila directamente", JLabel.CENTER);
         textoInfor.setBorder(new EmptyBorder(5, 0, 5, 0));
         textoInfor.setForeground(Color.GRAY);
-        //panelInfor.add(texto);
         panel.add(textoInfor, BorderLayout.NORTH);
-
         panel.add(scrollPane, BorderLayout.CENTER);
 
 
@@ -250,12 +245,68 @@ public class VistaReportes extends VentanaGestion{
         mainPanel.add(mainConten, BorderLayout.CENTER);
         mainConten.setBackground(Color.decode("#E7EAF0"));
         mainPanel.add(mainConten, BorderLayout.CENTER);
-
         this.setVisible(true);
     }
 
     private void setContentReportePagos(ActionListener e){
+        mainPanel.remove(mainConten);
+        mainConten = new JPanel();
+        mainConten.setLayout(new BorderLayout());
 
+        JPanel panelInfor = new JPanel(new GridLayout(3, 2, 50, 20));
+        panelInfor.setBackground(Color.WHITE);
+        panelInfor.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 200));
+
+        JLabel idLabel = new JLabel("Codigo: ");
+        idLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+        idTextField.setPreferredSize(new Dimension(150, 20));
+        idTextField.setActionCommand("");
+        panelInfor.add(idLabel);
+        panelInfor.add(idTextField);
+
+        JLabel enviarLabel = new JLabel(" ");
+        enviarLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+
+        boton = VistaBuilder.ButtonFactory("Enviar", "4-2-1", e);
+        boton.setPreferredSize(new Dimension(100, 20));
+        boton.setBackground(Color.decode("#DAF7A6"));
+        boton.setBorder(null);
+        panelInfor.add(enviarLabel);
+        panelInfor.add(boton);
+
+        JLabel cancelarLabel = new JLabel(" ");
+        enviarLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
+
+        boton2 = VistaBuilder.ButtonFactory("Cancelar", "Cancelacion", e);
+        boton2.setPreferredSize(new Dimension(100, 20));
+        boton2.setBackground(Color.decode("#C27A8F"));
+        boton2.setBorder(null);
+        boton2.setEnabled(true);
+        panelInfor.add(cancelarLabel);
+        panelInfor.add(boton2);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(20,80,20,80));
+        tabla = new JTable();
+        tabla.setModel(new DefaultTableModel());
+        tabla.addMouseListener((MouseListener) e);
+        scrollPane = new JScrollPane(tabla);
+
+        JLabel textoInfor = new JLabel("Tambien puede seleccionar una fila directamente", JLabel.CENTER);
+        textoInfor.setBorder(new EmptyBorder(5, 0, 5, 0));
+        textoInfor.setForeground(Color.GRAY);
+
+        panel.add(textoInfor, BorderLayout.NORTH);
+        panel.add(scrollPane, BorderLayout.CENTER);
+
+
+        mainConten.setBackground(Color.WHITE);
+        mainConten.add(panelInfor, BorderLayout.NORTH);
+        mainConten.add(panel, BorderLayout.CENTER);
+        mainPanel.add(mainConten, BorderLayout.CENTER);
+        mainConten.setBackground(Color.decode("#E7EAF0"));
+        mainPanel.add(mainConten, BorderLayout.CENTER);
+        this.setVisible(true);
     }
 
     public void mainContentHandler(int code, ActionListener e){
