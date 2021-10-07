@@ -1,7 +1,14 @@
 package modelo.pago;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
 import java.time.LocalDate;
 
+@XmlRootElement(name = "Pago")
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class Pago {
     String id;
     int numeroDePago;
@@ -11,7 +18,7 @@ public class Pago {
     LocalDate fecha;
 
     public Pago() {
-        this.id = "Indefinido";
+        this.id = null;
         this.numeroDePago = 0;
         this.montoPagado = 0;
         this.interes = 0;
@@ -19,12 +26,12 @@ public class Pago {
         this.fecha = LocalDate.now();
     }
 
-    public Pago(int numeroDePago, double montoPagado, double interes, double amortizacion) {
+    public Pago(double montoPagado) {
         this.id = "Indefinido";
-        this.numeroDePago = numeroDePago;
+        this.numeroDePago = 0;
         this.montoPagado = montoPagado;
         this.interes = interes;
-        this.amortizacion = amortizacion;
+        this.amortizacion = calculoAmortizacion();
         this.fecha = LocalDate.now();
     }
 
@@ -45,7 +52,7 @@ public class Pago {
     }
 
     public double getMontoPagado() {
-        return montoPagado;
+        return formatearDecimales(montoPagado,2);
     }
 
     public void setMontoPagado(double montoPagado) {
@@ -53,7 +60,7 @@ public class Pago {
     }
 
     public double getInteres() {
-        return interes;
+        return formatearDecimales(interes, 2);
     }
 
     public void setInteres(double interes) {
@@ -61,7 +68,7 @@ public class Pago {
     }
 
     public double getAmortizacion() {
-        return amortizacion;
+        return calculoAmortizacion();
     }
 
     public void setAmortizacion(double amortizacion) {
@@ -76,6 +83,14 @@ public class Pago {
         //LocalDate fecha = LocalDate.now();
         //return fecha.toString();
         return fecha.toString();
+    }
+
+    public static Double formatearDecimales(Double numero, Integer numeroDecimales) {
+        return Math.round(numero * Math.pow(10, numeroDecimales)) / Math.pow(10, numeroDecimales);
+    }
+
+    public double calculoAmortizacion(){
+        return formatearDecimales(getMontoPagado() - getInteres(), 2);
     }
 
     @Override

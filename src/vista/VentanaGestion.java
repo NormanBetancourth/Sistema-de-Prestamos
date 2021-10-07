@@ -15,7 +15,7 @@ public class VentanaGestion extends JFrame {
     JButton listarBoton = new JButton();
 
     public VentanaGestion() {
-        setSize(new Dimension(900,790));
+        setSize(new Dimension(900,740));
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
@@ -34,4 +34,7 @@ public class VentanaGestion extends JFrame {
         return listarBoton;
     }
 
+    public void leerError(String errorMessage){
+        JOptionPane.showMessageDialog(this, errorMessage, "Aviso", JOptionPane.ERROR_MESSAGE);
+    }
 }

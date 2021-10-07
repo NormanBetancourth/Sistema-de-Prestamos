@@ -20,9 +20,6 @@ public class JAXBParser {
             marshallObj.marshal(o,f);
 
 
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }

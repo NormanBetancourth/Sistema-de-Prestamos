@@ -35,4 +35,17 @@ public class ListaPrestamos {
         }
         return null;
     }
+
+    @Override
+    public String toString() {
+        String ss = "";
+        for (Prestamo p : getLista()){
+            ss = ss + p.toString();
+        }
+        return ss;
+    }
+
+    public int size() {
+        return lista.size();
+    }
 }

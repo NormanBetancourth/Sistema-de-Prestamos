@@ -1,13 +1,21 @@
 package modelo.cliente;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import modelo.prestamo.Prestamo;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ListaClientesHandler {
+@XmlRootElement(name = "Clientes")
+@XmlAccessorType(XmlAccessType.PROPERTY)
+public class ListaClientes {
     List<Cliente> lista;
 
-    public ListaClientesHandler() {
+    public ListaClientes() {
         lista = new ArrayList<>();
     }
 
@@ -15,11 +23,12 @@ public class ListaClientesHandler {
         lista.add(c);
     }
 
-    public ListaClientesHandler(List<Cliente> lista) {
+    public ListaClientes(List<Cliente> lista) {
         this.lista = lista;
     }
 
 
+    @XmlElement(name = "Cliente")
     public List<Cliente> getLista() {
         return lista;
     }
@@ -38,6 +47,14 @@ public class ListaClientesHandler {
         }
         return null;
     }
+    public Cliente buscar(int id){
+        for (Cliente pp: lista){
+            if (pp.getId() == id){
+                return pp;
+            }
+        }
+        return null;
+    }
 
 
     @Override
@@ -50,4 +67,7 @@ public class ListaClientesHandler {
         return ss;
     }
 
+    public int getSize() {
+        return lista.size();
+    }
 }

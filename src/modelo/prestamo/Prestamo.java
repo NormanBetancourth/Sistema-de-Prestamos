@@ -1,10 +1,18 @@
 package modelo.prestamo;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import modelo.pago.ListaPagos;
 import modelo.pago.Pago;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
+@XmlRootElement(name = "Prestamos")
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class Prestamo {
     private String id;
     private double monto;
@@ -12,7 +20,8 @@ public class Prestamo {
     private int plazo;
     private double cuota;
     private LocalDate fecha;
-    private ArrayList<Pago> listaDePagos;
+    private boolean estado;
+    private ListaPagos listaDePagos;
 
     public Prestamo() {
         this.id = "Indefinido";
@@ -21,7 +30,8 @@ public class Prestamo {
         this.plazo = 0;
         this.cuota = 0;
         this.fecha = LocalDate.now();
-        this.listaDePagos = new ArrayList<>();
+        this.estado = true;
+        this.listaDePagos = new ListaPagos();
     }
 
     public Prestamo(double monto, double tasaDeInteres, int plazo) {
@@ -31,7 +41,8 @@ public class Prestamo {
         this.plazo = plazo;
         this.cuota = calculoDeCuota();
         this.fecha = LocalDate.now();
-        this.listaDePagos = new ArrayList<>();
+        this.estado = true;
+        this.listaDePagos = new ListaPagos();
     }
 
     public String getId() {
@@ -43,7 +54,7 @@ public class Prestamo {
     }
 
     public double getMonto() {
-        return monto;
+        return formatearDecimales(monto, 2);
     }
 
     public void setMonto(double monto) {
@@ -51,7 +62,7 @@ public class Prestamo {
     }
 
     public double getTasaDeInteres() {
-        return tasaDeInteres;
+        return formatearDecimales(tasaDeInteres,2);
     }
 
     public void setTasaDeInteres(double tasaDeInteres) {
@@ -74,11 +85,33 @@ public class Prestamo {
         this.cuota = cuota;
     }
 
-    public ArrayList<Pago> getListaDePagos() {
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public String leeEstado(){
+        return isEstado() ? "Pendiente" : "Completado";
+    }
+
+    public boolean tienePagos(){
+        List<Pago> listaPagos = getListaPagosRow();
+        return listaPagos.size() > 0;
+    }
+
+    public List<Pago> getListaPagosRow(){
+        return listaDePagos.getLista();
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    @XmlElement(name = "Pago")
+    public ListaPagos getListaDePagos() {
         return listaDePagos;
     }
 
-    public void setListaDePagos(ArrayList<Pago> listaDePagos) {
+    public void setListaDePagos(ListaPagos listaDePagos) {
         this.listaDePagos = listaDePagos;
     }
 
@@ -106,13 +139,27 @@ public class Prestamo {
         pago.setId(getId() + "-" + pago.getNumeroDePago());
     }
 
+    public double interesDelPago(){
+        return formatearDecimales(getMonto() * getTasaDeInteres(), 2);
+    }
+
+    public int numeroDePagos(){
+        return listaDePagos.getCantidadDePagos();
+    }
+
+
     public void agregarPago(Pago pago){
+        double nuevoMonto = 0.0;
+        pago.setNumeroDePago(numeroDePagos() + 1);
+        pago.setInteres(interesDelPago());
+        pago.calculoAmortizacion();
         agregarCodigoAPago(pago);
         getListaDePagos().add(pago);
-        setMonto(getMonto() - pago.getMontoPagado());
+        nuevoMonto = (getMonto() - pago.getMontoPagado()) + pago.getInteres();
+        setMonto(formatearDecimales(nuevoMonto, 2));
         if(verificaExcedeCuotaEsperada(pago)){
             // Si excede el monto esperado, se vuelve a calcular la cuota
-          setCuota(calculoDeCuota());
+            setCuota(calculoDeCuota());
         }
     }
 
@@ -123,12 +170,10 @@ public class Prestamo {
     //TODO configurar para presentarlo bonito en vista
     @Override
     public String toString() {
-        return "Prestamo{" +
-                "id='" + id + '\'' +
-                ", monto=" + monto +
-                ", tasaDeInteres=" + tasaDeInteres +
-                ", fecha=" + getFecha() +
-                ", listaDePagos=" + listaDePagos.toString() +
-                '}';
+        return "\t->\n" +
+                "id= " + id + "\n"+
+                "monto=" + monto +'\n'+
+                "tasaDeInteres=" + tasaDeInteres +'\n'+
+                "fecha=" + getFecha()+'\n'+'\n';
     }
 }

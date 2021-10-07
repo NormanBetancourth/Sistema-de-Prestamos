@@ -1,15 +1,23 @@
 package modelo.cliente;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import modelo.prestamo.ListaPrestamos;
 import modelo.prestamo.Prestamo;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class Cliente {
     private int id;
     private String nombre;
     private String provincia;
     private String distrito;
     private String canton;
-    private ArrayList<Prestamo> listaDePrestamos;
+    private ListaPrestamos listaDePrestamos;
+
+
 
     public Cliente() {
         int id = 0;
@@ -17,7 +25,7 @@ public class Cliente {
         String provincia = "Indefinido";
         String distrito = "Indefinido";
         String canton = "Indefinido";
-        ArrayList<Prestamo> listaDePrestamos = new ArrayList<>();
+        listaDePrestamos = new ListaPrestamos();
     }
 
     public Cliente(int id, String nombre, String provincia, String distrito, String canton) {
@@ -26,7 +34,7 @@ public class Cliente {
         this.provincia = provincia;
         this.distrito = distrito;
         this.canton = canton;
-        this.listaDePrestamos = new ArrayList<>();
+        this.listaDePrestamos = new ListaPrestamos();
     }
 
     public int getId() {
@@ -69,16 +77,21 @@ public class Cliente {
         this.canton = canton;
     }
 
-    public ArrayList<Prestamo> getListaDePrestamos() {
+    @XmlElement(name = "Prestamo")
+    public ListaPrestamos getListaDePrestamos() {
         return listaDePrestamos;
     }
 
-    public void setListaDePrestamos(ArrayList<Prestamo> listaDePrestamos) {
+    public void setListaDePrestamos(ListaPrestamos listaDePrestamos) {
         this.listaDePrestamos = listaDePrestamos;
     }
 
+    public int getNumeroDePrestamos(){
+        return listaDePrestamos.size();
+    }
+
     public Prestamo getAlgunPrestamo(String idPrestamo){
-        for(Prestamo prestamo : getListaDePrestamos()){
+        for(Prestamo prestamo : getListaDePrestamos().getLista()){
             if(prestamo.getId().equals(idPrestamo)){
                 return prestamo;
             }
@@ -90,23 +103,33 @@ public class Cliente {
     }
 
 
+
     @Override
     public int hashCode() {
         return !(getId() == 0) ? getId() * 31 : 0;
 
     }
 
-
-    // TODO Configurar para presentarlo en vista
     @Override
     public String toString() {
-        return "Cliente{" +
-                "id='" + id + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", provincia='" + provincia + '\'' +
-                ", distrito='" + distrito + '\'' +
-                ", canton='" + canton + '\'' +
-                ", listaDePrestamos=" + listaDePrestamos.toString() +
-                '}';
+        return "\tCliente\n" +
+                "id= " + id + '\n' +
+                "nombre= " + nombre + '\n' +
+                "provincia= " + provincia + '\n' +
+                "distrito= " + distrito + '\n' +
+                "canton= " + canton + '\n'+'\n' +
+                "listaDePrestamos\n" + listaDePrestamos.toString()+ '\n';
+    }
+
+    public List<Prestamo> getListaDePrestamosRaw() {
+        return  listaDePrestamos.getLista();
+    }
+
+    public void addPrestamo(Prestamo prestamo) {
+        listaDePrestamos.add(prestamo);
+    }
+
+    public boolean tienePrestamos() {
+        return listaDePrestamos.size() >0;
     }
 }

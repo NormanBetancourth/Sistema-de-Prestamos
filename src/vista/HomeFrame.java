@@ -21,8 +21,7 @@ public class HomeFrame extends JFrame implements VistaBuilder {
     }
 
     public HomeFrame() throws HeadlessException {
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 
     public void addComponents(ActionListener e){
@@ -69,6 +68,9 @@ public class HomeFrame extends JFrame implements VistaBuilder {
 
         addListener(e);
 
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 
