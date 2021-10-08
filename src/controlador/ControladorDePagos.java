@@ -63,6 +63,7 @@ public class ControladorDePagos {
             switch (valor) {
                 case "3-1-0" -> {
                     try {
+                        vistaPagos.setEditableButtons();
                         if (vistaPagos.getTextoId().isBlank()) {
                             throw new Exception("Existen campos de texto vacios");
                         } else {

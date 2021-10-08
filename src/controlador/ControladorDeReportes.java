@@ -101,7 +101,7 @@ public class ControladorDeReportes {
                         document.add(table);
                         document.close();
 
-                        JOptionPane.showMessageDialog(null, "Se ha creado un reporte de clientes (Carpeta Reportes)", "",JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Se ha creado un reporte de clientes. Consulte en la carpeta Reportes", "",JOptionPane.INFORMATION_MESSAGE);
 
 
                     } catch (DocumentException documentException) {
@@ -167,7 +167,7 @@ public class ControladorDeReportes {
                                         document.add(table);
                                         document.close();
 
-                                        JOptionPane.showMessageDialog(null, "Se ha creado un reporte de Prestamos de un cliente (Carpeta Reportes)", "",JOptionPane.INFORMATION_MESSAGE);
+                                        JOptionPane.showMessageDialog(null, "Se ha creado un reporte de prestamos de un cliente. Consulte en la carpeta Reportes", "",JOptionPane.INFORMATION_MESSAGE);
 
 
                                     } catch (DocumentException documentException) {
@@ -246,7 +246,7 @@ public class ControladorDeReportes {
                             }
                             try {
                                 if (ctrl.getModelo().getAlgunPrestamo(idPrestamo) == null) {
-                                    throw new Exception("No existe ningun Prestamo con ese ID");
+                                    throw new Exception("No existe ningun prestamo con ese ID");
                                 } else {
                                     Prestamo prestamo = ctrl.getPrestamo(idPrestamo);
 
@@ -285,7 +285,7 @@ public class ControladorDeReportes {
                                         document.add(table);
                                         document.close();
 
-                                        JOptionPane.showMessageDialog(null, "Se ha creado un reporte de Prestamos de un cliente (Carpeta Reportes)", "",JOptionPane.INFORMATION_MESSAGE);
+                                        JOptionPane.showMessageDialog(null, "Se ha creado un reporte de pagos de un prestamo. Consulte en la carpeta Reportes", "",JOptionPane.INFORMATION_MESSAGE);
 
 
                                     } catch (DocumentException documentException) {

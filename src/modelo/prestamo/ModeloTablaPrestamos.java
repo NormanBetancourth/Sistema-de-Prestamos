@@ -13,6 +13,10 @@ public class ModeloTablaPrestamos extends AbstractTableModel {
         this.filas = filas;
     }
 
+    public static Double formatearDecimales(Double numero, Integer numeroDecimales) {
+        return Math.round(numero * Math.pow(10, numeroDecimales)) / Math.pow(10, numeroDecimales);
+    }
+
     @Override
     public int getRowCount() {
         return filas.size();
@@ -28,7 +32,7 @@ public class ModeloTablaPrestamos extends AbstractTableModel {
         Prestamo emp = filas.get(rowIndex);
         switch (columnIndex){
             case 0: return emp.getId();
-            case 1: return emp.getMonto() + (emp.getMonto() * emp.getTasaDeInteres());
+            case 1: return formatearDecimales(emp.getMonto() + (emp.getMonto() * emp.getTasaDeInteres()),2);
             case 2: return emp.getTasaDeInteres();
             case 3: return emp.getPlazo();
             case 4: return emp.getCuota();

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Jakarta-Library">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/src/archivosJAR/Jakarta-Library" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/src/archivosJAR/Jakarta-Library" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/src/archivosJAR/Jakarta-Library" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/src/archivosJAR/Jakarta-Library" recursive="false" type="SOURCES" />
+  </library>
+</component>
