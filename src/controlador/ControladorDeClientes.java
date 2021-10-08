@@ -108,7 +108,6 @@ public class ControladorDeClientes {
                             cliente = new Cliente(idCliente,nombre,provincia,distrito,canton);
 
                             if (ctrl.buscaCliente(cliente.getId()) == null){
-                                System.out.println(cliente);
                                 ctrl.addCliente(cliente);
                                 table = new JTable();
                                 table.setModel(ctrl.getModeloTablaCliente());
@@ -215,7 +214,7 @@ public class ControladorDeClientes {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println( mapCreator.isInThisArea(e.getX(),e.getY()));//https://docs.oracle.com/javase/7/docs/api/java/awt/Rectangle.html
+            //https://docs.oracle.com/javase/7/docs/api/java/awt/Rectangle.html
             int i = mapCreator.isInThisArea(e.getX(),e.getY());
             vistaCliente.setprovinciaMapa(i);
             if (i != -1){

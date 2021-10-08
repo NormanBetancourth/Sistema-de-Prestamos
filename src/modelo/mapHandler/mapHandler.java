@@ -106,7 +106,7 @@ public class mapHandler {
                 //aqui crgr las coordenadas de gp
                 Area aux = new Area(gp);
                 if (aux.getBounds().width > 10 && (aux.getBounds().getWidth() < 499 && aux.getBounds().getHeight() < 480)){
-                    System.out.println(aux.getBounds());
+
                     regions.add(new Area(aux));
                 }
                 if (aux.getBounds().getWidth() < 512 && aux.getBounds().getHeight() < 492){//evitamos agregar el fondo

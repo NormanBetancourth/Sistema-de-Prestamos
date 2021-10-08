@@ -192,13 +192,13 @@ public class VistaPagos extends VentanaGestion{
         panelInfor.setBackground(Color.WHITE);
         panelInfor.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 200));
 
-        JLabel idLabel = new JLabel("Cedula: ");
+        JLabel idLabel = new JLabel("Cedula del cliente: ");
         idLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
         idTextField.setPreferredSize(new Dimension(150, 20));
         panelInfor.add(idLabel);
         panelInfor.add(idTextField);
 
-        JLabel prestamoLabel = new JLabel("Prestamo: ");
+        JLabel prestamoLabel = new JLabel("Codigo de Prestamo: ");
         prestamoLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
         prestamoTextField.setPreferredSize(new Dimension(150, 20));
         prestamoTextField.setEditable(false);
@@ -278,23 +278,18 @@ public class VistaPagos extends VentanaGestion{
         panelInfor.setBackground(Color.WHITE);
         panelInfor.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 200));
 
-        JLabel idLabel = new JLabel("Cedula: ");
+        JLabel idLabel = new JLabel("Cedula del cliente: ");
         idLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
         idTextField.setPreferredSize(new Dimension(150, 20));
         panelInfor.add(idLabel);
         panelInfor.add(idTextField);
 
-        JLabel prestamoLabel = new JLabel("Prestamo: ");
+        JLabel prestamoLabel = new JLabel("Codigo de Prestamo: ");
         prestamoLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
         prestamoTextField.setPreferredSize(new Dimension(150, 20));
         panelInfor.add(prestamoLabel);
         panelInfor.add(prestamoTextField);
 
-        //JLabel pagoLabel = new JLabel("Pago: ");
-        //pagoLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
-        //pagoTextField.setPreferredSize(new Dimension(150, 20));
-        //panelInfor.add(pagoLabel);
-        //panelInfor.add(pagoTextField);
 
         JLabel enviarLabel = new JLabel(" ");
         enviarLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
