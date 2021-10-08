@@ -46,4 +46,14 @@ public class ModeloTablaPrestamos extends AbstractTableModel {
 
     @Override
     public String getColumnName(int col){return columnas[col];}
+
+    public Integer getIndex(String valueOf) {
+        for(int i = 0; i < getRowCount(); i++){
+            if(valueOf.equals(String.valueOf(getValueAt(i, 0)))){
+                return i;
+            }
+        }
+        return null;
+
+    }
 }

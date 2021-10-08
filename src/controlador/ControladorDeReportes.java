@@ -5,6 +5,7 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.pdf.PdfDate;
 import modelo.cliente.Cliente;
 import modelo.cliente.ModeloTablaCliente;
+import modelo.pago.Pago;
 import modelo.prestamo.ModeloTablaPrestamos;
 import modelo.prestamo.Prestamo;
 import vista.VistaBuilder;
@@ -46,10 +47,13 @@ public class ControladorDeReportes {
     }
 
     private class ListenerHandler implements ActionListener, MouseListener{
+
+
         @Override
         public void actionPerformed(ActionEvent e) {
             String valor = e.getActionCommand();
             int idCliente = 0;
+            String idPrestamo;
 
             switch (valor){
                 // Regresar a inicio
@@ -219,12 +223,93 @@ public class ControladorDeReportes {
                     vistaReportes.mainContentHandler(3, new ControladorDeReportes.ListenerHandler());
                     vistaReportes.clearFields();
                     actualizaTablaPrestamos();
+
                 }
                 break;
                 case "Cancelacion":
                 {
                     vistaReportes.getIdTextField().setEditable(true);
                     vistaReportes.clearFields();
+                }
+                break;
+                case "4-2-1": {
+                    //Reporte de pagos de un prestamo
+                    try {
+                        if (vistaReportes.getTextoId().isBlank()) {
+                            throw new Exception("Existen campos de texto vacios");
+                        } else {
+                            try {
+                                idPrestamo= vistaReportes.getTextoId();
+                            } catch (NumberFormatException exception) {
+                                vistaReportes.clearFields();
+                                break;
+                            }
+                            try {
+                                if (ctrl.getModelo().getAlgunPrestamo(idPrestamo) == null) {
+                                    throw new Exception("No existe ningun Prestamo con ese ID");
+                                } else {
+                                    Prestamo prestamo = ctrl.getPrestamo(idPrestamo);
+
+                                    //PDF
+                                    Document document = new Document();
+                                    try{
+                                        String path = "src/Reportes/ReportePagosDePrestamo.pdf";
+                                        PdfWriter.getInstance(document, new FileOutputStream(path));
+
+                                        document.open();
+                                        PdfPTable table = new PdfPTable(6);
+
+
+                                        table.addCell("Numero de Pago");
+                                        table.addCell("Codigo");
+                                        table.addCell("Tasa de Interes");
+                                        table.addCell("Amortizacion");
+                                        table.addCell("Monto");
+                                        table.addCell("Fecha");
+
+                                        for (Pago p: prestamo.getListaPagosRow()){
+                                            table.addCell(new Phrase(String.valueOf(p.getNumeroDePago())));
+                                            table.addCell(new Phrase(String.valueOf(p.getId())));
+                                            table.addCell(new Phrase(String.valueOf(p.getInteres())));
+                                            table.addCell(new Phrase(String.valueOf(p.getAmortizacion())));
+                                            table.addCell(new Phrase(String.valueOf(p.getMontoPagado())));
+                                            table.addCell(new Phrase(p.getFecha()));
+                                        }
+                                        document.add(new Header("Reporte Pagos ", "Reporte de Pagos"));
+                                        Paragraph pp = new Paragraph("Reporte Pagos de un Prestamo de "+"  (ID Prestamo:  "+prestamo.getId()+")", new Font(Font.FontFamily.HELVETICA, 16f));
+
+
+                                        pp.setAlignment(Element.ALIGN_CENTER);
+                                        pp.setSpacingAfter(25f);
+                                        document.add(pp);
+                                        document.add(table);
+                                        document.close();
+
+                                        JOptionPane.showMessageDialog(null, "Se ha creado un reporte de Prestamos de un cliente (Carpeta Reportes)", "",JOptionPane.INFORMATION_MESSAGE);
+
+
+                                    } catch (DocumentException documentException) {
+                                        documentException.printStackTrace();
+                                    } catch (FileNotFoundException fileNotFoundException) {
+                                        fileNotFoundException.printStackTrace();
+                                    }
+
+
+                                    vistaReportes.getBoton().setText("Generar");
+                                }
+                            } catch (Exception exception) {
+                                vistaReportes.leerError(exception.getMessage());
+                                vistaReportes.clearFields();
+                                break;
+                            }
+                        }
+                    } catch (Exception exception) {
+                        vistaReportes.leerError(exception.getMessage());
+                        vistaReportes.clearFields();
+                        break;
+                    }
+                    vistaReportes.clearFields();
+
                 }
                 break;
             }

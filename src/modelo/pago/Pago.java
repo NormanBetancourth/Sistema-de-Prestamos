@@ -26,6 +26,8 @@ public class Pago {
         this.fecha = LocalDate.now();
     }
 
+
+
     public Pago(double montoPagado) {
         this.id = "Indefinido";
         this.numeroDePago = 0;

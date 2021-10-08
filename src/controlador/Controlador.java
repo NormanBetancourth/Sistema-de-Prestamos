@@ -81,6 +81,10 @@ public class Controlador {
         return modelo.buscarCliente(idCliente);
     }
 
+    public Prestamo getPrestamo(String idPrestamo) {
+        return modelo.getAlgunPrestamo(idPrestamo);
+    }
+
 
     private  class ListenerHandler implements ActionListener {
         @Override
