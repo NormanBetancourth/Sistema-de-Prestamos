@@ -11,6 +11,7 @@ import vista.HomeFrame;
 import javax.swing.*;
 import javax.swing.table.TableModel;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Controlador {
@@ -70,6 +71,18 @@ public class Controlador {
 
     public List<Prestamo> getTodoslosPrestamos() {
         return modelo.getTodosLosPrestamos();
+    }
+
+    public List<Cliente> getListaClientesRaw() {
+        return modelo.getListaDeClientesRaw();
+    }
+
+    public Cliente getCliente(int idCliente) {
+        return modelo.buscarCliente(idCliente);
+    }
+
+    public Prestamo getPrestamo(String idPrestamo) {
+        return modelo.getAlgunPrestamo(idPrestamo);
     }
 
 

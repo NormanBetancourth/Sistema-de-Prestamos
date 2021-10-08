@@ -17,7 +17,6 @@ package controlador;
 //                home = new homeFrame();
 //                home.addComponents(new BusquedaRegistroControlador());
 //            }
-//            //Todo opciones en agregar cliente
 //
 //
 //            if (e.getActionCommand().equals("1-1")){

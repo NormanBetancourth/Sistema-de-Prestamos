@@ -47,7 +47,7 @@ public class VistaReportes extends VentanaGestion{
         buscarBoton = VistaBuilder.ButtonFactory("Reporte de Pagos", "4-3",e);
         botonera.add(buscarBoton);
 
-        mainContentHandler(1,null);
+        mainContentHandler(1,e);
 
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(botonera, BorderLayout.NORTH);

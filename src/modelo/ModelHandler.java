@@ -50,6 +50,7 @@ public class ModelHandler {
     public ModeloTablaPagos configuraModelo(Prestamo prestamo){
         ListaPagos listaPagos = prestamo.getListaDePagos();
         modeloTablaPagos = new ModeloTablaPagos(listaPagos.getLista());
+        modeloTablaPrestamos = new ModeloTablaPrestamos(prestamos.getLista());
         return modeloTablaPagos;
     }
 
@@ -247,6 +248,15 @@ public class ModelHandler {
             }
         }
         return L;
+
+    }
+
+    public List<Cliente> getListaDeClientesRaw() {
+        return clientes.getLista();
+    }
+
+    public Integer getIndexTablaPrestamos(String valueOf) {
+        return modeloTablaPrestamos.getIndex(valueOf);
 
     }
 }
