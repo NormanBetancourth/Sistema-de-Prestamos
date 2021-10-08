@@ -142,7 +142,7 @@ public class VistaPrestamos extends VentanaGestion{
         panelInfor.setBackground(Color.WHITE);
         panelInfor.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 200));
 
-        JLabel idLabel = new JLabel("Cedula: ");
+        JLabel idLabel = new JLabel("Cedula del cliente: ");
         idLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
         idClienteTextField.setPreferredSize(new Dimension(150, 20));
         idClienteTextField.setEditable(true);
@@ -210,7 +210,7 @@ public class VistaPrestamos extends VentanaGestion{
         panelInfor.setBackground(Color.WHITE);
         panelInfor.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 200));
 
-        JLabel idLabel = new JLabel("Cedula: ");
+        JLabel idLabel = new JLabel("Cedula del cliente: ");
         idLabel.setBorder(new EmptyBorder(0, 190, 0, 0));
         idClienteTextField.setPreferredSize(new Dimension(150, 20));
         panelInfor.add(idLabel);
