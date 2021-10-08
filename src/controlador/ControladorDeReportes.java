@@ -1,5 +1,8 @@
 package controlador;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.pdf.PdfDate;
 import modelo.cliente.Cliente;
 import modelo.cliente.ModeloTablaCliente;
 import modelo.prestamo.ModeloTablaPrestamos;
@@ -8,11 +11,19 @@ import vista.VistaBuilder;
 import vista.VistaReportes;
 
 import javax.swing.*;
-import javax.swing.event.TableModelListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.Calendar;
+
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
+
 
 public class ControladorDeReportes {
     private VistaReportes vistaReportes;
@@ -57,6 +68,43 @@ public class ControladorDeReportes {
                 case "4-1-0":
                     //Obtener reporte de todos los clientes
                 {
+                    Document document = new Document();
+                    try{
+                        String path = "src/Reportes/ReporteClientes.pdf";
+                        PdfWriter.getInstance(document, new FileOutputStream(path));
+
+                        document.open();
+                        PdfPTable table = new PdfPTable(4);
+
+
+
+                        table.addCell("ID");
+                        table.addCell("Nombre");
+                        table.addCell("Direccion");
+                        table.addCell("Cantidad de prestamos");
+
+                        for (Cliente c: ctrl.getListaClientesRaw()){
+                            table.addCell(new Phrase(String.valueOf(c.getId())));
+                            table.addCell(new Phrase(c.getNombre()));
+                            table.addCell(new Phrase(c.getDireccion()));
+                            table.addCell(new Phrase(String.valueOf(c.getCantidadPrestamos())));
+                        }
+                        document.add(new Header("Reporte de clientes", "Reporte de Clientes"));
+                        Paragraph pp = new Paragraph("Reporte de Clientes", new Font(Font.FontFamily.HELVETICA, 16f));
+                        pp.setAlignment(Element.ALIGN_CENTER);
+                        pp.setSpacingAfter(25f);
+                        document.add(pp);
+                        document.add(table);
+                        document.close();
+
+                        JOptionPane.showMessageDialog(null, "Se ha creado un reporte de clientes (Carpeta Reportes)", "",JOptionPane.INFORMATION_MESSAGE);
+
+
+                    } catch (DocumentException documentException) {
+                        documentException.printStackTrace();
+                    } catch (FileNotFoundException fileNotFoundException) {
+                        fileNotFoundException.printStackTrace();
+                    }
 
                 }
                 break;
@@ -79,6 +127,56 @@ public class ControladorDeReportes {
                                     throw new Exception("El usuario indicado no se encuentra registrado en el sistema");
                                 } else {
                                     Integer index = ctrl.getModelo().getIndexTablaCliente((String.valueOf(idCliente)));
+                                    Cliente cliente = ctrl.getCliente(idCliente);
+
+                                    //PDF
+                                    Document document = new Document();
+                                    try{
+                                        String path = "src/Reportes/ReportePrestamosDeCliente.pdf";
+                                        PdfWriter.getInstance(document, new FileOutputStream(path));
+
+                                        document.open();
+                                        PdfPTable table = new PdfPTable(6);
+
+
+                                        table.addCell("ID");
+                                        table.addCell("Monto");
+                                        table.addCell("Tasa de interes");
+                                        table.addCell("Plazo");
+                                        table.addCell("Cuota mensual");
+                                        table.addCell("Fecha");
+
+                                        for (Prestamo c: cliente.getListaDePrestamosRaw()){
+                                            table.addCell(new Phrase(String.valueOf(c.getId())));
+                                            table.addCell(new Phrase(String.valueOf(c.getMonto())));
+                                            table.addCell(new Phrase(String.valueOf(c.getTasaDeInteres())));
+                                            table.addCell(new Phrase(String.valueOf(c.getPlazo())));
+                                            table.addCell(new Phrase(String.valueOf(c.getCuota())));
+                                            table.addCell(new Phrase(c.getFecha()));
+                                        }
+                                        document.add(new Header("Reporte Prestamos", "Reporte de Prestamos"));
+                                        Paragraph pp = new Paragraph("Reporte de Prestamos de "+ cliente.getNombre()+"  (ID:  "+cliente.getId()+")", new Font(Font.FontFamily.HELVETICA, 16f));
+
+                                        pp.setAlignment(Element.ALIGN_CENTER);
+                                        pp.setSpacingAfter(25f);
+                                        document.add(pp);
+                                        document.add(table);
+                                        document.close();
+
+                                        JOptionPane.showMessageDialog(null, "Se ha creado un reporte de Prestamos de un cliente (Carpeta Reportes)", "",JOptionPane.INFORMATION_MESSAGE);
+
+
+                                    } catch (DocumentException documentException) {
+                                        documentException.printStackTrace();
+                                    } catch (FileNotFoundException fileNotFoundException) {
+                                        fileNotFoundException.printStackTrace();
+                                    }
+
+
+
+
+
+
                                     vistaReportes.seleccionarIntervalo(index, index);
                                     vistaReportes.getBoton().setActionCommand("4-1-1-Reporte");
                                     vistaReportes.getBoton().setText("Generar");
@@ -139,7 +237,7 @@ public class ControladorDeReportes {
                 int selectedRow = jTable.getSelectedRow();
                 vistaReportes.setTextoId(String.valueOf(jTable.getValueAt(selectedRow, 0)));
                 vistaReportes.getBoton().setText("Generar");
-                vistaReportes.getBoton().setActionCommand("4-1-1-Reporte");
+                //vistaReportes.getBoton().setActionCommand("4-1-1-Reporte");
                 vistaReportes.getBoton2().setEnabled(true);
                 vistaReportes.getIdTextField().setEditable(false);
             }

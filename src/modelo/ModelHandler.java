@@ -249,4 +249,8 @@ public class ModelHandler {
         return L;
 
     }
+
+    public List<Cliente> getListaDeClientesRaw() {
+        return clientes.getLista();
+    }
 }

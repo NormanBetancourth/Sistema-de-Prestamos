@@ -132,4 +132,8 @@ public class Cliente {
     public boolean tienePrestamos() {
         return listaDePrestamos.size() >0;
     }
+
+    public String getDireccion() {
+        return provincia+", "+ canton+", "+ distrito;
+    }
 }
